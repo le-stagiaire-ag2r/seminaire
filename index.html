@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Seconde Vie - Terres & Eaux</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+        
+        nav li {
+            margin: 0.5rem 1rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #2c5f2d;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background: #97bc62;
+            color: white;
+        }
+        
+        main {
+            background: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 80px;
+        }
+        
+        h2 {
+            color: #2c5f2d;
+            border-bottom: 3px solid #97bc62;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: #2c5f2d;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        h4 {
+            color: #555;
+            margin: 1rem 0 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #2c5f2d;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .etat-neuf {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .etat-tres-bon {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .etat-bon {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .etat-satisfaisant {
+            background: #f8d7da;
+            border-left: 4px solid #fd7e14;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+        
+        .badge-success { background: #28a745; color: white; }
+        .badge-info { background: #17a2b8; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-danger { background: #dc3545; color: white; }
+        
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .highlight {
+            background: #fffbcc;
+            padding: 1.5rem;
+            border-left: 5px solid #ffc107;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+        
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        .exclusion {
+            background: #ffe6e6;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        
+        .inclusion {
+            background: #e6f7e6;
+            padding: 1rem;
+            border-left: 4px solid #28a745;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        footer {
+            background: #2c5f2d;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .print-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .print-btn:hover {
+            background: #97bc62;
+            transform: scale(1.1);
+        }
+        
+        @media print {
+            nav, .print-btn { display: none; }
+            main { box-shadow: none; margin: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            nav ul { flex-direction: column; }
+            nav li { margin: 0.3rem 0; }
+            table { font-size: 0.9rem; }
+            th, td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎣 Projet Seconde Vie</h1>
+            <p class="subtitle">Analyse de l'offre - Univers Occasion Pêche | Terres & Eaux</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#categories">Catégories</a></li>
+            <li><a href="#reprise">Reprise</a></li>
+            <li><a href="#vente">Vente</a></li>
+            <li><a href="#communication">Communication</a></li>
+            <li><a href="#economique">Viabilité</a></li>
+            <li><a href="#planning">Planning</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <main>
+            <section id="introduction">
+                <h2>📋 Introduction</h2>
+                <div class="highlight">
+                    <h4>🎯 Objectif du projet</h4>
+                    <p>Créer un système de reprise et revente de matériel de pêche d'occasion permettant à Terres & Eaux de :</p>
+                    <ul>
+                        <li>Se positionner comme acteur de l'économie circulaire</li>
+                        <li>Fidéliser sa clientèle via des bons d'achat</li>
+                        <li>Rendre la pêche plus accessible financièrement</li>
+                        <li>Renforcer son image écoresponsable</li>
+                    </ul>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Catégories de produits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500</div>
+                        <div class="stat-label">Produits collectés/an</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30k€</div>
+                        <div class="stat-label">CA Seconde Vie An 1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">40%</div>
+                        <div class="stat-label">Marge opérationnelle</div>
+                    </div>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Week-ends collecte/an</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">365j</div>
+                        <div class="stat-label">Corner ouvert toute l'année</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Web+</div>
+                        <div class="stat-label">Section occasion en ligne</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Pêche</div>
+                        <div class="stat-label">Uniquement</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="categories">
+                <h2>🎯 1. Catégories de Produits Éligibles</h2>
+                
+                <h3>A. Bipers / Détecteurs de Touche</h3>
+                <div class="card">
+                    <p><strong>Prix neuf :</strong> 40€ à 300€ | <strong>Marques :</strong> Fox, Prologic, Carp Spirit, Nash</p>
+                    
+                    <h4>Grille de reprise</h4>
+                    <table>
+                        <tr>
+                            <th>État</th>
+                            <th>Critères</th>
+                            <th>Reprise</th>
+                            <th>Exemple (150€ neuf)</th>
+                        </tr>
+                        <tr class="etat-neuf">
+                            <td><span class="badge badge-success">NEUF</span></td>
+                            <td>Emballage scellé, jamais utilisé, garantie valide</td>
+                            <td>50%</td>
+                            <td><strong>75€</strong></td>
+                        </tr>
+                        <tr class="etat-tres-bon">
+                            <td><span class="badge badge-info">TRÈS BON</span></td>
+                            <td>Aucune rayure, fonctionne parfaitement, accessoires complets</td>
+                            <td>40%</td>
+                            <td><strong>60€</strong></td>
+                        </tr>
+                        <tr class="etat-bon">
+                            <td><span class="badge badge-warning">BON</span></td>
+                            <td>Traces d'usage légères, tous modes fonctionnels</td>
+                            <td>30%</td>
+                            <td><strong>45€</strong></td>
+                        </tr>
+                        <tr class="etat-satisfaisant">
+                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
+                            <td>Usure visible, 100% fonctionnel</td>
+                            <td>20%</td>
+                            <td><strong>30€</strong></td>
+                        </tr>
+                    </table>
+                    
+                    <div class="exclusion">
+                        <strong>❌ Exclusions :</strong>
+                        <ul>
+                            <li>Électronique défaillante (son/LED ne fonctionne pas)</li>
+                            <li>Oxydation du compartiment à piles</li>
+                            <li>Boîtier fissuré compromettant l'étanchéité</li>
+                            <li>Câbles manquants ou coupés</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="inclusion">
+                        <strong>✅ Points de contrôle en magasin :</strong>
+                        <ul>
+                            <li>Test sonore et lumineux</li>
+                            <li>Vérification de la portée radio</li>
+                            <li>État du compartiment à piles</li>
+                            <li>Présence notice et câbles</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>B. Cannes à Pêche</h3>
+                <div class="card">
+                    <p><strong>Prix neuf :</strong> 50€ à 600€+ | <strong>Marques :</strong> Garbolino, Shimano, Daiwa, Mitchell</p>
+                    
+                    <table>
+                        <tr>
+                            <th>État</th>
+                            <th>Critères</th>
+                            <th>Reprise</th>
+                            <th>Exemple (200€ neuf)</th>
+                        </tr>
+                        <tr class="etat-neuf">
+                            <td><span class="badge badge-success">NEUF</span></td>
+                            <td>Emballage scellé, film protecteur sur anneaux</td>
+                            <td>50%</td>
+                            <td><strong>100€</strong></td>
+                        </tr>
+                        <tr class="etat-tres-bon">
+                            <td><span class="badge badge-info">TRÈS BON</span></td>
+                            <td>Aucune rayure, anneaux parfaits, housse incluse</td>
+                            <td>40%</td>
+                            <td><strong>80€</strong></td>
+                        </tr>
+                        <tr class="etat-bon">
+                            <td><span class="badge badge-warning">BON</span></td>
+                            <td>Micro-rayures, anneaux en bon état</td>
+                            <td>30%</td>
+                            <td><strong>60€</strong></td>
+                        </tr>
+                        <tr class="etat-satisfaisant">
+                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
+                            <td>Usure visible, mais blank sain</td>
+                            <td>20%</td>
+                            <td><strong>40€</strong></td>
+                        </tr>
+                    </table>
+                    
+                    <div class="exclusion">
+                        <strong>❌ Exclusions :</strong>
+                        <ul>
+                            <li>Fissure ou microfissure sur le blank</li>
+                            <li>Anneau cassé ou céramique fêlée</li>
+                            <li>Emmanchement desserré avec jeu excessif</li>
+                            <li>Réparations amateur (scotch, colle visible)</li>
+                            <li>Pointe cassée</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>C. Moulinets</h3>
+                <div class="card">
+                    <p><strong>Prix neuf :</strong> 60€ à 500€ | <strong>Marques :</strong> Shimano, Daiwa, Penn, Mitchell</p>
+                    
+                    <table>
+                        <tr>
+                            <th>État</th>
+                            <th>Critères</th>
+                            <th>Reprise</th>
+                            <th>Exemple (180€ neuf)</th>
+                        </tr>
+                        <tr class="etat-neuf">
+                            <td><span class="badge badge-success">NEUF</span></td>
+                            <td>Emballage scellé, jamais monté</td>
+                            <td>50%</td>
+                            <td><strong>90€</strong></td>
+                        </tr>
+                        <tr class="etat-tres-bon">
+                            <td><span class="badge badge-info">TRÈS BON</span></td>
+                            <td>Rotation parfaite, aucune rayure, bobine spare</td>
+                            <td>40%</td>
+                            <td><strong>72€</strong></td>
+                        </tr>
+                        <tr class="etat-bon">
+                            <td><span class="badge badge-warning">BON</span></td>
+                            <td>Micro-rayures, rotation fluide, frein progressif</td>
+                            <td>30%</td>
+                            <td><strong>54€</strong></td>
+                        </tr>
+                        <tr class="etat-satisfaisant">
+                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
+                            <td>Rayures visibles, nettoyage nécessaire</td>
+                            <td>20%</td>
+                            <td><strong>36€</strong></td>
+                        </tr>
+                    </table>
+                    
+                    <div class="exclusion">
+                        <strong>❌ Exclusions :</strong>
+                        <ul>
+                            <li>Grippage ou rotation difficile</li>
+                            <li>Frein bloqué ou inefficace</li>
+                            <li>Anti-retour défaillant</li>
+                            <li>Anse de panier cassée</li>
+                            <li>Corrosion importante</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>D. Chaises / Sièges de Pêche</h3>
+                <div class="card">
+                    <p><strong>Prix neuf :</strong> 30€ à 250€ | <strong>Marques :</strong> JRC, Nash, Carp Spirit, Mack2</p>
+                    
+                    <table>
+                        <tr>
+                            <th>État</th>
+                            <th>Reprise</th>
+                            <th>Exemple (120€ neuf)</th>
+                        </tr>
+                        <tr class="etat-neuf">
+                            <td><span class="badge badge-success">NEUF</span></td>
+                            <td>50%</td>
+                            <td><strong>60€</strong></td>
+                        </tr>
+                        <tr class="etat-tres-bon">
+                            <td><span class="badge badge-info">TRÈS BON</span></td>
+                            <td>40%</td>
+                            <td><strong>48€</strong></td>
+                        </tr>
+                        <tr class="etat-bon">
+                            <td><span class="badge badge-warning">BON</span></td>
+                            <td>30%</td>
+                            <td><strong>36€</strong></td>
+                        </tr>
+                        <tr class="etat-satisfaisant">
+                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
+                            <td>20%</td>
+                            <td><strong>24€</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>E. Épuisettes</h3>
+                <div class="card">
+                    <p><strong>Prix neuf :</strong> 25€ à 200€ | <strong>Marques :</strong> Garbolino, Prowess, Savage Gear</p>
+                </div>
+                
+                <h3>F. Stations / Postes de Pêche</h3>
+                <div class="card">
+                    <p><strong>Prix neuf :</strong> 150€ à 600€ | <strong>Marques :</strong> Rive, Sensas, Garbolino, Matrix</p>
+                </div>
+                
+                <h3>G. Petit Équipement</h3>
+                <div class="card">
+                    <div class="inclusion">
+                        <strong>✅ Éligible :</strong>
+                        <ul>
+                            <li>Boîtes de rangement rigides (30-100€)</li>
+                            <li>Rod pod / support cannes (50-200€)</li>
+                            <li>Tapis de réception carpe (40-150€)</li>
+                            <li>Pinces, ciseaux professionnels (15-50€)</li>
+                            <li>Sacs de transport rigides (30-120€)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="exclusion">
+                        <strong>❌ NON éligible (CONSOMMABLES) :</strong>
+                        <ul>
+                            <li>Fils de pêche (nylon, tresse)</li>
+                            <li>Hameçons, émerillons, agrafes</li>
+                            <li>Plombs, flotteurs</li>
+                            <li>Leurres souples entamés</li>
+                            <li>Appâts, amorces</li>
+                            <li>Piles, batteries</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>H. Textile Technique</h3>
+                <div class="card">
+                    <div class="inclusion">
+                        <strong>✅ Éligible :</strong>
+                        <ul>
+                            <li>Waders (bottes-pantalon) : 80€ à 400€</li>
+                            <li>Vestes imperméables : 60€ à 300€</li>
+                            <li>Combinaisons thermiques : 50€ à 250€</li>
+                            <li>Bottes de pêche néoprène : 40€ à 150€</li>
+                            <li>Gilets multi-poches : 30€ à 120€</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="exclusion">
+                        <strong>❌ NON éligible :</strong>
+                        <ul>
+                            <li>Sous-vêtements techniques</li>
+                            <li>Chaussettes de pêche</li>
+                            <li>Vêtements tachés de manière indélébile</li>
+                            <li>Textile avec odeurs tenaces</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>⚠️ Point crucial :</strong> Test d'étanchéité OBLIGATOIRE pour les waders (gonflage)</p>
+                </div>
+            </section>
+            
+            <section id="reprise">
+                <h2>💰 2. Système de Reprise</h2>
+                
+                <div class="highlight">
+                    <h3>Grille Unique Simplifiée</h3>
+                    <table>
+                        <tr>
+                            <th>État</th>
+                            <th>% Reprise</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr class="etat-neuf">
+                            <td><span class="badge badge-success">🟢 NEUF</span></td>
+                            <td><strong>50%</strong></td>
+                            <td>Jamais utilisé, emballage intact, garantie valide</td>
+                        </tr>
+                        <tr class="etat-tres-bon">
+                            <td><span class="badge badge-info">🔵 TRÈS BON ÉTAT</span></td>
+                            <td><strong>40%</strong></td>
+                            <td>Usage léger, aucune pièce à changer</td>
+                        </tr>
+                        <tr class="etat-bon">
+                            <td><span class="badge badge-warning">🟡 BON ÉTAT</span></td>
+                            <td><strong>30%</strong></td>
+                            <td>Traces d'usage, produit 100% fonctionnel</td>
+                        </tr>
+                        <tr class="etat-satisfaisant">
+                            <td><span class="badge badge-danger">🟠 SATISFAISANT</span></td>
+                            <td><strong>20%</strong></td>
+                            <td>Usure visible, parfois réparé/révisé</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>Processus en 6 étapes</h3>
+                
+                <div class="card">
+                    <h4>ÉTAPE 1 : Accueil (5 min)</h4>
+                    <ul>
+                        <li>Accueil au comptoir "Seconde Vie"</li>
+                        <li>Présentation du matériel</li>
+                        <li>Pré-diagnostic visuel</li>
+                        <li>Explication de la grille</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>ÉTAPE 2 : Évaluation détaillée (10-15 min)</h4>
+                    <ul>
+                        <li>Test fonctionnel complet</li>
+                        <li>Vérification selon grille standardisée</li>
+                        <li>Photos du produit</li>
+                        <li>Attribution d'un état (A/B/C/D ou Refusé)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>ÉTAPE 3 : Proposition (5 min)</h4>
+                    <p><strong>Calcul :</strong> Prix neuf × % selon état = Montant du bon d'achat</p>
+                    <p><strong>Exemple :</strong> Moulinet 200€ neuf en "Très bon état" → 200€ × 40% = <strong>80€ de bon d'achat</strong></p>
+                </div>
+                
+                <div class="card">
+                    <h4>ÉTAPE 4 : Choix du client</h4>
+                    <p><strong>Option unique :</strong> Bon d'achat valable 6 mois sur tout le magasin (neuf ET occasion)</p>
+                    <p><strong>Alternative :</strong> Don solidaire aux écoles de pêche (reçu fiscal)</p>
+                </div>
+                
+                <div class="card">
+                    <h4>ÉTAPE 5 : Validation</h4>
+                    <ul>
+                        <li>Signature du contrat de reprise</li>
+                        <li>Émission du bon d'achat (version papier + email)</li>
+                        <li>Remise d'un flyer explicatif</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>ÉTAPE 6 : Traçabilité</h4>
+                    <ul>
+                        <li>Code unique attribué (ex: TE-SV-2025-00142)</li>
+                        <li>Étiquetage du produit</li>
+                        <li>Enregistrement informatique avec photos</li>
+                        <li>Stockage organisé</li>
+                    </ul>
+                </div>
+                
+                <h3>📅 Événement de Collecte (Week-end uniquement)</h3>
+                <div class="card">
+                    <h4>Grande Collecte - Format Week-end</h4>
+                    <p><strong>🗓️ Samedi 27 & Dimanche 28 septembre 2025</strong></p>
+                    <p><strong>⏰ Horaires :</strong> 9h00 - 19h00 (non-stop)</p>
+                    
+                    <h4>🎪 Moyens déployés :</h4>
+                    <ul>
+                        <li>🏕️ <strong>Tonnelle extérieure 3x3m</strong> : Stand d'évaluation visible et accessible</li>
+                        <li>🍔 <strong>Food truck</strong> : Restauration sur place (midi, ~100 repas)</li>
+                        <li>🎣 <strong>Influenceur pêche partenaire</strong> : Présent sam+dim (démonstrations, conseils, live réseaux)</li>
+                        <li>📸 <strong>Photographe professionnel</strong> : Coverage événement + photos produits HD</li>
+                        <li>🛡️ <strong>Agent de sécurité</strong> : Gestion flux visiteurs, surveillance matériel collecté</li>
+</ul>
+                    
+                    <h4>🎉 Animations :</h4>
+                    <ul>
+                        <li>☕ Café et viennoiseries offerts (9h-12h)</li>
+                        <li>🛠️ Atelier "Entretien du matériel" avec influenceur (14h-16h samedi)</li>
+                        <li>🎁 Tombola : 1 participation par produit déposé (tirage dimanche 18h)</li>
+                        <li>🎥 Live Instagram/Facebook avec influenceur</li>
+                        <li>📸 Photobooth "Ma session pêche" (photos souvenirs)</li>
+                    </ul>
+                    
+                    <h4>💰 Budget événement week-end :</h4>
+                    <p>Tonnelle (300€) + Food truck (800€) + Influenceur (500€) + Photographe (400€) + Sécurité (400€) + Communication (300€) + Animations (200€) = <strong>2 900€</strong></p>
+                    <p><strong>2 événements/an = 5 800€</strong></p>
+                </div>
+            </section>
+            
+            <section id="vente">
+                <h2>🏪 3. Système de Vente</h2>
+                
+                <h3>Grille de Prix de Vente</h3>
+                <table>
+                    <tr>
+                        <th>État d'origine</th>
+                        <th>Reprise</th>
+                        <th>Revente</th>
+                        <th>Marge</th>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td><span class="badge badge-success">NEUF</span></td>
+                        <td>50%</td>
+                        <td>75-80%</td>
+                        <td>25-30%</td>
+                    </tr>
+                    <tr class="etat-tres-bon">
+                        <td><span class="badge badge-info">TRÈS BON</span></td>
+                        <td>40%</td>
+                        <td>65-70%</td>
+                        <td>25-30%</td>
+                    </tr>
+                    <tr class="etat-bon">
+                        <td><span class="badge badge-warning">BON</span></td>
+                        <td>30%</td>
+                        <td>50-60%</td>
+                        <td>20-30%</td>
+                    </tr>
+                    <tr class="etat-satisfaisant">
+                        <td><span class="badge badge-danger">SATISFAISANT</span></td>
+                        <td>20%</td>
+                        <td>40-50%</td>
+                        <td>20-30%</td>
+                    </tr>
+                </table>
+                
+                <h3>Exemple Concret : Moulinet Shimano Stradic 4000 (220€ neuf)</h3>
+                <table>
+                    <tr>
+                        <th>État</th>
+                        <th>Reprise client</th>
+                        <th>Prix revente</th>
+                        <th>Économie vs neuf</th>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td>Neuf</td>
+                        <td>110€</td>
+                        <td><strong>165€</strong></td>
+                        <td>55€ (25%)</td>
+                    </tr>
+                    <tr class="etat-tres-bon">
+                        <td>Très bon</td>
+                        <td>88€</td>
+                        <td><strong>143€</strong></td>
+                        <td>77€ (35%)</td>
+                    </tr>
+                    <tr class="etat-bon">
+                        <td>Bon</td>
+                        <td>66€</td>
+                        <td><strong>121€</strong></td>
+                        <td>99€ (45%)</td>
+                    </tr>
+                    <tr class="etat-satisfaisant">
+                        <td>Satisfaisant</td>
+                        <td>44€</td>
+                        <td><strong>99€</strong></td>
+                        <td>121€ (55%)</td>
+                    </tr>
+                </table>
+                
+                <h3>Garanties et Services Inclus</h3>
+                <div class="card">
+                    <h4>✅ Garantie Seconde Vie Terres & Eaux</h4>
+                    <table>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Durée</th>
+                            <th>Couverture</th>
+                        </tr>
+                        <tr>
+                            <td>Cannes / Moulinets / Bipers / Stations</td>
+                            <td><strong>3 mois</strong></td>
+                            <td>Défaut caché, casse non accidentelle</td>
+                        </tr>
+                        <tr>
+                            <td>Épuisettes / Chaises</td>
+                            <td><strong>2 mois</strong></td>
+                            <td>Défaut structure, mécanisme</td>
+                        </tr>
+                        <tr>
+                            <td>Textile / Petit équipement</td>
+                            <td><strong>1 mois</strong></td>
+                            <td>Défaut étanchéité, fonctionnel</td>
+                        </tr>
+                    </table>
+                    
+                    <h4>✅ Droit de rétractation : 7 jours</h4>
+                    <p>Possibilité de changer d'avis (produit non utilisé)</p>
+                    
+                    <h4>✅ Services additionnels</h4>
+                    <ul>
+                        <li>📖 Livret d'entretien personnalisé offert</li>
+                        <li>🎓 Atelier gratuit "Entretenir son matériel" (1/mois)</li>
+                        <li>🎣 Fil neuf offert pour les moulinets</li>
+                        <li>💬 Conseil personnalisé illimité</li>
+                        <li>🌊 Essai possible sur plan d'eau (Seclin)</li>
+                    </ul>
+                </div>
+                
+                <h3>🏪 Corner Seconde Vie PERMANENT en Magasin</h3>
+                <div class="card">
+                    <h4>✅ Disponible 365 jours par an</h4>
+                    <p><strong>Emplacement :</strong> Zone visible dès l'entrée du magasin</p>
+                    <p><strong>Identité visuelle :</strong> Corner "Seconde Vie Terres & Eaux" avec signalétique verte</p>
+                    
+                    <h4>Organisation :</h4>
+                    <ul>
+                        <li>📦 Présentoirs par catégorie (Cannes / Moulinets / Textile / Accessoires)</li>
+                        <li>🏷️ Étiquetage clair : Prix occasion + Prix neuf barré + % économie</li>
+                        <li>✅ Panneau garanties et services bien visible</li>
+                        <li>📱 QR codes sur produits → fiche technique détaillée</li>
+                        <li>🪑 Coin essai : Tester moulinets, monter cannes</li>
+                    </ul>
+                    
+                    <h4>Approvisionnement :</h4>
+                    <p>Stock alimenté en continu après reconditionnement des produits collectés lors des 2 week-ends annuels. Nouveautés ajoutées régulièrement tout au long de l'année.</p>
+                </div>
+                
+                <h3>🌐 Section Occasion sur terreseteaux.fr</h3>
+                <div class="card">
+                    <h4>Page dédiée en ligne</h4>
+                    
+                    <h4>Contenu :</h4>
+                    <ul>
+                        <li>📸 <strong>Catalogue photo complet</strong> : Tous les produits avec photos HD professionnelles</li>
+                        <li>🔍 <strong>Filtres de recherche</strong> : Par catégorie, marque, état, prix</li>
+                        <li>📋 <strong>Fiches produits détaillées</strong> : 
+                            <ul>
+                                <li>Photos multiples (angles différents)</li>
+                                <li>Description précise de l'état</li>
+                                <li>Garantie applicable</li>
+                                <li>Prix occasion vs neuf</li>
+                            </ul>
+                        </li>
+                        <li>🛒 <strong>Click & Collect</strong> : Réservation en ligne, retrait magasin sous 24h</li>
+                        <li>📞 <strong>Contact direct</strong> : Appel vendeur avant achat si questions</li>
+                        <li>♻️ <strong>Section "Comment ça marche"</strong> : Explication reprise/vente</li>
+                    </ul>
+                    
+                    <h4>Mise à jour temps réel :</h4>
+                    <p>Produit vendu en magasin = retiré du site immédiatement (synchronisation automatique).</p>
+                </div>
+                
+                <h3>✅ Avantages du Modèle Permanent</h3>
+                <div class="highlight">
+                    <ul>
+                        <li><strong>Disponibilité constante :</strong> Client peut acheter toute l'année (pas limité à un événement ponctuel)</li>
+                        <li><strong>Visibilité maximale :</strong> Corner visible à chaque visite magasin</li>
+                        <li><strong>Omnicanal :</strong> Web + Magasin = couverture totale</li>
+                        <li><strong>Pas de pression temporelle :</strong> Stock écoulé progressivement</li>
+                        <li><strong>Fidélisation :</strong> Raison de revenir régulièrement voir les nouveautés</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="communication">
+                <h2>📣 4. Communication et Animation</h2>
+                
+                <h3>Stratégie Multi-Canal</h3>
+                
+                <div class="card">
+                    <h4>📧 Email Marketing</h4>
+                    <ul>
+                        <li><strong>J-14 :</strong> Teasing "Votre matériel vaut de l'or"</li>
+                        <li><strong>J-7 :</strong> Rappel avec exemples concrets</li>
+                        <li><strong>J-1 :</strong> Dernière ligne droite</li>
+                        <li><strong>Pendant :</strong> Compteur temps réel produits collectés</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>📱 Réseaux Sociaux</h4>
+                    <ul>
+                        <li>Posts Facebook/Instagram quotidiens</li>
+                        <li>Stories interactives (sondages, quiz)</li>
+                        <li>Vidéos coulisses reconditionnement</li>
+                        <li>Live shopping visite corner</li>
+                        <li>UGC : Hashtag #SecondVieTE</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>🤝 Partenariat Influenceur Pêche</h4>
+                    <p><strong>Profil :</strong> Influenceur DÉJÀ PARTENAIRE de Terres & Eaux</p>
+                    
+                    <h4>Rôle lors des événements week-end :</h4>
+                    <ul>
+                        <li>📍 <strong>Présence physique :</strong> Samedi 9h-18h + Dimanche 9h-18h</li>
+                        <li>🎣 <strong>Animations terrain :</strong> 
+                            <ul>
+                                <li>Démonstrations techniques (montages, lancers)</li>
+                                <li>Conseils personnalisés aux visiteurs</li>
+                                <li>Co-animation atelier "Entretien du matériel" avec vendeurs</li>
+                            </ul>
+                        </li>
+                        <li>📱 <strong>Coverage digitale :</strong>
+                            <ul>
+                                <li>Stories Instagram/Facebook en direct (tag @terreseaux)</li>
+                                <li>1-2 posts dédiés avant, pendant, après</li>
+                                <li>Live "Visite de l'événement Seconde Vie"</li>
+                                <li>Témoignages clients filmés</li>
+                            </ul>
+                        </li>
+                        <li>🎤 <strong>Ambassadeur :</strong> Promotion économie circulaire dans la pêche</li>
+                    </ul>
+                    
+                    <h4>Rémunération :</h4>
+                    <p>Forfait événement : 500€ + Bon d'achat 200€</p>
+                </div>
+                
+                <div class="card">
+                    <h4>📰 Presse Locale</h4>
+                    <ul>
+                        <li>Communiqué avant collecte (angle éco-responsabilité)</li>
+                        <li>Communiqué bilan (chiffres impact RSE)</li>
+                        <li>Interview radio locale</li>
+                        <li>Invitation journalistes le samedi (coverage avec photographe)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>🤝 Partenariats Associatifs</h4>
+                    <ul>
+                        <li><strong>FNPF / AAPPMA :</strong> Relai communication dans newsletters, dons matériel collecté</li>
+                        <li><strong>Écoles de pêche :</strong> Programme "Équipons les jeunes" (dons solidaires)</li>
+                        <li><strong>Fédérations départementales :</strong> Affichage événements, stands communs</li>
+                    </ul>
+                </div>
+                
+                <h3>Avantages Compétitifs</h3>
+                <table>
+                    <tr>
+                        <th>VS</th>
+                        <th>Leurs limites</th>
+                        <th>Notre force</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Leboncoin / Naturabuy</strong></td>
+                        <td>Aucune garantie, risque d'arnaque</td>
+                        <td>✅ Contrôle qualité + Garantie 1-3 mois</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decathlon Seconde Vie</strong></td>
+                        <td>Généraliste multisport</td>
+                        <td>✅ Spécialiste 100% pêche + Vendeurs-pratiquants</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pecheur.com Occasion</strong></td>
+                        <td>100% en ligne, pas d'essai</td>
+                        <td>✅ Essai en magasin + Plan d'eau Seclin</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section id="economique">
+                <h2>💰 5. Viabilité Économique</h2>
+                
+                <h3>Budget Événement Week-end de Collecte</h3>
+                <table>
+                    <tr>
+                        <th>Poste</th>
+                        <th>Détail</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Tonnelle extérieure 3x3m</strong></td>
+                        <td>Location sam+dim</td>
+                        <td>300€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Food truck</strong></td>
+                        <td>Prestation midi (~100 repas)</td>
+                        <td>800€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Influenceur pêche partenaire</strong></td>
+                        <td>Présence 2 jours + posts</td>
+                        <td>500€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Photographe professionnel</strong></td>
+                        <td>Coverage + photos produits</td>
+                        <td>400€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agent de sécurité</strong></td>
+                        <td>2 jours 9h-19h</td>
+                        <td>400€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Communication</strong></td>
+                        <td>Flyers, affiches, bannières</td>
+                        <td>300€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Animations</strong></td>
+                        <td>Café, viennoiseries, tombola</td>
+                        <td>200€</td>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td colspan="2"><strong>TOTAL PAR ÉVÉNEMENT WEEK-END</strong></td>
+                        <td><strong>2 900€</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>TOTAL ANNUEL (2 week-ends)</strong></td>
+                        <td><strong>5 800€</strong></td>
+                    </tr>
+                </table>
+                
+                <h3>Budget Global Année 1</h3>
+                <table>
+                    <tr>
+                        <th>Poste</th>
+                        <th>Montant</th>
+                    </tr>
+                    <tr>
+                        <td>Aménagement corner magasin permanent</td>
+                        <td>3 000€</td>
+                    </tr>
+                    <tr>
+                        <td>Développement section web terreseteaux.fr</td>
+                        <td>2 000€</td>
+                    </tr>
+                    <tr>
+                        <td>Événements collecte (2 week-ends complets)</td>
+                        <td>5 800€</td>
+                    </tr>
+                    <tr>
+                        <td>Reconditionnement annuel</td>
+                        <td>3 000€</td>
+                    </tr>
+                    <tr>
+                        <td>Formation équipe vendeurs</td>
+                        <td>500€</td>
+                    </tr>
+                    <tr>
+                        <td>Communication continue</td>
+                        <td>1 500€</td>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td><strong>INVESTISSEMENT INITIAL TOTAL</strong></td>
+                        <td><strong>15 800€</strong></td>
+                    </tr>
+                </table>
+                
+                <h3>Hypothèses Année 1</h3>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">500</div>
+                        <div class="stat-label">Produits collectés</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">375</div>
+                        <div class="stat-label">Produits vendus (75%)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30 450€</div>
+                        <div class="stat-label">CA Seconde Vie</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">18 190€</div>
+                        <div class="stat-label">Marge brute</div>
+                    </div>
+                </div>
+                
+                <h3>Compte d'Exploitation Simplifié</h3>
+                <table>
+                    <tr>
+                        <th>Poste</th>
+                        <th>Montant</th>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td><strong>REVENUS</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Ventes produits occasion</td>
+                        <td>30 450€</td>
+                    </tr>
+                    <tr>
+                        <td>Utilisation bons sur neuf (bonus indirect)</td>
+                        <td>+15 000€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total revenus</strong></td>
+                        <td><strong>45 450€</strong></td>
+                    </tr>
+                    <tr class="etat-satisfaisant">
+                        <td><strong>COÛTS</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Bons d'achat utilisés (80%)</td>
+                        <td>-15 460€</td>
+                    </tr>
+                    <tr>
+                        <td>Événements collecte (2 week-ends complets)</td>
+                        <td>-5 800€</td>
+                    </tr>
+                    <tr>
+                        <td>Reconditionnement annuel</td>
+                        <td>-3 000€</td>
+                    </tr>
+                    <tr>
+                        <td>Communication continue</td>
+                        <td>-1 500€</td>
+                    </tr>
+                    <tr>
+                        <td>Logistique / Stockage / Gestion corner</td>
+                        <td>-1 500€</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total coûts opérationnels</strong></td>
+                        <td><strong>-27 260€</strong></td>
+                    </tr>
+                    <tr class="etat-tres-bon">
+                        <td><strong>MARGE BRUTE OPÉRATIONNELLE</strong></td>
+                        <td><strong>18 190€</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Taux de marge</strong></td>
+                        <td><strong>40%</strong></td>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td colspan="2" style="padding: 1rem;">
+                            <strong>💡 Note :</strong> Investissement initial An 1 (15 800€) à amortir. 
+                            Années suivantes, seuls les coûts opérationnels (27 260€) seront récurrents.
+                        </td>
+                    </tr>
+                </table>
+                
+                <h3>Bénéfices Indirects</h3>
+                <div class="card">
+                    <ul>
+                        <li>✅ <strong>Trafic magasin :</strong> 500 déposants = 500 visites supplémentaires</li>
+                        <li>✅ <strong>Fidélisation :</strong> Bons d'achat = garantie de retour client</li>
+                        <li>✅ <strong>Nouveaux clients :</strong> 20% via occasion (lifetime value long terme)</li>
+                        <li>✅ <strong>Image RSE :</strong> Différenciation concurrentielle</li>
+                        <li>✅ <strong>Partenariats :</strong> Relations fédérations consolidées</li>
+                    </ul>
+                </div>
+                
+                <h3>Indicateurs de Performance (KPI)</h3>
+                <table>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Objectif An 1</th>
+                    </tr>
+                    <tr>
+                        <td>Produits collectés</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>Taux de transformation collecte→vente</td>
+                        <td>75%</td>
+                    </tr>
+                    <tr>
+                        <td>CA Seconde Vie</td>
+                        <td>30 000€</td>
+                    </tr>
+                    <tr>
+                        <td>Panier moyen occasion</td>
+                        <td>80€</td>
+                    </tr>
+                    <tr>
+                        <td>Nouveaux clients</td>
+                        <td>20%</td>
+                    </tr>
+                    <tr>
+                        <td>Satisfaction client</td>
+                        <td>≥ 8,5/10</td>
+                    </tr>
+                    <tr>
+                        <td>Taux de retour/réclamation</td>
+                        <td>< 3%</td>
+                    </tr>
+                </table>
+                
+                <h3>Impact RSE</h3>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">500</div>
+                        <div class="stat-label">Produits évitant la décharge</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">~5T</div>
+                        <div class="stat-label">CO2 économisées</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Jeunes équipés (dons)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1000</div>
+                        <div class="stat-label">Clients sensibilisés</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="planning">
+                <h2>📅 6. Planning de Déploiement</h2>
+                
+                <h3>Phase de Lancement - Année 1</h3>
+                
+                <table>
+                    <tr>
+                        <th>Période</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td><strong>JAN-FÉV 2025</strong><br>Préparation</td>
+                        <td>
+                            • Validation projet direction<br>
+                            • Budget : 15 800€ investissement initial<br>
+                            • Formation équipe vendeurs<br>
+                            • Aménagement corner + stockage<br>
+                            • Création supports communication<br>
+                            • Mise en place système informatique
+                        </td>
+                    </tr>
+                    <tr class="etat-tres-bon">
+                        <td><strong>MARS 2025</strong><br>Communication</td>
+                        <td>
+                            • Annonce officielle (email, réseaux, presse)<br>
+                            • Page web dédiée terreseteaux.fr<br>
+                            • Campagne teasing<br>
+                            • Posts réseaux sociaux quotidiens
+                        </td>
+                    </tr>
+                    <tr class="etat-bon">
+                        <td><strong>AVRIL 2025</strong><br>Collecte Week-end</td>
+                        <td>
+                            • <strong>Samedi 27 & Dimanche 28 avril :</strong> Grande Collecte Printemps<br>
+                            • <strong>Moyens :</strong> Tonnelle, Food truck, Influenceur, Photographe, Sécurité<br>
+                            • Animations : Atelier entretien, tombola, live réseaux
+                        </td>
+                    </tr>
+                    <tr class="etat-satisfaisant">
+                        <td><strong>MAI 2025</strong><br>Reconditionnement</td>
+                        <td>
+                            • Atelier reconditionnement (2 semaines)<br>
+                            • Photos HD produits pour site web<br>
+                            • Contenu making-of avec influenceur
+                        </td>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td><strong>JUIN 2025</strong><br>Ouverture Corner & Web</td>
+                        <td>
+                            • <strong>Samedi 7 juin :</strong> Inauguration Corner permanent<br>
+                            • Mise en ligne section occasion terreseteaux.fr<br>
+                            • Campagne communication (email, réseaux, presse)
+                        </td>
+                    </tr>
+                    <tr class="etat-tres-bon">
+                        <td><strong>JUILLET 2025</strong><br>Bilan intermédiaire</td>
+                        <td>
+                            • Analyse KPI (ventes corner + web)<br>
+                            • Retours équipe et clients<br>
+                            • Ajustements si nécessaire
+                        </td>
+                    </tr>
+                    <tr class="etat-bon">
+                        <td><strong>SEPT 2025</strong><br>Collecte #2</td>
+                        <td>
+                            • <strong>Samedi 27 & Dimanche 28 septembre :</strong> Grande Collecte Automne<br>
+                            • Mêmes moyens : tonnelle, food truck, influenceur, photographe, sécurité<br>
+                            • Reconditionnement en octobre
+                        </td>
+                    </tr>
+                    <tr class="etat-satisfaisant">
+                        <td><strong>NOV 2025</strong><br>Enrichissement stock</td>
+                        <td>
+                            • Intégration nouveaux produits au corner<br>
+                            • Mise à jour catalogue web<br>
+                            • Communication "Nouvelles arrivées"
+                        </td>
+                    </tr>
+                    <tr class="etat-neuf">
+                        <td><strong>DÉC 2025</strong><br>Bilan annuel</td>
+                        <td>
+                            • Rapport d'activité complet<br>
+                            • Bilan financier (corner + web)<br>
+                            • Rapport impact RSE (~5T CO2, 30 jeunes équipés)<br>
+                            • Objectifs Année
+                            • Évaluation partenariats (influenceur, fédérations)
+</td>
+</tr>
+</table>
+            <h3>Évolutions Futures (An 2-3)</h3>
+            <div class="card">
+                <h4>⚠️ Périmètre : UNIQUEMENT Univers Pêche</h4>
+                <p><strong>Important :</strong> Les recommandations concernent EXCLUSIVEMENT le secteur pêche. Pas d'extension chasse ou outdoor.</p>
+                
+                <h4>Court terme (Année 2) - Pêche uniquement</h4>
+                <ul>
+                    <li>🌐 <strong>E-commerce livraison</strong> : Achat en ligne avec livraison domicile (actuellement Click & Collect uniquement)</li>
+                    <li>🤝 <strong>Dépôt-vente pêche</strong> : Commission partagée (ex: 70% vendeur / 30% magasin)</li>
+                    <li>📦 <strong>Packs thématiques occasion</strong> : "Découverte Carnassier", "Initiation Carpe", "Coup familial"</li>
+                    <li>📅 <strong>Augmentation fréquence</strong> : Passer à 4 week-ends collecte/an (trimestriels)</li>
+                </ul>
+                
+                <h4>Moyen terme (Année 3) - Pêche uniquement</h4>
+                <ul>
+                    <li>🎣 <strong>Location matériel pêche</strong> : Échosondeurs, tentes carpe haut de gamme (formule week-end/semaine)</li>
+                    <li>🔧 <strong>Atelier réparation pêche</strong> : Service payant (cannes, moulinets, waders) + vente pièces détachées</li>
+                    <li>🌍 <strong>Marketplace communautaire pêche</strong> : Plateforme Terres & Eaux entre pêcheurs (commission + service premium contrôle qualité)</li>
+                    <li>🎓 <strong>Formations pêche</strong> : Stages "Débuter en carpe" avec matériel occasion prêté</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="conclusion">
+            <h2>🎯 Conclusion</h2>
+            
+            <div class="highlight">
+                <h3>Le projet Seconde Vie Terres & Eaux répond à un triple enjeu :</h3>
+                
+                <h4>1️⃣ ÉCONOMIQUE</h4>
+                <ul>
+                    <li>Marge opérationnelle de 40% (rentabilité prouvée)</li>
+                    <li>Fidélisation via bons d'achat</li>
+                    <li>Ventes croisées neuf/occasion</li>
+                    <li>ROI attendu < 18 mois</li>
+                </ul>
+                
+                <h4>2️⃣ ÉCOLOGIQUE</h4>
+                <ul>
+                    <li>500 produits/an évitant la décharge</li>
+                    <li>~5 tonnes CO2 économisées</li>
+                    <li>Économie circulaire concrète</li>
+                    <li>Sensibilisation de 1000+ clients</li>
+                </ul>
+                
+                <h4>3️⃣ SOCIAL</h4>
+                <ul>
+                    <li>Accessibilité financière de la pêche</li>
+                    <li>30+ jeunes équipés via dons solidaires</li>
+                    <li>Transmission intergénérationnelle</li>
+                    <li>Renforcement du lien communautaire</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>🏆 Les Points Forts du Modèle</h3>
+                <ul>
+                    <li>✅ <strong>Simplicité :</strong> Grille claire (50/40/30/20%)</li>
+                    <li>✅ <strong>Sécurité :</strong> Contrôle qualité + Garanties</li>
+                    <li>✅ <strong>Différenciation :</strong> Vendeurs-pratiquants experts</li>
+                    <li>✅ <strong>Rentabilité :</strong> Marge préservée + fidélisation</li>
+                    <li>✅ <strong>Engagement :</strong> Impact RSE mesurable</li>
+                    <li>✅ <strong>Évolutivité :</strong> Extension possible au sein de l'univers pêche</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>🚀 Prochaines Étapes Immédiates</h3>
+                <ol>
+                    <li><strong>Validation direction</strong> (budget 15 800€)</li>
+                    <li><strong>Formation équipe</strong> (2 jours)</li>
+                    <li><strong>Aménagement corner</strong> (3 semaines)</li>
+                    <li><strong>Développement section web</strong> (4 semaines)</li>
+                    <li><strong>Communication lancement</strong> (J-30)</li>
+                    <li><strong>Événement collecte #1</strong> (27-28 avril 2025)</li>
+                </ol>
+            </div>
+            
+            <div class="highlight">
+                <h3 style="text-align: center;">💚 Terres & Eaux Seconde Vie</h3>
+                <h4 style="text-align: center; color: #2c5f2d; margin-top: 1rem;">
+                    "La passion se transmet, le matériel aussi."
+                </h4>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 8px;">
+                    <h4>📋 Récapitulatif Format Final</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.8rem 0;">✅ <strong>Collecte :</strong> 2 week-ends/an (sam-dim) avec tonnelle, food truck, influenceur partenaire, photographe, agent de sécurité</li>
+                        <li style="margin: 0.8rem 0;">✅ <strong>Vente :</strong> Corner permanent en magasin (365j) + Section web terreseteaux.fr (Click & Collect)</li>
+                        <li style="margin: 0.8rem 0;">✅ <strong>Grille unique :</strong> Neuf 50% / Très bon 40% / Bon 30% / Satisfaisant 20%</li>
+                        <li style="margin: 0.8rem 0;">✅ <strong>Rémunération :</strong> Bons d'achat 6 mois (ou don solidaire)</li>
+                        <li style="margin: 0.8rem 0;">✅ <strong>Évolutions :</strong> Uniquement secteur PÊCHE (pas chasse/outdoor)</li>
+                        <li style="margin: 0.8rem 0;">✅ <strong>Investissement :</strong> 15 800€ An 1 / Marge opérationnelle 40%</li>
+                        <li style="margin: 0.8rem 0;">✅ <strong>Moyens événement :</strong> Tonnelle 3x3m, food truck 100 repas, influenceur partenaire, photographe pro, agent sécurité = 2 900€/week-end</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer>
+    <div class="container">
+        <p><strong>Projet Seconde Vie - Terres & Eaux</strong></p>
+        <p>Analyse de l'offre - Univers Occasion Pêche | Octobre 2025</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">
+            Document réalisé dans le cadre d'un projet de développement commercial
+        </p>
+    </div>
+</footer>
+
+<button class="print-btn" onclick="window.print()" title="Imprimer le document">
+    🖨️
+</button>
+
+<script>
+    // Smooth scroll pour la navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+    
+    // Highlight navigation active
+    window.addEventListener('scroll', () => {
+        let current = '';
+        document.querySelectorAll('section').forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        document.querySelectorAll('nav a').forEach(link => {
+            link.style.background = '';
+            link.style.color = '#2c5f2d';
+            if (link.getAttribute('href') === `#${current}`) {
+                link.style.background = '#97bc62';
+                link.style.color = 'white';
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
