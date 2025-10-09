@@ -1,278 +1,1095 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet Seconde Vie - Terres & Eaux</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
-            color: white;
-            padding: 2rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        nav {
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 1rem 0;
-        }
-        
-        nav li {
-            margin: 0.5rem 1rem;
-        }
-        
-        nav a {
-            text-decoration: none;
-            color: #2c5f2d;
-            font-weight: 600;
-            transition: color 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-        }
-        
-        nav a:hover {
-            background: #97bc62;
-            color: white;
-        }
-        
-        main {
-            background: white;
-            margin: 2rem auto;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        section {
-            margin-bottom: 3rem;
-            scroll-margin-top: 80px;
-        }
-        
-        h2 {
-            color: #2c5f2d;
-            border-bottom: 3px solid #97bc62;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-        }
-        
-        h3 {
-            color: #2c5f2d;
-            margin: 1.5rem 0 1rem;
-            font-size: 1.5rem;
-        }
-        
-        h4 {
-            color: #555;
-            margin: 1rem 0 0.5rem;
-            font-size: 1.2rem;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        th {
-            background: #2c5f2d;
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        tr:hover {
-            background: #f9f9f9;
-        }
-        
-        .etat-neuf {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-        }
-        
-        .etat-tres-bon {
-            background: #d1ecf1;
-            border-left: 4px solid #17a2b8;
-        }
-        
-        .etat-bon {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-        }
-        
-        .etat-satisfaisant {
-            background: #f8d7da;
-            border-left: 4px solid #fd7e14;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 0.2rem;
-        }
-        
-        .badge-success { background: #28a745; color: white; }
-        .badge-info { background: #17a2b8; color: white; }
-        .badge-warning { background: #ffc107; color: #333; }
-        .badge-danger { background: #dc3545; color: white; }
-        
-        .card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-        
-        .highlight {
-            background: #fffbcc;
-            padding: 1.5rem;
-            border-left: 5px solid #ffc107;
-            margin: 1.5rem 0;
-            border-radius: 5px;
-        }
-        
-        ul, ol {
-            margin: 1rem 0 1rem 2rem;
-        }
-        
-        li {
-            margin: 0.5rem 0;
-        }
-        
-        .exclusion {
-            background: #ffe6e6;
-            padding: 1rem;
-            border-left: 4px solid #dc3545;
-            margin: 1rem 0;
-            border-radius: 5px;
-        }
-        
-        .inclusion {
-            background: #e6f7e6;
-            padding: 1rem;
-            border-left: 4px solid #28a745;
-            margin: 1rem 0;
-            border-radius: 5px;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        
-        footer {
-            background: #2c5f2d;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .print-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #2c5f2d;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            font-size: 1.5rem;
-            transition: all 0.3s;
-        }
-        
-        .print-btn:hover {
-            background: #97bc62;
-            transform: scale(1.1);
-        }
-        
-        @media print {
-            nav, .print-btn { display: none; }
-            main { box-shadow: none; margin: 0; }
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            nav ul { flex-direction: column; }
-            nav li { margin: 0.3rem 0; }
-            table { font-size: 0.9rem; }
-            th, td { padding: 0.5rem; }
-        }
-    </style>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #2d3436;
+    background: #87CEEB;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* CIEL - Fond qui évolue du ciel aux abysses avec transition plus progressive */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500vh;
+    background: linear-gradient(
+        to bottom,
+        #E0F6FF 0%,      /* Ciel très clair */
+        #B8E6FF 3%,      /* Ciel clair */
+        #87CEEB 6%,      /* Ciel bleu */
+        #6DC5E8 9%,      /* Transition ciel-eau */
+        #4FB3D1 12%,     /* Surface eau claire */
+        #3AA5C8 16%,     /* Eau turquoise */
+        #2FA1C5 20%,     /* Eau peu profonde lumineuse */
+        #2891B8 25%,     /* Eau claire avec poissons tropicaux */
+        #1E90FF 30%,     /* Eau moyenne bleue */
+        #1A7FE0 35%,     /* Eau profonde commence */
+        #1873CC 40%,     /* Eau profonde */
+        #1566B3 45%,     /* Transition vers très profond */
+        #0D5A99 50%,     /* Eau très profonde - requins */
+        #0B4D82 55%,     /* Début zone sombre */
+        #094266 60%,     /* Abysses supérieurs */
+        #073654 65%,     /* Abysses moyens */
+        #052A44 70%,     /* Abysses profonds */
+        #041F33 75%,     /* Abysses très profonds */
+        #031728 80%,     /* Pré-fosse */
+        #021B2E 85%,     /* Fosse des Mariannes */
+        #01121F 90%,     /* Fosse profonde */
+        #000D1A 95%,     /* Fosse très profonde */
+        #000000 100%     /* Noir total - fond océanique */
+    );
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* NUAGES ANIMÉS (Ciel) */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 300px;
+    background-image: 
+        radial-gradient(ellipse 200px 80px at 20% 50%, rgba(255,255,255,0.9) 0%, transparent 50%),
+        radial-gradient(ellipse 300px 100px at 60% 30%, rgba(255,255,255,0.7) 0%, transparent 50%),
+        radial-gradient(ellipse 250px 90px at 85% 60%, rgba(255,255,255,0.8) 0%, transparent 50%);
+    animation: clouds 40s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes clouds {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.33%); }
+}
+
+/* SOLEIL - Reste fixe en haut dans le header */
+header::before {
+    content: "☀️";
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    font-size: 5rem;
+    animation: sun-pulse 3s ease-in-out infinite, sun-rays 8s linear infinite;
+    z-index: 2;
+    filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.8));
+}
+
+@keyframes sun-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes sun-rays {
+    0% { filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.6)); }
+    50% { filter: drop-shadow(0 0 50px rgba(255, 200, 0, 0.9)); }
+    100% { filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.6)); }
+}
+
+/* OISEAUX ANIMÉS - Restent dans le ciel */
+header::after {
+    content: "🦅";
+    position: absolute;
+    top: 100px;
+    left: -50px;
+    font-size: 2rem;
+    animation: bird-fly 15s linear infinite;
+    z-index: 1;
+}
+
+@keyframes bird-fly {
+    0% { transform: translateX(-50px) translateY(0); }
+    50% { transform: translateX(50vw) translateY(-30px); }
+    100% { transform: translateX(100vw) translateY(0); }
+}
+
+/* BARQUE DE PÊCHEURS - Reste à la surface */
+nav::after {
+    content: "🚣";
+    position: absolute;
+    top: -60px;
+    left: 10%;
+    font-size: 4rem;
+    animation: boat-float 6s ease-in-out infinite;
+    z-index: 0;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes boat-float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+header {
+    background: linear-gradient(135deg, rgba(224, 246, 255, 0.4) 0%, rgba(184, 230, 255, 0.5) 100%);
+    color: #003d5c;
+    padding: 3rem 0;
+    box-shadow: 0 4px 20px rgba(0, 61, 92, 0.2);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+}
+
+/* VAGUES SURFACE EAU (après header) */
+nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #2FA1C5;
+}
+
+nav::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 200%;
+    height: 20px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%232FA1C5" opacity="0.3"/></svg>') repeat-x;
+    background-size: 50% 20px;
+    animation: wave 10s linear infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 8px rgba(255,255,255,0.5);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #003d5c;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    font-weight: 300;
+    text-shadow: 1px 1px 4px rgba(255,255,255,0.3);
+    color: #005580;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+nav li {
+    margin: 0.5rem 0.8rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #006080;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    padding: 0.7rem 1.3rem;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+nav a:hover {
+    background: linear-gradient(135deg, #2FA1C5 0%, #1E90FF 100%);
+    color: white;
+    transform: translateY(-2deg);
+    box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
+}
+
+main {
+    background: rgba(255, 255, 255, 0.95);
+    margin: 3rem auto;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 1;
+}
+
+/* POISSONS qui nagent sur les côtés - Section EAU PEU PROFONDE */
+#introduction::before {
+    content: "🐠";
+    position: fixed;
+    right: -50px;
+    top: 30vh;
+    font-size: 2.5rem;
+    animation: fish-swim-right 20s linear infinite;
+    z-index: -1;
+    opacity: 0.8;
+    filter: brightness(1.1);
+}
+
+#contexte-marche::before {
+    content: "🐟";
+    position: fixed;
+    left: -50px;
+    top: 35vh;
+    font-size: 2rem;
+    animation: fish-swim-left 25s linear infinite 5s;
+    z-index: -1;
+    opacity: 0.7;
+    filter: brightness(1.1);
+}
+
+@keyframes fish-swim-right {
+    0% { right: -50px; top: 30vh; }
+    50% { right: 110vw; top: 35vh; }
+    51% { right: 110vw; top: 40vh; transform: scaleX(-1); }
+    100% { right: -50px; top: 45vh; transform: scaleX(-1); }
+}
+
+@keyframes fish-swim-left {
+    0% { left: -50px; top: 35vh; transform: scaleX(-1); }
+    50% { left: 110vw; top: 40vh; transform: scaleX(-1); }
+    51% { left: 110vw; top: 45vh; transform: scaleX(1); }
+    100% { left: -50px; top: 50vh; transform: scaleX(1); }
+}
+
+/* POISSONS TROPICAUX - Eau claire peu profonde */
+#personas::after {
+    content: "🐡";
+    position: fixed;
+    right: 5%;
+    top: 50vh;
+    font-size: 2rem;
+    animation: tropical-float 8s ease-in-out infinite;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+@keyframes tropical-float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(20px); }
+}
+
+/* REQUIN - Eaux profondes */
+#categories::before {
+    content: "🦈";
+    position: fixed;
+    right: -100px;
+    top: 60vh;
+    font-size: 4rem;
+    animation: shark-patrol 20s linear infinite;
+    opacity: 0.4;
+    z-index: -1;
+    filter: brightness(0.8);
+}
+
+@keyframes shark-patrol {
+    0% { right: -100px; transform: scaleX(-1); }
+    100% { right: 110vw; transform: scaleX(-1); }
+}
+
+/* MÉDUSE - Eaux moyennes à profondes */
+#reprise::after {
+    content: "🪼";
+    position: fixed;
+    left: 10%;
+    top: 65vh;
+    font-size: 2.5rem;
+    animation: jellyfish 10s ease-in-out infinite;
+    opacity: 0.35;
+    z-index: -1;
+    filter: brightness(0.7);
+}
+
+@keyframes jellyfish {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-25px) rotate(5deg); }
+    50% { transform: translateY(-15px) rotate(-5deg); }
+    75% { transform: translateY(-35px) rotate(3deg); }
+}
+
+/* PIEUVRE GÉANTE - Abysses */
+#economique::after {
+    content: "🐙";
+    position: fixed;
+    left: 15%;
+    top: 75vh;
+    font-size: 5rem;
+    animation: giant-octopus 25s ease-in-out infinite;
+    opacity: 0.2;
+    z-index: -1;
+    filter: brightness(0.5);
+}
+
+@keyframes giant-octopus {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(20deg); }
+}
+
+/* CALMAR ABYSSAL - Fosse profonde */
+#planning::before {
+    content: "🦑";
+    position: fixed;
+    right: 10%;
+    top: 80vh;
+    font-size: 4rem;
+    animation: deep-squid 30s ease-in-out infinite;
+    opacity: 0.15;
+    z-index: -1;
+    filter: brightness(0.4);
+}
+
+@keyframes deep-squid {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    33% { transform: translateY(-40px) translateX(30px) rotate(15deg); }
+    66% { transform: translateY(-20px) translateX(-30px) rotate(-15deg); }
+}
+
+/* POISSON ABYSSAL BIOLUMINESCENT - Fosse des Mariannes */
+#conclusion::after {
+    content: "🐟";
+    position: fixed;
+    left: 20%;
+    top: 85vh;
+    font-size: 2rem;
+    animation: bioluminescent-fish 15s ease-in-out infinite;
+    opacity: 0.12;
+    z-index: -1;
+    filter: brightness(0.3) hue-rotate(180deg);
+}
+
+@keyframes bioluminescent-fish {
+    0%, 100% { 
+        transform: translateX(0);
+        filter: brightness(0.3) hue-rotate(180deg);
+    }
+    50% { 
+        transform: translateX(100px);
+        filter: brightness(0.6) hue-rotate(200deg);
+    }
+}
+
+section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    position: relative;
+}
+
+/* BULLES qui remontent - Plus visibles en surface */
+section::before {
+    content: "○";
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    animation: bubbles-rise 8s ease-in infinite;
+}
+
+section::after {
+    content: "○";
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+    animation: bubbles-rise 10s ease-in infinite 2s;
+}
+
+@keyframes bubbles-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+/* Bulles moins visibles dans les profondeurs */
+#economique::before,
+#economique::after,
+#planning::before,
+#planning::after,
+#conclusion::before,
+#conclusion::after {
+    opacity: 0.1;
+    color: rgba(100, 200, 255, 0.2);
+}
+
+/* PROFONDEUR 1 : Introduction (Surface - Eau très claire) */
+#introduction {
+    color: #002847;
+}
+
+#introduction h2 { color: #003d5c; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+
+/* PROFONDEUR 2 : Contexte Marché (Eau peu profonde lumineuse) */
+#contexte-marche {
+    color: #003a59;
+}
+
+#contexte-marche h2 { color: #004d73; text-shadow: 0 0 3px rgba(255, 255, 255, 0.3); }
+
+/* Corail décoratif */
+#contexte-marche::after {
+    content: "🪸";
+    position: absolute;
+    left: 3%;
+    bottom: 5%;
+    font-size: 2.5rem;
+    opacity: 0.2;
+    animation: coral-sway 6s ease-in-out infinite;
+}
+
+@keyframes coral-sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+/* PROFONDEUR 3 : SWOT / Personas (Eau moyenne) */
+#swot, #personas {
+    color: #003655;
+}
+
+#swot h2, #personas h2 { color: #005580; }
+
+/* Étoile de mer */
+#personas::before {
+    content: "⭐";
+    position: absolute;
+    right: 8%;
+    bottom: 10%;
+    font-size: 2rem;
+    opacity: 0.2;
+    animation: starfish-pulse 5s ease-in-out infinite;
+    filter: hue-rotate(180deg);
+}
+
+@keyframes starfish-pulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(20deg); }
+}
+
+/* PROFONDEUR 4 : Catégories (Eau profonde - moins de lumière) */
+#categories {
+    color: #00324d;
+}
+
+#categories h2 { color: #004466; filter: brightness(0.95); }
+
+/* PROFONDEUR 5 : Reprise / Événement (Eau très profonde) */
+#reprise, #evenement-tournoi {
+    color: #002d44;
+}
+
+#reprise h2, #evenement-tournoi h2 { 
+    color: #003355; 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Tortue des profondeurs */
+#evenement-tournoi::before {
+    content: "🐢";
+    position: absolute;
+    left: 5%;
+    top: 30%;
+    font-size: 3rem;
+    animation: turtle-swim 35s linear infinite;
+    opacity: 0.18;
+}
+
+@keyframes turtle-swim {
+    0% { transform: translateX(0) scaleX(-1); }
+    100% { transform: translateX(90vw) scaleX(-1); }
+}
+
+/* PROFONDEUR 6 : Vente / Communication (Début abysses) */
+#vente, #communication {
+    color: #00263b;
+}
+
+#vente h2, #communication h2 { 
+    color: #002244;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+/* Langouste des profondeurs */
+#vente::before {
+    content: "🦞";
+    position: absolute;
+    right: 8%;
+    top: 40%;
+    font-size: 2.5rem;
+    animation: lobster-walk 12s ease-in-out infinite;
+    opacity: 0.15;
+    filter: brightness(0.6);
+}
+
+@keyframes lobster-walk {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-100px); }
+}
+
+/* PROFONDEUR 7 : Économique (Abysses profonds) */
+#economique {
+    color: #001f33;
+}
+
+#economique h2 { 
+    color: #001133;
+    text-shadow: 0 0 15px rgba(100, 200, 255, 0.3);
+}
+
+/* PROFONDEUR 8 : Planning / Conclusion (Fosse des Mariannes - quasi noir) */
+#planning, #conclusion {
+    color: #001829;
+    background: rgba(255, 255, 255, 0.98);
+}
+
+#planning h2, #conclusion h2 { 
+    color: #000d1a;
+    text-shadow: 0 0 20px rgba(100, 200, 255, 0.4);
+}
+
+/* LUMIÈRES BIOLUMINESCENTES (sections très profondes) */
+#economique::before,
+#planning::after,
+#conclusion::before {
+    content: "✨";
+    position: absolute;
+    font-size: 1.2rem;
+    animation: bioluminescence 4s ease-in-out infinite;
+    opacity: 0;
+    color: rgba(100, 200, 255, 0.6);
+}
+
+#economique::before { left: 15%; top: 60%; animation-delay: 0s; }
+#planning::after { right: 20%; top: 30%; animation-delay: 1.5s; }
+#conclusion::before { left: 50%; top: 50%; animation-delay: 3s; }
+
+@keyframes bioluminescence {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.7; transform: scale(1.3); }
+}
+
+h2 {
+    border-bottom: none;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    position: relative;
+    padding-left: 60px;
+}
+
+h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.3) 0%, rgba(47, 161, 197, 0.3) 100%);
+    border-radius: 50%;
+    animation: pulse-slow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, currentColor 0%, transparent 100%);
+    border-radius: 2px;
+}
+
+h3 {
+    margin: 2rem 0 1.2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding-left: 20px;
+    border-left: 5px solid currentColor;
+    opacity: 0.9;
+}
+
+h4 {
+    margin: 1.5rem 0 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+th {
+    background: linear-gradient(135deg, #1E90FF 0%, #2FA1C5 100%);
+    color: white;
+    padding: 1.2rem;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+td {
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(30, 144, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+tr:hover {
+    background: rgba(30, 144, 255, 0.05);
+    transform: scale(1.005);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.etat-neuf {
+    background: linear-gradient(135deg, rgba(224, 247, 250, 0.8) 0%, rgba(178, 235, 242, 0.8) 100%);
+    border-left: 5px solid #00acc1;
+}
+
+.etat-tres-bon {
+    background: linear-gradient(135deg, rgba(224, 242, 241, 0.8) 0%, rgba(178, 223, 219, 0.8) 100%);
+    border-left: 5px solid #26a69a;
+}
+
+.etat-bon {
+    background: linear-gradient(135deg, rgba(255, 248, 225, 0.8) 0%, rgba(255, 236, 179, 0.8) 100%);
+    border-left: 5px solid #ffa726;
+}
+
+.etat-satisfaisant {
+    background: linear-gradient(135deg, rgba(252, 228, 236, 0.8) 0%, rgba(248, 187, 208, 0.8) 100%);
+    border-left: 5px solid #ef5350;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.badge-success { 
+    background: linear-gradient(135deg, #00acc1 0%, #26c6da 100%);
+    color: white; 
+}
+.badge-info { 
+    background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%);
+    color: white; 
+}
+.badge-warning { 
+    background: linear-gradient(135deg, #ffa726 0%, #ffb74d 100%);
+    color: white; 
+}
+.badge-danger { 
+    background: linear-gradient(135deg, #ef5350 0%, #e57373 100%);
+    color: white; 
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(30, 144, 255, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #1E90FF 0%, #2FA1C5 100%);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(30, 144, 255, 0.2);
+}
+
+.highlight {
+    background: linear-gradient(135deg, rgba(255, 253, 231, 0.95) 0%, rgba(255, 249, 196, 0.95) 100%);
+    padding: 2rem;
+    border-left: 6px solid #fbc02d;
+    margin: 2rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(251, 192, 45, 0.15);
+    position: relative;
+}
+
+.highlight::before {
+    content: "💡";
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.3;
+}
+
+ul, ol {
+    margin: 1.5rem 0 1.5rem 2.5rem;
+}
+
+li {
+    margin: 0.8rem 0;
+    padding-left: 0.5rem;
+}
+
+.exclusion {
+    background: linear-gradient(135deg, rgba(255, 235, 238, 0.95) 0%, rgba(255, 205, 210, 0.95) 100%);
+    padding: 1.5rem;
+    border-left: 5px solid #ef5350;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.1);
+}
+
+.inclusion {
+    background: linear-gradient(135deg, rgba(224, 247, 250, 0.95) 0%, rgba(178, 235, 242, 0.95) 100%);
+    padding: 1.5rem;
+    border-left: 5px solid #00acc1;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 172, 193, 0.1);
+}
+
+/* STAT-CARDS = BULLES D'AIR */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.9) 0%, rgba(47, 161, 197, 0.9) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+    animation: bubble-shine 3s ease-in-out infinite;
+}
+
+@keyframes bubble-shine {
+    0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+    50% { transform: scale(1.2) translate(10%, -10%); opacity: 0.6; }
+}
+
+.stat-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(30, 144, 255, 0.4);
+    animation: bubble-float 2s ease-in-out infinite;
+}
+
+@keyframes bubble-float {
+    0%, 100% { transform: translateY(-15px) scale(1.05); }
+    50% { transform: translateY(-25px) scale(1.05); }
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+footer {
+    background: linear-gradient(135deg, #000000 0%, #001a33 100%);
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 4rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+footer::before {
+    content: "🦑";
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.1;
+    animation: deep-creature 10s ease-in-out infinite;
+}
+
+footer::after {
+    content: "🐙";
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.1;
+    animation: deep-creature 12s ease-in-out infinite reverse;
+}
+
+@keyframes deep-creature {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(20px); }
+}
+
+.print-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: linear-gradient(135deg, #1E90FF 0%, #00acc1 100%);
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.4);
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    z-index: 999;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.print-btn:hover {
+    background: linear-gradient(135deg, #00acc1 0%, #26c6da 100%);
+    transform: scale(1.15) translateY(-5px);
+    box-shadow: 0 10px 30px rgba(30, 144, 255, 0.5);
+}
+
+/* Effets de profondeur sur les sections */
+#introduction, #contexte-marche { filter: brightness(1.05); }
+#swot, #personas { filter: brightness(1.02); }
+#categories { filter: brightness(1); }
+#reprise, #evenement-tournoi { filter: brightness(0.98); }
+#vente, #communication { filter: brightness(0.96); }
+#economique { filter: brightness(0.94); }
+#planning, #conclusion { filter: brightness(0.92); }
+
+/* Scrollbar personnalisée - gradient bleu profond */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #E0F6FF 0%, #000000 100%);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1E90FF 0%, #001a33 100%);
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00acc1 0%, #000d1a 100%);
+}
+
+/* Transition douce entre sections */
+section {
+    animation: fade-in 0.8s ease-out;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Particules lumineuses pour sections très profondes */
+#planning .card::after,
+#conclusion .card::after {
+    content: "·";
+    position: absolute;
+    color: rgba(100, 200, 255, 0.4);
+    font-size: 2rem;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+#planning .card:nth-child(1)::after { right: 10%; top: 20%; animation-delay: 0s; }
+#planning .card:nth-child(2)::after { left: 15%; top: 60%; animation-delay: 0.7s; }
+#planning .card:nth-child(3)::after { right: 20%; bottom: 30%; animation-delay: 1.4s; }
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 0.6; transform: scale(1.5); }
+}
+
+/* Texte plus clair dans sections très profondes pour lisibilité */
+#planning h3, #planning h4, #planning p,
+#conclusion h3, #conclusion h4, #conclusion p {
+    color: #003355;
+}
+
+/* Amélioration lisibilité footer (fosse des mariannes) */
+footer p, footer strong {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Zone bioluminescente dans le footer */
+footer .container::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(0, 200, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: bio-glow 5s ease-in-out infinite;
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+@keyframes bio-glow {
+    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* Algues qui ondulent - sections peu profondes */
+#introduction::after {
+    content: "🌿";
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    font-size: 4rem;
+    opacity: 0.25;
+    animation: seaweed 5s ease-in-out infinite;
+    transform-origin: bottom;
+}
+
+@keyframes seaweed {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+}
+
+/* Coquillage sections peu profondes */
+#contexte-marche h2::after {
+    content: "🐚";
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    opacity: 0.2;
+    animation: shell-rotate 10s linear infinite;
+}
+
+@keyframes shell-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media print {
+    nav, .print-btn { display: none; }
+    main { box-shadow: none; margin: 0; }
+    body::before, body::after { display: none; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.8rem; padding-left: 40px; }
+    nav ul { flex-direction: column; }
+    nav li { margin: 0.3rem 0; }
+    table { font-size: 0.85rem; }
+    th, td { padding: 0.8rem; }
+    main { padding: 1.5rem; }
+    .stats { grid-template-columns: 1fr; }
+    .stat-card { border-radius: 15px; aspect-ratio: auto; }
+    
+    /* Masquer certaines animations sur mobile pour performances */
+    section::before, section::after { display: none; }
+    #introduction::before, #contexte-marche::before,
+    #personas::after, #categories::before,
+    #reprise::after, #economique::after,
+    #planning::before, #conclusion::after { display: none; }
+}
+</style>
 </head>
 <body>
     <header>
