@@ -1115,9 +1115,579 @@ footer .container::before {
     0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
     50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #2d3436;
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ========== DÉGRADÉ FOND PROGRESSIF ========== */
+body {
+    background: linear-gradient(
+        to bottom,
+        #E0F6FF 0%,
+        #B8E6FF 8%,
+        #87CEEB 15%,
+        #6DC5E8 22%,
+        #4FB3D1 28%,
+        #2FA1C5 35%,
+        #1E90FF 42%,
+        #1873CC 50%,
+        #0D5A99 58%,
+        #094266 66%,
+        #052A44 74%,
+        #021B2E 82%,
+        #000D1A 90%,
+        #000000 100%
+    );
+    background-attachment: fixed;
+}
+
+/* ========== NUAGES ANIMÉS ========== */
+.clouds {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: 
+        radial-gradient(ellipse 300px 100px at 20% 40%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(ellipse 400px 130px at 60% 30%, rgba(255,255,255,0.75), transparent),
+        radial-gradient(ellipse 320px 110px at 85% 50%, rgba(255,255,255,0.85), transparent);
+    animation: clouds-move 60s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes clouds-move {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100vw); }
+}
+
+/* ========== SOLEIL FIXE ========== */
+.sun {
+    position: fixed;
+    top: 80px;
+    right: 120px;
+    font-size: 7rem;
+    animation: sun-glow 4s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes sun-glow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.8));
+        transform: scale(1);
+    }
+    50% { 
+        filter: drop-shadow(0 0 80px rgba(255, 200, 0, 1));
+        transform: scale(1.1);
+    }
+}
+
+/* ========== OISEAUX VOLANTS ========== */
+.bird {
+    position: fixed;
+    font-size: 2.5rem;
+    animation: bird-path 20s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.bird:nth-child(1) {
+    top: 150px;
+    animation-delay: 0s;
+}
+
+.bird:nth-child(2) {
+    top: 200px;
+    animation-delay: 7s;
+}
+
+@keyframes bird-path {
+    0% { left: -100px; transform: translateY(0); }
+    50% { left: 50%; transform: translateY(-30px); }
+    100% { left: 110%; transform: translateY(0); }
+}
+
+/* ========== BARQUE FLOTTANTE (RESTE EN HAUT) ========== */
+.boat {
+    position: fixed;
+    top: 250px;
+    left: 15%;
+    font-size: 5rem;
+    animation: boat-bobbing 6s ease-in-out infinite;
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+
+@keyframes boat-bobbing {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+/* ========== VAGUES RÉALISTES ========== */
+header {
+    position: relative;
+    background: linear-gradient(180deg, rgba(224, 246, 255, 0.5) 0%, rgba(79, 179, 209, 0.3) 100%);
+    padding: 4rem 0;
+    overflow: hidden;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,0 Q300,40 600,0 T1200,0 L1200,120 L0,120 Z' fill='%234FB3D1' opacity='0.6'/%3E%3C/svg%3E");
+    background-size: 100% 50px;
+    animation: wave-motion 8s ease-in-out infinite;
+}
+
+@keyframes wave-motion {
+    0%, 100% { transform: translateX(0) scaleY(1); }
+    50% { transform: translateX(-50px) scaleY(1.1); }
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #2FA1C5;
+}
+
+nav::before {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 200%;
+    height: 25px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 Q150,10 300,30 T600,30 T900,30 T1200,30' stroke='%232FA1C5' stroke-width='3' fill='none' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 50% 25px;
+    animation: wave-small 10s linear infinite;
+}
+
+@keyframes wave-small {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* ========== POISSONS QUI NAGENT ========== */
+.fish {
+    position: fixed;
+    font-size: 3rem;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.fish-1 {
+    animation: swim-right 20s linear infinite;
+}
+
+.fish-2 {
+    animation: swim-left 25s linear infinite 5s;
+}
+
+.fish-3 {
+    top: 50vh;
+    right: 10%;
+    animation: float-fish 8s ease-in-out infinite;
+}
+
+@keyframes swim-right {
+    0% { right: -100px; top: 35vh; transform: scaleX(1); }
+    48% { right: 110%; top: 40vh; transform: scaleX(1); }
+    50% { right: 110%; top: 40vh; transform: scaleX(-1); }
+    98% { right: -100px; top: 35vh; transform: scaleX(-1); }
+    100% { right: -100px; top: 35vh; transform: scaleX(1); }
+}
+
+@keyframes swim-left {
+    0% { left: -100px; top: 45vh; transform: scaleX(-1); }
+    48% { left: 110%; top: 48vh; transform: scaleX(-1); }
+    50% { left: 110%; top: 48vh; transform: scaleX(1); }
+    98% { left: -100px; top: 45vh; transform: scaleX(1); }
+    100% { left: -100px; top: 45vh; transform: scaleX(-1); }
+}
+
+@keyframes float-fish {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(20px); }
+}
+
+/* ========== REQUIN ========== */
+.shark {
+    position: fixed;
+    top: 65vh;
+    font-size: 5rem;
+    animation: shark-hunt 30s linear infinite;
+    opacity: 0.6;
+    filter: brightness(0.7);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes shark-hunt {
+    from { right: -200px; transform: scaleX(-1); }
+    to { right: 120%; transform: scaleX(-1); }
+}
+
+/* ========== MÉDUSE ========== */
+.jellyfish {
+    position: fixed;
+    left: 20%;
+    top: 70vh;
+    font-size: 3.5rem;
+    animation: jellyfish-pulse 10s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes jellyfish-pulse {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-30px) rotate(10deg); }
+    75% { transform: translateY(-40px) rotate(-10deg); }
+}
+
+/* ========== PIEUVRE ABYSSALE ========== */
+.octopus {
+    position: fixed;
+    left: 15%;
+    top: 80vh;
+    font-size: 7rem;
+    animation: octopus-wave 25s ease-in-out infinite;
+    opacity: 0.3;
+    filter: brightness(0.5);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes octopus-wave {
+    0%, 100% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.15) rotate(20deg); }
+}
+
+/* ========== CALMAR ========== */
+.squid {
+    position: fixed;
+    right: 15%;
+    top: 85vh;
+    font-size: 5rem;
+    animation: squid-float 30s ease-in-out infinite;
+    opacity: 0.25;
+    filter: brightness(0.4);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes squid-float {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0); }
+    33% { transform: translateY(-40px) translateX(30px) rotate(15deg); }
+    66% { transform: translateY(-20px) translateX(-30px) rotate(-15deg); }
+}
+
+/* ========== SOUS-MARIN (FOND) ========== */
+.submarine {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10rem;
+    animation: sub-drift 10s ease-in-out infinite;
+    z-index: 5;
+    filter: drop-shadow(0 0 60px rgba(100, 200, 255, 0.8));
+    pointer-events: none;
+}
+
+@keyframes sub-drift {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+    50% { transform: translateX(-50%) translateY(-12px) rotate(1deg); }
+}
+
+/* Lumière sous-marin */
+.submarine::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 400px;
+    background: radial-gradient(ellipse at top, rgba(100, 200, 255, 0.5), transparent);
+    animation: light-beam 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes light-beam {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ========== BULLES ========== */
+.bubble {
+    position: fixed;
+    bottom: -50px;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+    animation: bubble-up 12s ease-in infinite;
+    pointer-events: none;
+}
+
+.bubble:nth-child(1) { left: 10%; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 30%; animation-delay: 4s; font-size: 1.5rem; }
+.bubble:nth-child(3) { left: 60%; animation-delay: 2s; }
+.bubble:nth-child(4) { left: 85%; animation-delay: 6s; font-size: 1.8rem; }
+
+@keyframes bubble-up {
+    0% { bottom: -50px; opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { bottom: 110vh; opacity: 0; }
+}
+
+/* ========== STRUCTURE PRINCIPALE ========== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    color: #003d5c;
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    color: #005580;
+    opacity: 0.95;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1.2rem 0;
+}
+
+nav li {
+    margin: 0.5rem 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #006080;
+    font-weight: 700;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+nav a:hover {
+    background: linear-gradient(135deg, #2FA1C5, #1E90FF);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(30, 144, 255, 0.4);
+}
+
+main {
+    background: rgba(255, 255, 255, 0.95);
+    margin: 3rem auto;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    padding-left: 60px;
+    position: relative;
+    color: #003d5c;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.4), rgba(47, 161, 197, 0.4));
+    border-radius: 50%;
+    animation: pulse-icon 2s ease-in-out infinite;
+}
+
+@keyframes pulse-icon {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.15); }
+}
+
+.highlight {
+    background: linear-gradient(135deg, rgba(255, 253, 231, 0.95), rgba(255, 249, 196, 0.95));
+    padding: 2rem;
+    border-left: 6px solid #fbc02d;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.9), rgba(47, 161, 197, 0.9));
+    color: white;
+    padding: 2rem;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    animation: shine-bubble 3s ease-in-out infinite;
+}
+
+@keyframes shine-bubble {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+.stat-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(30, 144, 255, 0.5);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+footer {
+    background: linear-gradient(135deg, #000000, #001a33);
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 10rem 0 3rem 0;
+    position: relative;
+    z-index: 10;
+}
+
+.print-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: linear-gradient(135deg, #1E90FF, #00acc1);
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 999;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+}
+
+.print-btn:hover {
+    transform: scale(1.2) translateY(-5px);
+    box-shadow: 0 10px 30px rgba(30, 144, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    .fish, .shark, .jellyfish, .octopus, .squid { display: none; }
+    .submarine { font-size: 6rem; }
+    nav ul { flex-direction: column; }
+}
 </style>
 </head>
-<body>
+ <body>
+     <div class="clouds"></div>
+    <div class="sun">☀️</div>
+    <div class="bird">🦅</div>
+    <div class="bird">🕊️</div>
+    <div class="boat">🚣</div>
+    
+    <!-- Poissons -->
+    <div class="fish fish-1">🐠</div>
+    <div class="fish fish-2">🐟</div>
+    <div class="fish fish-3">🐡</div>
+    
+    <!-- Créatures profondes -->
+    <div class="shark">🦈</div>
+    <div class="jellyfish">🪼</div>
+    <div class="octopus">🐙</div>
+    <div class="squid">🦑</div>
+    
+    <!-- Bulles -->
+    <div class="bubble">○</div>
+    <div class="bubble">○</div>
+    <div class="bubble">○</div>
+    <div class="bubble">○</div>
+    
+    <!-- Sous-marin -->
+    <div class="submarine">🚢</div>
     <header>
         <div class="container">
             <h1>🎣 Projet Seconde Vie</h1>
