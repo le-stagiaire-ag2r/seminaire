@@ -1115,9 +1115,280 @@ footer .container::before {
     0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
     50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
 }
+/* ========== ANIMATIONS MARINES (AJOUT) ========== */
+
+.clouds {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: 
+        radial-gradient(ellipse 300px 100px at 20% 40%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(ellipse 400px 130px at 60% 30%, rgba(255,255,255,0.75), transparent),
+        radial-gradient(ellipse 320px 110px at 85% 50%, rgba(255,255,255,0.85), transparent);
+    animation: clouds-move 60s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes clouds-move {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100vw); }
+}
+
+.sun {
+    position: fixed;
+    top: 80px;
+    right: 120px;
+    font-size: 7rem;
+    animation: sun-glow 4s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes sun-glow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.8));
+        transform: scale(1);
+    }
+    50% { 
+        filter: drop-shadow(0 0 80px rgba(255, 200, 0, 1));
+        transform: scale(1.1);
+    }
+}
+
+.bird {
+    position: fixed;
+    font-size: 2.5rem;
+    animation: bird-path 20s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.bird:nth-child(4) {
+    top: 150px;
+    animation-delay: 0s;
+}
+
+.bird:nth-child(5) {
+    top: 200px;
+    animation-delay: 7s;
+}
+
+@keyframes bird-path {
+    0% { left: -100px; transform: translateY(0); }
+    50% { left: 50%; transform: translateY(-30px); }
+    100% { left: 110%; transform: translateY(0); }
+}
+
+.boat {
+    position: fixed;
+    top: 250px;
+    left: 15%;
+    font-size: 5rem;
+    animation: boat-bobbing 6s ease-in-out infinite;
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+
+@keyframes boat-bobbing {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+.fish {
+    position: fixed;
+    font-size: 3rem;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.fish-1 {
+    animation: swim-right 20s linear infinite;
+}
+
+.fish-2 {
+    animation: swim-left 25s linear infinite 5s;
+}
+
+.fish-3 {
+    top: 50vh;
+    right: 10%;
+    animation: float-fish 8s ease-in-out infinite;
+}
+
+@keyframes swim-right {
+    0% { right: -100px; top: 35vh; transform: scaleX(1); }
+    48% { right: 110%; top: 40vh; transform: scaleX(1); }
+    50% { right: 110%; top: 40vh; transform: scaleX(-1); }
+    98% { right: -100px; top: 35vh; transform: scaleX(-1); }
+    100% { right: -100px; top: 35vh; transform: scaleX(1); }
+}
+
+@keyframes swim-left {
+    0% { left: -100px; top: 45vh; transform: scaleX(-1); }
+    48% { left: 110%; top: 48vh; transform: scaleX(-1); }
+    50% { left: 110%; top: 48vh; transform: scaleX(1); }
+    98% { left: -100px; top: 45vh; transform: scaleX(1); }
+    100% { left: -100px; top: 45vh; transform: scaleX(-1); }
+}
+
+@keyframes float-fish {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(20px); }
+}
+
+.shark {
+    position: fixed;
+    top: 65vh;
+    font-size: 5rem;
+    animation: shark-hunt 30s linear infinite;
+    opacity: 0.6;
+    filter: brightness(0.7);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes shark-hunt {
+    from { right: -200px; transform: scaleX(-1); }
+    to { right: 120%; transform: scaleX(-1); }
+}
+
+.jellyfish {
+    position: fixed;
+    left: 20%;
+    top: 70vh;
+    font-size: 3.5rem;
+    animation: jellyfish-pulse 10s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes jellyfish-pulse {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-30px) rotate(10deg); }
+    75% { transform: translateY(-40px) rotate(-10deg); }
+}
+
+.octopus {
+    position: fixed;
+    left: 15%;
+    top: 80vh;
+    font-size: 7rem;
+    animation: octopus-wave 25s ease-in-out infinite;
+    opacity: 0.3;
+    filter: brightness(0.5);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes octopus-wave {
+    0%, 100% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.15) rotate(20deg); }
+}
+
+.squid {
+    position: fixed;
+    right: 15%;
+    top: 85vh;
+    font-size: 5rem;
+    animation: squid-float 30s ease-in-out infinite;
+    opacity: 0.25;
+    filter: brightness(0.4);
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes squid-float {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0); }
+    33% { transform: translateY(-40px) translateX(30px) rotate(15deg); }
+    66% { transform: translateY(-20px) translateX(-30px) rotate(-15deg); }
+}
+
+.submarine {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10rem;
+    animation: sub-drift 10s ease-in-out infinite;
+    z-index: 5;
+    filter: drop-shadow(0 0 60px rgba(100, 200, 255, 0.8));
+    pointer-events: none;
+}
+
+@keyframes sub-drift {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+    50% { transform: translateX(-50%) translateY(-12px) rotate(1deg); }
+}
+
+.submarine::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 400px;
+    background: radial-gradient(ellipse at top, rgba(100, 200, 255, 0.5), transparent);
+    animation: light-beam 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes light-beam {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.bubble {
+    position: fixed;
+    bottom: -50px;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+    animation: bubble-up 12s ease-in infinite;
+    pointer-events: none;
+}
+
+.bubble:nth-child(1) { left: 10%; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 30%; animation-delay: 4s; font-size: 1.5rem; }
+.bubble:nth-child(3) { left: 60%; animation-delay: 2s; }
+.bubble:nth-child(4) { left: 85%; animation-delay: 6s; font-size: 1.8rem; }
+
+@keyframes bubble-up {
+    0% { bottom: -50px; opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { bottom: 110vh; opacity: 0; }
+}    
 </style>
 </head>
 <body>
+    <body>
+    <div class="clouds"></div>
+    <div class="sun">☀️</div>
+    <div class="bird">🦅</div>
+    <div class="bird">🕊️</div>
+    <div class="boat">🚣</div>
+    
+    <div class="fish fish-1">🐠</div>
+    <div class="fish fish-2">🐟</div>
+    <div class="fish fish-3">🐡</div>
+    
+    <div class="shark">🦈</div>
+    <div class="jellyfish">🪼</div>
+    <div class="octopus">🐙</div>
+    <div class="squid">🦑</div>
+    
+    <div class="bubble">○</div>
+    <div class="bubble">○</div>
+    <div class="bubble">○</div>
+    <div class="bubble">○</div>
+    
+    <div class="submarine">🚢</div>    
     <header>
         <div class="container">
             <h1>🎣 Projet Seconde Vie</h1>
