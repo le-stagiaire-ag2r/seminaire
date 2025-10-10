@@ -20,57 +20,61 @@ body {
     overflow-x: hidden;
 }
 
-/* CIEL - Fond qui évolue du ciel aux abysses avec transition plus progressive */
+/* FOND DÉGRADÉ CIEL → ABYSSES */
 body::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 500vh;
+    height: 600vh;
     background: linear-gradient(
         to bottom,
         #E0F6FF 0%,      /* Ciel très clair */
-        #B8E6FF 3%,      /* Ciel clair */
+        #B8E6FF 3%,
         #87CEEB 6%,      /* Ciel bleu */
-        #6DC5E8 9%,      /* Transition ciel-eau */
-        #4FB3D1 12%,     /* Surface eau claire */
-        #3AA5C8 16%,     /* Eau turquoise */
-        #2FA1C5 20%,     /* Eau peu profonde lumineuse */
-        #2891B8 25%,     /* Eau claire avec poissons tropicaux */
-        #1E90FF 30%,     /* Eau moyenne bleue */
-        #1A7FE0 35%,     /* Eau profonde commence */
-        #1873CC 40%,     /* Eau profonde */
-        #1566B3 45%,     /* Transition vers très profond */
-        #0D5A99 50%,     /* Eau très profonde - requins */
-        #0B4D82 55%,     /* Début zone sombre */
-        #094266 60%,     /* Abysses supérieurs */
-        #073654 65%,     /* Abysses moyens */
-        #052A44 70%,     /* Abysses profonds */
-        #041F33 75%,     /* Abysses très profonds */
-        #031728 80%,     /* Pré-fosse */
-        #021B2E 85%,     /* Fosse des Mariannes */
-        #01121F 90%,     /* Fosse profonde */
-        #000D1A 95%,     /* Fosse très profonde */
-        #000000 100%     /* Noir total - fond océanique */
+        #6DC5E8 9%,
+        #4FB3D1 12%,     /* Surface eau */
+        #3AA5C8 15%,
+        #2FA1C5 18%,
+        #2891B8 22%,
+        #1E90FF 26%,     /* Eau claire */
+        #1A7FE0 30%,
+        #1873CC 35%,     /* Eau moyenne */
+        #1566B3 40%,
+        #0D5A99 45%,     /* Eau profonde */
+        #0B4D82 50%,
+        #094266 55%,     /* Début abysses */
+        #073654 60%,
+        #052A44 65%,
+        #041F33 70%,
+        #031728 75%,
+        #021B2E 80%,     /* Abysses */
+        #01121F 85%,
+        #000D1A 90%,     /* Fosse profonde */
+        #000508 95%,
+        #000000 100%     /* Noir total */
     );
     pointer-events: none;
     z-index: -2;
 }
 
-/* NUAGES ANIMÉS (Ciel) */
+/* ========== ZONE CIEL ========== */
+
+/* NUAGES ANIMÉS */
 body::after {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 300%;
-    height: 300px;
+    height: 350px;
     background-image: 
-        radial-gradient(ellipse 200px 80px at 20% 50%, rgba(255,255,255,0.9) 0%, transparent 50%),
-        radial-gradient(ellipse 300px 100px at 60% 30%, rgba(255,255,255,0.7) 0%, transparent 50%),
-        radial-gradient(ellipse 250px 90px at 85% 60%, rgba(255,255,255,0.8) 0%, transparent 50%);
-    animation: clouds 40s linear infinite;
+        radial-gradient(ellipse 250px 100px at 15% 40%, rgba(255,255,255,0.9) 0%, transparent 50%),
+        radial-gradient(ellipse 350px 120px at 55% 25%, rgba(255,255,255,0.75) 0%, transparent 50%),
+        radial-gradient(ellipse 280px 95px at 80% 50%, rgba(255,255,255,0.85) 0%, transparent 50%),
+        radial-gradient(ellipse 200px 80px at 40% 60%, rgba(255,255,255,0.7) 0%, transparent 50%);
+    animation: clouds 50s linear infinite;
     pointer-events: none;
     z-index: -1;
 }
@@ -80,62 +84,496 @@ body::after {
     100% { transform: translateX(-33.33%); }
 }
 
-/* SOLEIL - Reste fixe en haut dans le header */
+/* SOLEIL */
 header::before {
     content: "☀️";
-    position: absolute;
-    top: 50px;
-    right: 100px;
-    font-size: 5rem;
-    animation: sun-pulse 3s ease-in-out infinite, sun-rays 8s linear infinite;
+    position: fixed;
+    top: 60px;
+    right: 120px;
+    font-size: 6rem;
+    animation: sun-pulse 4s ease-in-out infinite, sun-rays 10s linear infinite;
     z-index: 2;
-    filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.8));
+    filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.9));
 }
 
 @keyframes sun-pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.15); }
 }
 
 @keyframes sun-rays {
-    0% { filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.6)); }
-    50% { filter: drop-shadow(0 0 50px rgba(255, 200, 0, 0.9)); }
-    100% { filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.6)); }
+    0% { filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.7)); }
+    50% { filter: drop-shadow(0 0 70px rgba(255, 200, 0, 1)); }
+    100% { filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.7)); }
 }
 
-/* OISEAUX ANIMÉS - Restent dans le ciel */
+/* OISEAUX */
 header::after {
     content: "🦅";
-    position: absolute;
-    top: 100px;
-    left: -50px;
-    font-size: 2rem;
-    animation: bird-fly 15s linear infinite;
+    position: fixed;
+    top: 120px;
+    left: -80px;
+    font-size: 2.5rem;
+    animation: bird-fly-1 18s linear infinite;
     z-index: 1;
 }
 
-@keyframes bird-fly {
-    0% { transform: translateX(-50px) translateY(0); }
-    50% { transform: translateX(50vw) translateY(-30px); }
-    100% { transform: translateX(100vw) translateY(0); }
+.bird-2 {
+    content: "🕊️";
+    position: fixed;
+    top: 180px;
+    left: -120px;
+    font-size: 2rem;
+    animation: bird-fly-2 22s linear infinite 4s;
+    z-index: 1;
 }
 
-/* BARQUE DE PÊCHEURS - Reste à la surface */
+@keyframes bird-fly-1 {
+    0% { transform: translateX(-80px) translateY(0); }
+    50% { transform: translateX(50vw) translateY(-40px); }
+    100% { transform: translateX(110vw) translateY(-20px); }
+}
+
+@keyframes bird-fly-2 {
+    0% { transform: translateX(-120px) translateY(0) rotate(5deg); }
+    50% { transform: translateX(45vw) translateY(-35px) rotate(-5deg); }
+    100% { transform: translateX(110vw) translateY(0) rotate(0deg); }
+}
+
+/* ========== ZONE SURFACE ========== */
+
+/* BARQUE */
 nav::after {
     content: "🚣";
-    position: absolute;
-    top: -60px;
-    left: 10%;
-    font-size: 4rem;
-    animation: boat-float 6s ease-in-out infinite;
+    position: fixed;
+    top: 220px;
+    left: 12%;
+    font-size: 4.5rem;
+    animation: boat-float 7s ease-in-out infinite;
     z-index: 0;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
 }
 
 @keyframes boat-float {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-15px) rotate(2deg); }
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
 }
+
+/* VAGUES */
+nav::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 200%;
+    height: 25px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%232FA1C5" opacity="0.4"/></svg>') repeat-x;
+    background-size: 50% 25px;
+    animation: wave 12s linear infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ========== POISSONS DE SURFACE ========== */
+
+/* Poisson tropical 1 */
+.fish-tropical-1 {
+    content: "🐠";
+    position: fixed;
+    right: -80px;
+    top: 32vh;
+    font-size: 3rem;
+    animation: fish-swim-right 25s linear infinite;
+    z-index: -1;
+    opacity: 0.85;
+    filter: brightness(1.15);
+}
+
+@keyframes fish-swim-right {
+    0% { right: -80px; top: 32vh; transform: scaleX(1); }
+    48% { right: 105vw; top: 36vh; transform: scaleX(1); }
+    50% { right: 105vw; top: 37vh; transform: scaleX(-1); }
+    98% { right: -80px; top: 41vh; transform: scaleX(-1); }
+    100% { right: -80px; top: 32vh; transform: scaleX(1); }
+}
+
+/* Poisson tropical 2 */
+.fish-tropical-2 {
+    content: "🐟";
+    position: fixed;
+    left: -80px;
+    top: 38vh;
+    font-size: 2.5rem;
+    animation: fish-swim-left 30s linear infinite 6s;
+    z-index: -1;
+    opacity: 0.8;
+    filter: brightness(1.1);
+}
+
+@keyframes fish-swim-left {
+    0% { left: -80px; top: 38vh; transform: scaleX(-1); }
+    48% { left: 105vw; top: 42vh; transform: scaleX(-1); }
+    50% { left: 105vw; top: 43vh; transform: scaleX(1); }
+    98% { left: -80px; top: 47vh; transform: scaleX(1); }
+    100% { left: -80px; top: 38vh; transform: scaleX(-1); }
+}
+
+/* Poisson-ballon */
+.fish-puffer {
+    content: "🐡";
+    position: fixed;
+    right: 8%;
+    top: 48vh;
+    font-size: 2.8rem;
+    animation: puffer-float 9s ease-in-out infinite;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+@keyframes puffer-float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-35px) translateX(15px); }
+    50% { transform: translateY(-20px) translateX(-10px); }
+    75% { transform: translateY(-40px) translateX(20px); }
+}
+
+/* ========== ZONE EAU CLAIRE ========== */
+
+/* Étoile de mer */
+.starfish {
+    content: "⭐";
+    position: fixed;
+    right: 10%;
+    top: 55vh;
+    font-size: 2.5rem;
+    opacity: 0.25;
+    animation: starfish-pulse 6s ease-in-out infinite;
+    filter: hue-rotate(180deg) brightness(0.8);
+}
+
+@keyframes starfish-pulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(25deg); }
+}
+
+/* Corail */
+.coral {
+    content: "🪸";
+    position: fixed;
+    left: 5%;
+    top: 52vh;
+    font-size: 3.5rem;
+    opacity: 0.3;
+    animation: coral-sway 7s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes coral-sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+}
+
+/* Algues */
+.seaweed {
+    content: "🌿";
+    position: fixed;
+    left: 15%;
+    bottom: 40vh;
+    font-size: 5rem;
+    opacity: 0.25;
+    animation: seaweed-wave 6s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes seaweed-wave {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+/* Coquillage */
+.shell {
+    content: "🐚";
+    position: fixed;
+    right: 5%;
+    top: 50vh;
+    font-size: 2rem;
+    opacity: 0.25;
+    animation: shell-rotate 15s linear infinite;
+}
+
+@keyframes shell-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========== ZONE PROFONDE ========== */
+
+/* Requin */
+.shark {
+    content: "🦈";
+    position: fixed;
+    right: -150px;
+    top: 62vh;
+    font-size: 5rem;
+    animation: shark-patrol 28s linear infinite;
+    opacity: 0.5;
+    z-index: -1;
+    filter: brightness(0.75);
+}
+
+@keyframes shark-patrol {
+    0% { right: -150px; transform: scaleX(-1); }
+    100% { right: 115vw; transform: scaleX(-1); }
+}
+
+/* Tortue */
+.turtle {
+    content: "🐢";
+    position: fixed;
+    left: -120px;
+    top: 65vh;
+    font-size: 3.5rem;
+    animation: turtle-swim 40s linear infinite;
+    opacity: 0.4;
+}
+
+@keyframes turtle-swim {
+    0% { left: -120px; transform: scaleX(-1); }
+    100% { left: 115vw; transform: scaleX(-1); }
+}
+
+/* Méduse */
+.jellyfish {
+    content: "🪼";
+    position: fixed;
+    left: 12%;
+    top: 68vh;
+    font-size: 3rem;
+    animation: jellyfish-drift 12s ease-in-out infinite;
+    opacity: 0.4;
+    z-index: -1;
+    filter: brightness(0.7);
+}
+
+@keyframes jellyfish-drift {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-35px) rotate(8deg); }
+    50% { transform: translateY(-20px) rotate(-8deg); }
+    75% { transform: translateY(-45px) rotate(5deg); }
+}
+
+/* Langouste */
+.lobster {
+    content: "🦞";
+    position: fixed;
+    right: 10%;
+    top: 70vh;
+    font-size: 3rem;
+    animation: lobster-walk 14s ease-in-out infinite;
+    opacity: 0.3;
+    filter: brightness(0.65);
+}
+
+@keyframes lobster-walk {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-120px); }
+}
+
+/* ========== ZONE ABYSSES ========== */
+
+/* Pieuvre géante */
+.giant-octopus {
+    content: "🐙";
+    position: fixed;
+    left: 18%;
+    top: 77vh;
+    font-size: 6rem;
+    animation: octopus-move 30s ease-in-out infinite;
+    opacity: 0.25;
+    z-index: -1;
+    filter: brightness(0.5);
+}
+
+@keyframes octopus-move {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(25deg); }
+}
+
+/* Calmar abyssal */
+.deep-squid {
+    content: "🦑";
+    position: fixed;
+    right: 12%;
+    top: 82vh;
+    font-size: 4.5rem;
+    animation: squid-drift 35s ease-in-out infinite;
+    opacity: 0.2;
+    z-index: -1;
+    filter: brightness(0.4);
+}
+
+@keyframes squid-drift {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    33% { transform: translateY(-50px) translateX(40px) rotate(20deg); }
+    66% { transform: translateY(-30px) translateX(-40px) rotate(-20deg); }
+}
+
+/* Poisson bioluminescent */
+.bio-fish {
+    content: "🐟";
+    position: fixed;
+    left: 25%;
+    top: 85vh;
+    font-size: 2.5rem;
+    animation: bio-fish-glow 18s ease-in-out infinite;
+    opacity: 0.15;
+    z-index: -1;
+}
+
+@keyframes bio-fish-glow {
+    0%, 100% { 
+        transform: translateX(0);
+        filter: brightness(0.3) hue-rotate(200deg) drop-shadow(0 0 10px cyan);
+    }
+    50% { 
+        transform: translateX(150px);
+        filter: brightness(0.7) hue-rotate(240deg) drop-shadow(0 0 25px cyan);
+    }
+}
+
+/* Particules bioluminescentes */
+.bio-particle-1 {
+    content: "✨";
+    position: fixed;
+    left: 20%;
+    top: 80vh;
+    font-size: 1.5rem;
+    animation: bioluminescence 5s ease-in-out infinite;
+    opacity: 0;
+    color: rgba(100, 200, 255, 0.7);
+}
+
+.bio-particle-2 {
+    content: "✨";
+    position: fixed;
+    right: 25%;
+    top: 84vh;
+    font-size: 1.2rem;
+    animation: bioluminescence 6s ease-in-out infinite 2s;
+    opacity: 0;
+    color: rgba(100, 255, 200, 0.7);
+}
+
+.bio-particle-3 {
+    content: "✨";
+    position: fixed;
+    left: 50%;
+    top: 88vh;
+    font-size: 1.8rem;
+    animation: bioluminescence 4.5s ease-in-out infinite 3.5s;
+    opacity: 0;
+    color: rgba(150, 200, 255, 0.8);
+}
+
+@keyframes bioluminescence {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+/* ========== BULLES (TOUTES ZONES) ========== */
+
+.bubble-1, .bubble-2, .bubble-3 {
+    position: fixed;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 2rem;
+    animation: bubbles-rise 10s ease-in infinite;
+    pointer-events: none;
+}
+
+.bubble-1 {
+    content: "○";
+    left: 8%;
+    bottom: -50px;
+    animation-delay: 0s;
+}
+
+.bubble-2 {
+    content: "○";
+    left: 45%;
+    bottom: -50px;
+    font-size: 1.5rem;
+    animation-delay: 3s;
+}
+
+.bubble-3 {
+    content: "○";
+    right: 15%;
+    bottom: -50px;
+    font-size: 1.8rem;
+    animation-delay: 6s;
+}
+
+@keyframes bubbles-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-150vh) scale(1.8); opacity: 0; }
+}
+
+/* ========== SOUS-MARIN (FOSSE) ========== */
+
+.submarine {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8rem;
+    animation: submarine-drift 8s ease-in-out infinite;
+    z-index: 1;
+    filter: drop-shadow(0 0 40px rgba(100, 200, 255, 0.6));
+}
+
+@keyframes submarine-drift {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); }
+    50% { transform: translateX(-50%) translateY(-15px) rotate(2deg); }
+}
+
+/* Lumière du sous-marin */
+.submarine::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 300px;
+    background: radial-gradient(ellipse at top, rgba(100, 200, 255, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+    animation: light-flicker 3s ease-in-out infinite;
+}
+
+@keyframes light-flicker {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+/* Hublots lumineux */
+.submarine::after {
+    content: "● ● ●";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 100, 0.9);
+    text-shadow: 0 0 15px rgba(255, 255, 100, 1);
+    letter-spacing: 15px;
+}
+
+/* ========== STRUCTURE HTML ========== */
 
 header {
     background: linear-gradient(135deg, rgba(224, 246, 255, 0.4) 0%, rgba(184, 230, 255, 0.5) 100%);
@@ -148,7 +586,6 @@ header {
     backdrop-filter: blur(5px);
 }
 
-/* VAGUES SURFACE EAU (après header) */
 nav {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -157,23 +594,6 @@ nav {
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-bottom: 3px solid #2FA1C5;
-}
-
-nav::before {
-    content: "";
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    width: 200%;
-    height: 20px;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%232FA1C5" opacity="0.3"/></svg>') repeat-x;
-    background-size: 50% 20px;
-    animation: wave 10s linear infinite;
-}
-
-@keyframes wave {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
 }
 
 .container {
@@ -229,7 +649,7 @@ nav a {
 nav a:hover {
     background: linear-gradient(135deg, #2FA1C5 0%, #1E90FF 100%);
     color: white;
-    transform: translateY(-2deg);
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
 }
 
@@ -243,361 +663,21 @@ main {
     z-index: 1;
 }
 
-/* POISSONS qui nagent sur les côtés - Section EAU PEU PROFONDE */
-#introduction::before {
-    content: "🐠";
-    position: fixed;
-    right: -50px;
-    top: 30vh;
-    font-size: 2.5rem;
-    animation: fish-swim-right 20s linear infinite;
-    z-index: -1;
-    opacity: 0.8;
-    filter: brightness(1.1);
-}
-
-#contexte-marche::before {
-    content: "🐟";
-    position: fixed;
-    left: -50px;
-    top: 35vh;
-    font-size: 2rem;
-    animation: fish-swim-left 25s linear infinite 5s;
-    z-index: -1;
-    opacity: 0.7;
-    filter: brightness(1.1);
-}
-
-@keyframes fish-swim-right {
-    0% { right: -50px; top: 30vh; }
-    50% { right: 110vw; top: 35vh; }
-    51% { right: 110vw; top: 40vh; transform: scaleX(-1); }
-    100% { right: -50px; top: 45vh; transform: scaleX(-1); }
-}
-
-@keyframes fish-swim-left {
-    0% { left: -50px; top: 35vh; transform: scaleX(-1); }
-    50% { left: 110vw; top: 40vh; transform: scaleX(-1); }
-    51% { left: 110vw; top: 45vh; transform: scaleX(1); }
-    100% { left: -50px; top: 50vh; transform: scaleX(1); }
-}
-
-/* POISSONS TROPICAUX - Eau claire peu profonde */
-#personas::after {
-    content: "🐡";
-    position: fixed;
-    right: 5%;
-    top: 50vh;
-    font-size: 2rem;
-    animation: tropical-float 8s ease-in-out infinite;
-    opacity: 0.6;
-    z-index: -1;
-}
-
-@keyframes tropical-float {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-30px) translateX(20px); }
-}
-
-/* REQUIN - Eaux profondes */
-#categories::before {
-    content: "🦈";
-    position: fixed;
-    right: -100px;
-    top: 60vh;
-    font-size: 4rem;
-    animation: shark-patrol 20s linear infinite;
-    opacity: 0.4;
-    z-index: -1;
-    filter: brightness(0.8);
-}
-
-@keyframes shark-patrol {
-    0% { right: -100px; transform: scaleX(-1); }
-    100% { right: 110vw; transform: scaleX(-1); }
-}
-
-/* MÉDUSE - Eaux moyennes à profondes */
-#reprise::after {
-    content: "🪼";
-    position: fixed;
-    left: 10%;
-    top: 65vh;
-    font-size: 2.5rem;
-    animation: jellyfish 10s ease-in-out infinite;
-    opacity: 0.35;
-    z-index: -1;
-    filter: brightness(0.7);
-}
-
-@keyframes jellyfish {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-25px) rotate(5deg); }
-    50% { transform: translateY(-15px) rotate(-5deg); }
-    75% { transform: translateY(-35px) rotate(3deg); }
-}
-
-/* PIEUVRE GÉANTE - Abysses */
-#economique::after {
-    content: "🐙";
-    position: fixed;
-    left: 15%;
-    top: 75vh;
-    font-size: 5rem;
-    animation: giant-octopus 25s ease-in-out infinite;
-    opacity: 0.2;
-    z-index: -1;
-    filter: brightness(0.5);
-}
-
-@keyframes giant-octopus {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.15) rotate(20deg); }
-}
-
-/* CALMAR ABYSSAL - Fosse profonde */
-#planning::before {
-    content: "🦑";
-    position: fixed;
-    right: 10%;
-    top: 80vh;
-    font-size: 4rem;
-    animation: deep-squid 30s ease-in-out infinite;
-    opacity: 0.15;
-    z-index: -1;
-    filter: brightness(0.4);
-}
-
-@keyframes deep-squid {
-    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
-    33% { transform: translateY(-40px) translateX(30px) rotate(15deg); }
-    66% { transform: translateY(-20px) translateX(-30px) rotate(-15deg); }
-}
-
-/* POISSON ABYSSAL BIOLUMINESCENT - Fosse des Mariannes */
-#conclusion::after {
-    content: "🐟";
-    position: fixed;
-    left: 20%;
-    top: 85vh;
-    font-size: 2rem;
-    animation: bioluminescent-fish 15s ease-in-out infinite;
-    opacity: 0.12;
-    z-index: -1;
-    filter: brightness(0.3) hue-rotate(180deg);
-}
-
-@keyframes bioluminescent-fish {
-    0%, 100% { 
-        transform: translateX(0);
-        filter: brightness(0.3) hue-rotate(180deg);
-    }
-    50% { 
-        transform: translateX(100px);
-        filter: brightness(0.6) hue-rotate(200deg);
-    }
-}
-
 section {
     margin-bottom: 4rem;
     scroll-margin-top: 100px;
     position: relative;
 }
 
-/* BULLES qui remontent - Plus visibles en surface */
-section::before {
-    content: "○";
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1.5rem;
-    animation: bubbles-rise 8s ease-in infinite;
-}
-
-section::after {
-    content: "○";
-    position: absolute;
-    right: 10%;
-    bottom: 0;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 1rem;
-    animation: bubbles-rise 10s ease-in infinite 2s;
-}
-
-@keyframes bubbles-rise {
-    0% { transform: translateY(0) scale(1); opacity: 0; }
-    10% { opacity: 0.5; }
-    90% { opacity: 0.5; }
-    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-}
-
-/* Bulles moins visibles dans les profondeurs */
-#economique::before,
-#economique::after,
-#planning::before,
-#planning::after,
-#conclusion::before,
-#conclusion::after {
-    opacity: 0.1;
-    color: rgba(100, 200, 255, 0.2);
-}
-
-/* PROFONDEUR 1 : Introduction (Surface - Eau très claire) */
-#introduction {
-    color: #002847;
-}
-
+/* Adaptation couleurs texte selon profondeur */
 #introduction h2 { color: #003d5c; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
-
-/* PROFONDEUR 2 : Contexte Marché (Eau peu profonde lumineuse) */
-#contexte-marche {
-    color: #003a59;
-}
-
 #contexte-marche h2 { color: #004d73; text-shadow: 0 0 3px rgba(255, 255, 255, 0.3); }
-
-/* Corail décoratif */
-#contexte-marche::after {
-    content: "🪸";
-    position: absolute;
-    left: 3%;
-    bottom: 5%;
-    font-size: 2.5rem;
-    opacity: 0.2;
-    animation: coral-sway 6s ease-in-out infinite;
-}
-
-@keyframes coral-sway {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-}
-
-/* PROFONDEUR 3 : SWOT / Personas (Eau moyenne) */
-#swot, #personas {
-    color: #003655;
-}
-
 #swot h2, #personas h2 { color: #005580; }
-
-/* Étoile de mer */
-#personas::before {
-    content: "⭐";
-    position: absolute;
-    right: 8%;
-    bottom: 10%;
-    font-size: 2rem;
-    opacity: 0.2;
-    animation: starfish-pulse 5s ease-in-out infinite;
-    filter: hue-rotate(180deg);
-}
-
-@keyframes starfish-pulse {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.15) rotate(20deg); }
-}
-
-/* PROFONDEUR 4 : Catégories (Eau profonde - moins de lumière) */
-#categories {
-    color: #00324d;
-}
-
 #categories h2 { color: #004466; filter: brightness(0.95); }
-
-/* PROFONDEUR 5 : Reprise / Événement (Eau très profonde) */
-#reprise, #evenement-tournoi {
-    color: #002d44;
-}
-
-#reprise h2, #evenement-tournoi h2 { 
-    color: #003355; 
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
-}
-
-/* Tortue des profondeurs */
-#evenement-tournoi::before {
-    content: "🐢";
-    position: absolute;
-    left: 5%;
-    top: 30%;
-    font-size: 3rem;
-    animation: turtle-swim 35s linear infinite;
-    opacity: 0.18;
-}
-
-@keyframes turtle-swim {
-    0% { transform: translateX(0) scaleX(-1); }
-    100% { transform: translateX(90vw) scaleX(-1); }
-}
-
-/* PROFONDEUR 6 : Vente / Communication (Début abysses) */
-#vente, #communication {
-    color: #00263b;
-}
-
-#vente h2, #communication h2 { 
-    color: #002244;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
-}
-
-/* Langouste des profondeurs */
-#vente::before {
-    content: "🦞";
-    position: absolute;
-    right: 8%;
-    top: 40%;
-    font-size: 2.5rem;
-    animation: lobster-walk 12s ease-in-out infinite;
-    opacity: 0.15;
-    filter: brightness(0.6);
-}
-
-@keyframes lobster-walk {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-100px); }
-}
-
-/* PROFONDEUR 7 : Économique (Abysses profonds) */
-#economique {
-    color: #001f33;
-}
-
-#economique h2 { 
-    color: #001133;
-    text-shadow: 0 0 15px rgba(100, 200, 255, 0.3);
-}
-
-/* PROFONDEUR 8 : Planning / Conclusion (Fosse des Mariannes - quasi noir) */
-#planning, #conclusion {
-    color: #001829;
-    background: rgba(255, 255, 255, 0.98);
-}
-
-#planning h2, #conclusion h2 { 
-    color: #000d1a;
-    text-shadow: 0 0 20px rgba(100, 200, 255, 0.4);
-}
-
-/* LUMIÈRES BIOLUMINESCENTES (sections très profondes) */
-#economique::before,
-#planning::after,
-#conclusion::before {
-    content: "✨";
-    position: absolute;
-    font-size: 1.2rem;
-    animation: bioluminescence 4s ease-in-out infinite;
-    opacity: 0;
-    color: rgba(100, 200, 255, 0.6);
-}
-
-#economique::before { left: 15%; top: 60%; animation-delay: 0s; }
-#planning::after { right: 20%; top: 30%; animation-delay: 1.5s; }
-#conclusion::before { left: 50%; top: 50%; animation-delay: 3s; }
-
-@keyframes bioluminescence {
-    0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 0.7; transform: scale(1.3); }
-}
+#reprise h2 { color: #003355; text-shadow: 0 0 8px rgba(255, 255, 255, 0.1); }
+#vente h2, #communication h2 { color: #002244; text-shadow: 0 0 10px rgba(255, 255, 255, 0.15); }
+#economique h2 { color: #001133; text-shadow: 0 0 15px rgba(100, 200, 255, 0.3); }
+#planning h2, #conclusion h2 { color: #000d1a; text-shadow: 0 0 20px rgba(100, 200, 255, 0.4); }
 
 h2 {
     border-bottom: none;
@@ -745,8 +825,8 @@ tr:last-child td {
     border: 2px solid rgba(30, 144, 255, 0.2);
     border-radius: 15px;
     padding: 2rem;
-    margin: 1.5rem 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -856,14 +936,14 @@ li {
 }
 
 .stat-card:hover {
-    transform: translateY(-15px) scale(1.05);
+    transform: translateY(-20px) scale(1.05);
     box-shadow: 0 15px 40px rgba(30, 144, 255, 0.4);
     animation: bubble-float 2s ease-in-out infinite;
 }
 
 @keyframes bubble-float {
-    0%, 100% { transform: translateY(-15px) scale(1.05); }
-    50% { transform: translateY(-25px) scale(1.05); }
+    0%, 100% { transform: translateY(-20px) scale(1.05); }
+    50% { transform: translateY(-30px) scale(1.05); }
 }
 
 .stat-number {
@@ -887,38 +967,15 @@ footer {
     background: linear-gradient(135deg, #000000 0%, #001a33 100%);
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
-    padding: 3rem 0;
+    padding: 8rem 0 3rem 0;
     margin-top: 4rem;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 1;
 }
 
-footer::before {
-    content: "🦑";
-    position: absolute;
-    left: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-    opacity: 0.1;
-    animation: deep-creature 10s ease-in-out infinite;
-}
-
-footer::after {
-    content: "🐙";
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-    opacity: 0.1;
-    animation: deep-creature 12s ease-in-out infinite reverse;
-}
-
-@keyframes deep-creature {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50% { transform: translateY(-50%) translateX(20px); }
+footer p, footer strong {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .print-btn {
@@ -944,16 +1001,7 @@ footer::after {
     box-shadow: 0 10px 30px rgba(30, 144, 255, 0.5);
 }
 
-/* Effets de profondeur sur les sections */
-#introduction, #contexte-marche { filter: brightness(1.05); }
-#swot, #personas { filter: brightness(1.02); }
-#categories { filter: brightness(1); }
-#reprise, #evenement-tournoi { filter: brightness(0.98); }
-#vente, #communication { filter: brightness(0.96); }
-#economique { filter: brightness(0.94); }
-#planning, #conclusion { filter: brightness(0.92); }
-
-/* Scrollbar personnalisée - gradient bleu profond */
+/* Scrollbar personnalisée */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -972,7 +1020,7 @@ footer::after {
     background: linear-gradient(180deg, #00acc1 0%, #000d1a 100%);
 }
 
-/* Transition douce entre sections */
+/* Transition sections */
 section {
     animation: fade-in 0.8s ease-out;
 }
@@ -982,93 +1030,36 @@ section {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Particules lumineuses pour sections très profondes */
-#planning .card::after,
-#conclusion .card::after {
-    content: "·";
-    position: absolute;
-    color: rgba(100, 200, 255, 0.4);
-    font-size: 2rem;
-    animation: sparkle 2s ease-in-out infinite;
+/* Effets de profondeur */
+#introduction, #contexte-marche { filter: brightness(1.05); }
+#swot, #personas { filter: brightness(1.02); }
+#categories { filter: brightness(1); }
+#reprise { filter: brightness(0.98); }
+#vente, #communication { filter: brightness(0.96); }
+#economique { filter: brightness(0.94); }
+#planning, #conclusion { filter: brightness(0.92); }
+
+/* Lisibilité sections profondes */
+#planning, #conclusion {
+    background: rgba(255, 255, 255, 0.98);
 }
 
-#planning .card:nth-child(1)::after { right: 10%; top: 20%; animation-delay: 0s; }
-#planning .card:nth-child(2)::after { left: 15%; top: 60%; animation-delay: 0.7s; }
-#planning .card:nth-child(3)::after { right: 20%; bottom: 30%; animation-delay: 1.4s; }
-
-@keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0); }
-    50% { opacity: 0.6; transform: scale(1.5); }
-}
-
-/* Texte plus clair dans sections très profondes pour lisibilité */
 #planning h3, #planning h4, #planning p,
 #conclusion h3, #conclusion h4, #conclusion p {
     color: #003355;
-}
-
-/* Amélioration lisibilité footer (fosse des mariannes) */
-footer p, footer strong {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-}
-
-/* Zone bioluminescente dans le footer */
-footer .container::before {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: bio-glow 5s ease-in-out infinite;
-    left: 30%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-@keyframes bio-glow {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
-}
-
-/* Algues qui ondulent - sections peu profondes */
-#introduction::after {
-    content: "🌿";
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-    font-size: 4rem;
-    opacity: 0.25;
-    animation: seaweed 5s ease-in-out infinite;
-    transform-origin: bottom;
-}
-
-@keyframes seaweed {
-    0%, 100% { transform: rotate(-8deg); }
-    50% { transform: rotate(8deg); }
-}
-
-/* Coquillage sections peu profondes */
-#contexte-marche h2::after {
-    content: "🐚";
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 2rem;
-    opacity: 0.2;
-    animation: shell-rotate 10s linear infinite;
-}
-
-@keyframes shell-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 @media print {
     nav, .print-btn { display: none; }
     main { box-shadow: none; margin: 0; }
     body::before, body::after { display: none; }
+    .fish-tropical-1, .fish-tropical-2, .fish-puffer,
+    .shark, .turtle, .jellyfish, .lobster,
+    .giant-octopus, .deep-squid, .bio-fish,
+    .submarine, .bird-2, .starfish, .coral,
+    .seaweed, .shell, .bio-particle-1, 
+    .bio-particle-2, .bio-particle-3,
+    .bubble-1, .bubble-2, .bubble-3 { display: none; }
 }
 
 @media (max-width: 768px) {
@@ -1082,12 +1073,17 @@ footer .container::before {
     .stats { grid-template-columns: 1fr; }
     .stat-card { border-radius: 15px; aspect-ratio: auto; }
     
-    /* Masquer certaines animations sur mobile pour performances */
-    section::before, section::after { display: none; }
-    #introduction::before, #contexte-marche::before,
-    #personas::after, #categories::before,
-    #reprise::after, #economique::after,
-    #planning::before, #conclusion::after { display: none; }
+    /* Masquer animations lourdes sur mobile */
+    .fish-tropical-1, .fish-tropical-2, .fish-puffer,
+    .shark, .turtle, .jellyfish, .lobster,
+    .giant-octopus, .deep-squid, .bio-fish,
+    .starfish, .coral, .seaweed, .shell,
+    .bio-particle-1, .bio-particle-2, .bio-particle-3,
+    .bubble-1, .bubble-2, .bubble-3 { display: none; }
+    
+    /* Garder uniquement soleil, nuages, barque et sous-marin */
+    header::before, body::after, nav::after, .submarine { display: block; }
+    .submarine { font-size: 5rem; }
 }
 </style>
 </head>
