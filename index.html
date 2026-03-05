@@ -7,510 +7,113 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a12;
-    --card: #13131f;
-    --card2: #1a1a2e;
-    --accent: #ff2d5b;
-    --teal: #00f5d4;
-    --gold: #ffe44d;
-    --purple: #c44dff;
-    --pink: #ff6eb4;
-    --text: #f0f0ff;
-    --muted: #8888aa;
-    --border: #252540;
+    --bg:#0a0a12; --card:#13131f; --card2:#1a1a2e;
+    --accent:#ff2d5b; --teal:#00f5d4; --gold:#ffe44d;
+    --purple:#c44dff; --pink:#ff6eb4; --text:#f0f0ff;
+    --muted:#8888aa; --border:#252540;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding: 32px 16px 100px;
-    overflow-x: hidden;
-    position: relative;
-  }
-
-  /* ===== BACKGROUND MADNESS ===== */
-  #bgCanvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .floating-emoji {
-    position: fixed;
-    font-size: 2rem;
-    pointer-events: none;
-    z-index: 1;
-    animation: floatUp linear infinite;
-    opacity: 0.18;
-    user-select: none;
-  }
-
-  @keyframes floatUp {
-    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    10%  { opacity: 0.18; }
-    90%  { opacity: 0.18; }
-    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
-  }
-
-  /* neon glow pulse on bg */
-  @keyframes neonPulse {
-    0%, 100% { opacity: 0.06; }
-    50% { opacity: 0.14; }
-  }
-
-  .neon-blob {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    z-index: 0;
-    animation: neonPulse 4s ease-in-out infinite;
-  }
-
-  /* ===== CONTENT ===== */
-  .content { position: relative; z-index: 2; }
-
-  /* HEADER */
-  .site-header { text-align: center; margin-bottom: 10px; }
-
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 8vw, 5rem);
-    letter-spacing: 4px;
-    background: linear-gradient(90deg, var(--gold), var(--pink), var(--teal), var(--purple), var(--gold));
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
-    filter: drop-shadow(0 0 20px rgba(255,110,180,0.5));
-  }
-
-  @keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-  }
-
-  .subtitle {
-    color: var(--muted);
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .accent-bar {
-    width: 80px; height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--purple));
-    margin: 0 auto 32px;
-    border-radius: 2px;
-    animation: barShift 2s ease-in-out infinite alternate;
-  }
-  @keyframes barShift {
-    from { width: 60px; }
-    to { width: 120px; }
-  }
-
-  /* PARTY BUTTON */
-  .party-btn-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 28px;
-  }
-
-  .party-btn {
-    background: linear-gradient(135deg, var(--accent), var(--purple), var(--gold));
-    background-size: 200% 200%;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 36px;
-    color: #fff;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 3px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.1s;
-    animation: gradShift 2s ease infinite;
-    box-shadow: 0 0 30px rgba(196,77,255,0.4), 0 0 60px rgba(255,45,91,0.2);
-  }
-  @keyframes gradShift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .party-btn:hover { transform: scale(1.07) rotate(-1deg); }
-  .party-btn:active { transform: scale(0.95); }
-  .party-btn .btn-shine {
-    position: absolute;
-    top: -50%; left: -60%;
-    width: 40%; height: 200%;
-    background: rgba(255,255,255,0.25);
-    transform: skewX(-20deg);
-    animation: shine 2.5s ease-in-out infinite;
-  }
-  @keyframes shine {
-    0% { left: -60%; }
-    60%, 100% { left: 140%; }
-  }
-
-  /* LAYOUT */
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  @media (max-width: 780px) { .layout { grid-template-columns: 1fr; } }
-
-  /* POOL */
-  .pool-panel {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 20px;
-    border: 1px solid var(--border);
-    position: sticky;
-    top: 20px;
-    box-shadow: 0 0 40px rgba(0,245,212,0.06);
-  }
-  .panel-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-    color: var(--teal);
-    margin-bottom: 14px;
-    display: flex; align-items: center; gap: 8px;
-    text-shadow: 0 0 10px rgba(0,245,212,0.4);
-  }
-  .panel-title .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-    display: inline-block;
-    animation: blink 1s ease-in-out infinite;
-  }
-  @keyframes blink {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  .add-member-row { display: flex; gap: 8px; margin-bottom: 14px; }
-  .add-member-row input {
-    flex: 1;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 7px 14px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .add-member-row input:focus { border-color: var(--teal); box-shadow: 0 0 8px rgba(0,245,212,0.2); }
-  .add-member-row input::placeholder { color: var(--muted); }
-  .add-member-row button {
-    background: var(--teal);
-    border: none;
-    border-radius: 50%;
-    width: 32px; height: 32px;
-    color: #0a0a12;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.2s;
-    box-shadow: 0 0 10px rgba(0,245,212,0.3);
-  }
-  .add-member-row button:hover { background: #00ddb8; transform: rotate(90deg); }
-
-  .members-grid { display: flex; flex-wrap: wrap; gap: 7px; }
-
-  .member-chip {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 6px 8px 6px 6px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: grab;
-    transition: all 0.18s ease;
-    user-select: none;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .member-chip:active { cursor: grabbing; }
-  .member-chip:hover {
-    border-color: var(--teal);
-    color: var(--teal);
-    transform: translateY(-2px) rotate(-1deg);
-    box-shadow: 0 4px 12px rgba(0,245,212,0.15);
-  }
-  .member-chip.dragging { opacity: 0.3; transform: scale(0.9) rotate(5deg); }
-  .del-member {
-    background: none; border: none;
-    color: var(--muted); cursor: pointer;
-    font-size: 0.72rem; padding: 0 0 0 2px;
-    line-height: 1; transition: color 0.15s;
-  }
-  .del-member:hover { color: var(--accent); }
-
-  .ini {
-    width: 26px; height: 26px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.68rem; font-weight: 700; flex-shrink: 0;
-  }
-  .ini.sm { width: 22px; height: 22px; font-size: 0.6rem; }
-
-  /* CARS */
-  .cars-section { display: flex; flex-direction: column; gap: 18px; }
-
-  .car-card {
-    background: var(--card);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    position: relative;
-  }
-  .car-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--purple), var(--teal));
-    opacity: 0.6;
-  }
-  .car-card.drag-over {
-    border-color: var(--teal);
-    box-shadow: 0 0 0 2px rgba(0,245,212,0.2), 0 0 30px rgba(0,245,212,0.1);
-  }
-
-  .car-header { padding: 12px 16px 0; background: var(--card2); }
-  .car-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .car-title-row { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-  .car-icon { font-size: 1.4rem; flex-shrink: 0; animation: wiggle 3s ease-in-out infinite; }
-  @keyframes wiggle {
-    0%,100% { transform: rotate(0); }
-    25% { transform: rotate(-8deg); }
-    75% { transform: rotate(8deg); }
-  }
-  .car-label-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .car-number { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 2px; color: var(--muted); line-height: 1; }
-  .car-nickname-input {
-    background: transparent; border: none;
-    border-bottom: 1px solid transparent;
-    color: var(--text);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.15rem; letter-spacing: 2px;
-    outline: none; width: 100%; max-width: 190px;
-    transition: border-color 0.2s; padding: 1px 0;
-  }
-  .car-nickname-input:focus { border-bottom-color: var(--teal); }
-  .car-nickname-input::placeholder { color: #2a2a45; }
-
-  .car-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .car-count {
-    font-size: 0.75rem; color: var(--muted);
-    background: var(--bg); padding: 3px 10px;
-    border-radius: 20px; border: 1px solid var(--border); white-space: nowrap;
-  }
-  .icon-btn {
-    background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 0.95rem; padding: 4px 6px;
-    border-radius: 6px; transition: all 0.15s; line-height: 1;
-  }
-  .icon-btn:hover { color: var(--accent); background: rgba(255,45,91,0.1); }
-
-  .car-type-row { display: flex; gap: 6px; padding-bottom: 12px; flex-wrap: wrap; align-items: center; }
-  .type-badge {
-    font-size: 0.7rem; font-weight: 600;
-    padding: 3px 10px; border-radius: 20px;
-    cursor: pointer; border: 1px solid transparent;
-    transition: all 0.18s; letter-spacing: 0.2px;
-    white-space: nowrap; user-select: none;
-  }
-  .type-badge.lille { border-color: var(--gold); color: var(--gold); }
-  .type-badge.lille.active { background: var(--gold); color: #0a0a12; box-shadow: 0 0 10px rgba(255,228,77,0.4); }
-  .type-badge.perso { border-color: var(--teal); color: var(--teal); }
-  .type-badge.perso.active { background: var(--teal); color: #0a0a12; box-shadow: 0 0 10px rgba(0,245,212,0.4); }
-
-  .car-comment-input {
-    flex: 1; min-width: 100px;
-    background: transparent; border: none;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem; outline: none; padding: 2px 4px;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .car-comment-input:focus { border-bottom-color: var(--teal); color: var(--text); }
-  .car-comment-input::placeholder { color: #2a2a45; font-style: italic; }
-
-  .car-body {
-    padding: 12px 16px;
-    min-height: 56px;
-    display: flex; flex-wrap: wrap;
-    gap: 7px; align-content: flex-start;
-    border-top: 1px solid var(--border);
-  }
-  .car-body.empty::before {
-    content: '🚀 Glisser des membres ici';
-    color: var(--muted); font-size: 0.8rem;
-    font-style: italic; width: 100%;
-    text-align: center; padding: 8px 0;
-  }
-
-  .car-chip {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 5px 10px 5px 5px;
-    font-size: 0.8rem; font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
-    transition: all 0.15s; cursor: grab; user-select: none;
-  }
-  .car-chip:active { cursor: grabbing; }
-  .car-chip.dragging { opacity: 0.3; transform: scale(0.9) rotate(-3deg); }
-  .car-chip:hover { border-color: var(--muted); }
-  .remove-btn {
-    background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 0.78rem; padding: 0 0 0 3px;
-    line-height: 1; transition: color 0.15s;
-  }
-  .remove-btn:hover { color: var(--accent); }
-
-  .add-car-btn {
-    background: transparent;
-    border: 2px dashed var(--border);
-    border-radius: 20px; padding: 14px; width: 100%;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
-    cursor: pointer; transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .add-car-btn:hover { border-color: var(--purple); color: var(--purple); box-shadow: 0 0 15px rgba(196,77,255,0.15); }
-
-  /* EXPORT */
-  .export-btn {
-    display: block; margin: 32px auto 0;
-    background: linear-gradient(135deg, var(--accent), var(--purple));
-    color: #fff; border: none;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem; letter-spacing: 2px;
-    padding: 14px 40px; border-radius: 50px;
-    cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 0 20px rgba(255,45,91,0.3);
-  }
-  .export-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,45,91,0.4); }
-
-  /* CONFETTI CANVAS */
-  #confettiCanvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 999;
-    display: none;
-  }
-
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 24px; right: 24px;
-    background: linear-gradient(135deg, var(--teal), var(--purple));
-    color: #fff; font-weight: 700;
-    padding: 12px 22px; border-radius: 12px; font-size: 0.88rem;
-    opacity: 0; transform: translateY(10px);
-    transition: all 0.3s; pointer-events: none; z-index: 1000;
-  }
-  .toast.show { opacity: 1; transform: translateY(0); }
-
-  /* SECTION HEADERS */
-  .section-hdr {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 3px;
-    color: var(--muted);
-    padding: 4px 0 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* VF CARD */
-  .vf-card {
-    border-color: rgba(255,228,77,0.3) !important;
-    box-shadow: 0 0 20px rgba(255,228,77,0.07);
-  }
-  .vf-card::before {
-    background: linear-gradient(90deg, var(--gold), #ffb347, var(--gold)) !important;
-    opacity: 1 !important;
-  }
-  .vf-header {
-    background: linear-gradient(135deg, #1f1a08, #1a1a2e) !important;
-  }
-  .car-nickname-display {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.15rem;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-shadow: 0 0 10px rgba(255,228,77,0.3);
-  }
-
-  /* LOCKED DRIVER CHIP */
-  .driver-chip {
-    background: linear-gradient(135deg, rgba(255,228,77,0.12), rgba(255,179,71,0.08));
-    border: 1px solid rgba(255,228,77,0.35);
-    border-radius: 24px;
-    padding: 5px 10px 5px 5px;
-    font-size: 0.8rem; font-weight: 600;
-    display: flex; align-items: center; gap: 6px;
-    color: var(--gold);
-    cursor: default;
-  }
-  .driver-badge {
-    font-size: 0.68rem;
-    background: rgba(255,228,77,0.15);
-    border: 1px solid rgba(255,228,77,0.3);
-    border-radius: 10px;
-    padding: 1px 7px;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  /* FLERS badge color */
-  .type-badge.flers { border-color: #ff9b3d; color: #ff9b3d; }
-  .type-badge.flers.active { background: #ff9b3d; color: #0a0a12; box-shadow: 0 0 10px rgba(255,155,61,0.4); }
-
-  input, button { font-family: inherit; }
-
-  /* Star decoration */
-  .deco-star {
-    position: fixed;
-    pointer-events: none;
-    z-index: 1;
-    font-size: 1.5rem;
-    animation: starTwinkle ease-in-out infinite;
-    opacity: 0.15;
-  }
-  @keyframes starTwinkle {
-    0%,100% { opacity: 0.05; transform: scale(1) rotate(0deg); }
-    50% { opacity: 0.25; transform: scale(1.3) rotate(180deg); }
-  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding:32px 16px 100px;overflow-x:hidden;position:relative;}
+  #bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  .floating-emoji{position:fixed;font-size:2rem;pointer-events:none;z-index:1;animation:floatUp linear infinite;opacity:.18;user-select:none;}
+  @keyframes floatUp{0%{transform:translateY(110vh) rotate(0);opacity:0}10%{opacity:.18}90%{opacity:.18}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+  @keyframes neonPulse{0%,100%{opacity:.06}50%{opacity:.14}}
+  .neon-blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:neonPulse 4s ease-in-out infinite;}
+  .content{position:relative;z-index:2;}
+  .site-header{text-align:center;margin-bottom:10px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,8vw,5rem);letter-spacing:4px;background:linear-gradient(90deg,var(--gold),var(--pink),var(--teal),var(--purple),var(--gold));background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite;filter:drop-shadow(0 0 20px rgba(255,110,180,.5));}
+  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+  .subtitle{color:var(--muted);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+  .accent-bar{width:80px;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));margin:0 auto 32px;border-radius:2px;animation:barShift 2s ease-in-out infinite alternate;}
+  @keyframes barShift{from{width:60px}to{width:120px}}
+  .party-btn-wrap{display:flex;justify-content:center;margin-bottom:28px;}
+  .party-btn{background:linear-gradient(135deg,var(--accent),var(--purple),var(--gold));background-size:200% 200%;border:none;border-radius:50px;padding:14px 36px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;cursor:pointer;position:relative;overflow:hidden;transition:transform .1s;animation:gradShift 2s ease infinite;box-shadow:0 0 30px rgba(196,77,255,.4),0 0 60px rgba(255,45,91,.2);}
+  @keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .party-btn:hover{transform:scale(1.07) rotate(-1deg);}
+  .party-btn:active{transform:scale(.95);}
+  .party-btn .btn-shine{position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:rgba(255,255,255,.25);transform:skewX(-20deg);animation:shine 2.5s ease-in-out infinite;}
+  @keyframes shine{0%{left:-60%}60%,100%{left:140%}}
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:24px;max-width:1100px;margin:0 auto;}
+  @media(max-width:780px){.layout{grid-template-columns:1fr;}}
+  .pool-panel{background:var(--card);border-radius:20px;padding:20px;border:1px solid var(--border);position:sticky;top:20px;box-shadow:0 0 40px rgba(0,245,212,.06);}
+  .panel-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:var(--teal);margin-bottom:14px;display:flex;align-items:center;gap:8px;text-shadow:0 0 10px rgba(0,245,212,.4);}
+  .panel-title .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);display:inline-block;animation:blink 1s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  .add-member-row{display:flex;gap:8px;margin-bottom:14px;}
+  .add-member-row input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:24px;padding:7px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s,box-shadow .2s;}
+  .add-member-row input:focus{border-color:var(--teal);box-shadow:0 0 8px rgba(0,245,212,.2);}
+  .add-member-row input::placeholder{color:var(--muted);}
+  .add-member-row button{background:var(--teal);border:none;border-radius:50%;width:32px;height:32px;color:#0a0a12;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;box-shadow:0 0 10px rgba(0,245,212,.3);}
+  .add-member-row button:hover{background:#00ddb8;transform:rotate(90deg);}
+  .members-grid{display:flex;flex-wrap:wrap;gap:7px;}
+  .member-chip{background:var(--card2);border:1px solid var(--border);border-radius:24px;padding:6px 8px 6px 6px;font-size:.82rem;font-weight:500;cursor:grab;transition:all .18s ease;user-select:none;display:flex;align-items:center;gap:6px;}
+  .member-chip:active{cursor:grabbing;}
+  .member-chip:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px) rotate(-1deg);box-shadow:0 4px 12px rgba(0,245,212,.15);}
+  .member-chip.dragging{opacity:.3;transform:scale(.9) rotate(5deg);}
+  .del-member{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.72rem;padding:0 0 0 2px;line-height:1;transition:color .15s;}
+  .del-member:hover{color:var(--accent);}
+  .ini{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;}
+  .ini.sm{width:22px;height:22px;font-size:.6rem;}
+  .cars-section{display:flex;flex-direction:column;gap:18px;}
+  .section-hdr{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:3px;color:var(--muted);padding:4px 0 0;display:flex;align-items:center;gap:8px;}
+  .car-card{background:var(--card);border-radius:20px;border:1px solid var(--border);overflow:hidden;transition:border-color .2s,box-shadow .2s;position:relative;}
+  .car-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--teal));opacity:.6;}
+  .car-card.drag-over{border-color:var(--teal);box-shadow:0 0 0 2px rgba(0,245,212,.2),0 0 30px rgba(0,245,212,.1);}
+  .vf-card{border-color:rgba(255,228,77,.3)!important;box-shadow:0 0 20px rgba(255,228,77,.07);}
+  .vf-card::before{background:linear-gradient(90deg,var(--gold),#ffb347,var(--gold))!important;opacity:1!important;}
+  .vf-header{background:linear-gradient(135deg,#1f1a08,#1a1a2e)!important;}
+  .car-nickname-display{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:2px;color:var(--gold);text-shadow:0 0 10px rgba(255,228,77,.3);}
+  .driver-chip{background:linear-gradient(135deg,rgba(255,228,77,.12),rgba(255,179,71,.08));border:1px solid rgba(255,228,77,.35);border-radius:24px;padding:5px 10px 5px 5px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--gold);cursor:default;}
+  .driver-badge{font-size:.68rem;background:rgba(255,228,77,.15);border:1px solid rgba(255,228,77,.3);border-radius:10px;padding:1px 7px;color:var(--gold);white-space:nowrap;}
+  .car-header{padding:12px 16px 0;background:var(--card2);}
+  .car-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .car-title-row{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+  .car-icon{font-size:1.4rem;flex-shrink:0;animation:wiggle 3s ease-in-out infinite;}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+  .car-label-wrap{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .car-number{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:2px;color:var(--muted);line-height:1;}
+  .car-nickname-input{background:transparent;border:none;border-bottom:1px solid transparent;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:2px;outline:none;width:100%;max-width:190px;transition:border-color .2s;padding:1px 0;}
+  .car-nickname-input:focus{border-bottom-color:var(--teal);}
+  .car-nickname-input::placeholder{color:#2a2a45;}
+  .car-header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .car-count{font-size:.75rem;color:var(--muted);background:var(--bg);padding:3px 10px;border-radius:20px;border:1px solid var(--border);white-space:nowrap;}
+  .icon-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;padding:4px 6px;border-radius:6px;transition:all .15s;line-height:1;}
+  .icon-btn:hover{color:var(--accent);background:rgba(255,45,91,.1);}
+  .car-type-row{display:flex;gap:6px;padding-bottom:12px;flex-wrap:wrap;align-items:center;}
+  .type-badge{font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:20px;cursor:pointer;border:1px solid transparent;transition:all .18s;letter-spacing:.2px;white-space:nowrap;user-select:none;}
+  .type-badge.lille{border-color:var(--gold);color:var(--gold);}
+  .type-badge.lille.active{background:var(--gold);color:#0a0a12;box-shadow:0 0 10px rgba(255,228,77,.4);}
+  .type-badge.flers{border-color:#ff9b3d;color:#ff9b3d;}
+  .type-badge.flers.active{background:#ff9b3d;color:#0a0a12;box-shadow:0 0 10px rgba(255,155,61,.4);}
+  .type-badge.perso{border-color:var(--teal);color:var(--teal);}
+  .type-badge.perso.active{background:var(--teal);color:#0a0a12;box-shadow:0 0 10px rgba(0,245,212,.4);}
+  .car-comment-input{flex:1;min-width:100px;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.78rem;outline:none;padding:2px 4px;transition:border-color .2s,color .2s;}
+  .car-comment-input:focus{border-bottom-color:var(--teal);color:var(--text);}
+  .car-comment-input::placeholder{color:#2a2a45;font-style:italic;}
+  .car-body{padding:12px 16px;min-height:56px;display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;border-top:1px solid var(--border);}
+  .car-body.empty::before{content:'🚀 Glisser des membres ici';color:var(--muted);font-size:.8rem;font-style:italic;width:100%;text-align:center;padding:8px 0;}
+  .car-chip{background:var(--bg);border:1px solid var(--border);border-radius:24px;padding:5px 10px 5px 5px;font-size:.8rem;font-weight:500;display:flex;align-items:center;gap:6px;transition:all .15s;cursor:grab;user-select:none;}
+  .car-chip:active{cursor:grabbing;}
+  .car-chip.dragging{opacity:.3;transform:scale(.9) rotate(-3deg);}
+  .car-chip:hover{border-color:var(--muted);}
+  .remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.78rem;padding:0 0 0 3px;line-height:1;transition:color .15s;}
+  .remove-btn:hover{color:var(--accent);}
+  .add-car-btn{background:transparent;border:2px dashed var(--border);border-radius:20px;padding:14px;width:100%;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .add-car-btn:hover{border-color:var(--purple);color:var(--purple);box-shadow:0 0 15px rgba(196,77,255,.15);}
+  .export-btn{display:block;margin:32px auto 0;background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border:none;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;padding:14px 40px;border-radius:50px;cursor:pointer;transition:all .2s;box-shadow:0 0 20px rgba(255,45,91,.3);}
+  .export-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,45,91,.4);}
+  #confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;display:none;}
+  .toast{position:fixed;bottom:24px;right:24px;background:linear-gradient(135deg,var(--teal),var(--purple));color:#fff;font-weight:700;padding:12px 22px;border-radius:12px;font-size:.88rem;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;z-index:1000;}
+  .toast.show{opacity:1;transform:translateY(0);}
+  #syncStatus{position:fixed;top:14px;right:18px;z-index:9999;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;padding:5px 14px;border-radius:20px;letter-spacing:.5px;transition:all .3s;pointer-events:none;}
+  input,button{font-family:inherit;}
 </style>
 </head>
 <body>
 
-<!-- Background canvas for ambient particles -->
 <canvas id="bgCanvas"></canvas>
-<!-- Confetti canvas -->
 <canvas id="confettiCanvas"></canvas>
+<div id="syncStatus" style="background:rgba(0,245,212,.12);border:1px solid rgba(0,245,212,.3);color:#00f5d4;">⟳ Connexion…</div>
 
 <div class="content">
   <div class="site-header">
@@ -518,14 +121,11 @@
     <p class="subtitle">Équipe Lille — Séminaire 2025</p>
     <div class="accent-bar"></div>
   </div>
-
   <div class="party-btn-wrap">
     <button class="party-btn" onclick="partyTime()">
-      <span class="btn-shine"></span>
-      🎊 AMBIANCE FÊTE 🎊
+      <span class="btn-shine"></span>🎊 AMBIANCE FÊTE 🎊
     </button>
   </div>
-
   <div class="layout">
     <div class="cars-section" id="carsSection">
       <button class="add-car-btn" onclick="addCar()">＋ Ajouter une voiture</button>
@@ -535,40 +135,32 @@
         <div class="panel-title"><span class="dot"></span>Membres disponibles</div>
         <div class="add-member-row">
           <input type="text" id="newMemberInput" placeholder="Prénom NOM…" onkeydown="if(event.key==='Enter')addMember()">
-          <button onclick="addMember()" title="Ajouter">＋</button>
+          <button onclick="addMember()">＋</button>
         </div>
         <div class="members-grid" id="pool"></div>
       </div>
     </div>
   </div>
-
   <button class="export-btn" onclick="exportSummary()">📋 Copier le résumé</button>
 </div>
-
 <div class="toast" id="toast">✅ Résumé copié !</div>
 
-<script type="module">
-// ============================================================
-//  DATA
-// ============================================================
-const COLORS = [
-  { bg: '#00f5d4', text: '#0a0a12' },
-  { bg: '#ff2d5b', text: '#fff' },
-  { bg: '#ffe44d', text: '#0a0a12' },
-  { bg: '#c44dff', text: '#fff' },
-  { bg: '#ff6eb4', text: '#0a0a12' },
-  { bg: '#4dffb0', text: '#0a0a12' },
-  { bg: '#ff9b3d', text: '#0a0a12' },
-  { bg: '#4d9fff', text: '#fff' },
+<!-- ============================================================
+     SCRIPT PRINCIPAL (pas de module = fonctions globales)
+     ============================================================ -->
+<script>
+const COLORS=[
+  {bg:'#00f5d4',text:'#0a0a12'},{bg:'#ff2d5b',text:'#fff'},
+  {bg:'#ffe44d',text:'#0a0a12'},{bg:'#c44dff',text:'#fff'},
+  {bg:'#ff6eb4',text:'#0a0a12'},{bg:'#4dffb0',text:'#0a0a12'},
+  {bg:'#ff9b3d',text:'#0a0a12'},{bg:'#4d9fff',text:'#fff'},
 ];
-
-const TYPES = [
-  { key: 'lille',  label: '🏢 Départ agence Lille' },
-  { key: 'flers',  label: '🏢 Départ agence Flers' },
-  { key: 'perso',  label: '🏠 Départ perso' },
+const TYPES=[
+  {key:'lille', label:'🏢 Départ agence Lille'},
+  {key:'flers', label:'🏢 Départ agence Flers'},
+  {key:'perso', label:'🏠 Départ perso'},
 ];
-
-let allMembers = [
+const DEFAULT_MEMBERS=[
   "Peggy LARIVIERE","Sébastien DUBOIS","Yann MOURET",
   "Gaylord DEVADDER","Vincent SARAPATA","Florent MARECAUX",
   "Olivier DAL","Paul HAZELAERE","Céline MERESSE",
@@ -580,89 +172,84 @@ let allMembers = [
   "Laurende DEFAUT","Caroline DE CORTE","Sarah FROISSART",
   "Charlotte HAMADENE","Céline MARIANNE"
 ];
-
-// Conducteurs voiture de fonction (locked)
-const VF_DRIVERS = [
-  "Gilles MONTAGNE",
-  "Emmanuel SOUFFLET",
-  "David GOSSART",
-  "Laurent DRUESNES",
-  "Guenaelle SEIGNEUR"
+const DEFAULT_CARS=[
+  {id:'vf1',nickname:'Gilles MONTAGNE',  type:'',comment:'Voiture de fonction',members:[],vf:true, driver:'Gilles MONTAGNE'},
+  {id:'vf2',nickname:'Emmanuel SOUFFLET',type:'',comment:'Voiture de fonction',members:[],vf:true, driver:'Emmanuel SOUFFLET'},
+  {id:'vf3',nickname:'David GOSSART',    type:'',comment:'Voiture de fonction',members:[],vf:true, driver:'David GOSSART'},
+  {id:'vf4',nickname:'Laurent DRUESNES', type:'',comment:'Voiture de fonction',members:[],vf:true, driver:'Laurent DRUESNES'},
+  {id:'vf5',nickname:'Guenaelle SEIGNEUR',type:'',comment:'Voiture de fonction',members:[],vf:true, driver:'Guenaelle SEIGNEUR'},
+  {id:'car1',nickname:'',type:'',comment:'',members:[],vf:false},
+  {id:'car2',nickname:'',type:'',comment:'',members:[],vf:false},
+  {id:'car3',nickname:'',type:'',comment:'',members:[],vf:false},
 ];
 
-let pool = [...allMembers];
-let cars = [
-  { id:'vf1', nickname:'Gilles MONTAGNE',  type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'Gilles MONTAGNE' },
-  { id:'vf2', nickname:'Emmanuel SOUFFLET',type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'Emmanuel SOUFFLET' },
-  { id:'vf3', nickname:'David GOSSART',    type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'David GOSSART' },
-  { id:'vf4', nickname:'Laurent DRUESNES', type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'Laurent DRUESNES' },
-  { id:'vf5', nickname:'Guenaelle SEIGNEUR',type:'',comment:'Voiture de fonction', members:[], vf:true, driver:'Guenaelle SEIGNEUR' },
-  { id:'car1', nickname:'', type:'', comment:'', members:[], vf:false },
-  { id:'car2', nickname:'', type:'', comment:'', members:[], vf:false },
-  { id:'car3', nickname:'', type:'', comment:'', members:[], vf:false },
-];
-let carCounter = 4;
-let vfCounter = 6;
-let dragging = null;
+let allMembers=[...DEFAULT_MEMBERS];
+let pool=[...DEFAULT_MEMBERS];
+let cars=JSON.parse(JSON.stringify(DEFAULT_CARS));
+let carCounter=4;
+let dragging=null;
+let isSyncing=false;
 
-function ini(name) { return name.split(' ').map(p=>p[0]||'').join('').slice(0,2).toUpperCase(); }
-function clr(name) {
-  let h=0; for(let c of name) h=(h*31+c.charCodeAt(0))&0xffffffff;
-  return COLORS[Math.abs(h)%COLORS.length];
+// ---- helpers ----
+function ini(n){return n.split(' ').map(p=>p[0]||'').join('').slice(0,2).toUpperCase();}
+function clr(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))&0xffffffff;return COLORS[Math.abs(h)%COLORS.length];}
+function esc(s){return(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+
+// ---- sync status ----
+function setSyncStatus(state){
+  const el=document.getElementById('syncStatus');
+  if(!el)return;
+  const styles={
+    saving:{bg:'rgba(255,228,77,.12)',border:'rgba(255,228,77,.3)',color:'#ffe44d',text:'💾 Sauvegarde…'},
+    saved: {bg:'rgba(0,245,212,.12)', border:'rgba(0,245,212,.3)', color:'#00f5d4',text:'✓ Synchronisé'},
+    error: {bg:'rgba(255,45,91,.12)', border:'rgba(255,45,91,.3)',  color:'#ff2d5b',text:'✕ Erreur sync'},
+    conn:  {bg:'rgba(0,245,212,.12)', border:'rgba(0,245,212,.3)', color:'#00f5d4',text:'⟳ Connexion…'},
+  };
+  const s=styles[state]||styles.conn;
+  el.style.background=s.bg; el.style.border='1px solid '+s.border;
+  el.style.color=s.color; el.textContent=s.text;
 }
-function esc(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 
-// ============================================================
-//  RENDER
-// ============================================================
-function _render() { renderPool(); renderCars(); }
+// ---- render ----
+function render(){renderPool();renderCars();}
 
-function renderPool() {
-  const el = document.getElementById('pool');
-  el.innerHTML = '';
-  pool.forEach(name => {
-    const c = clr(name);
-    const chip = document.createElement('div');
-    chip.className = 'member-chip';
-    chip.draggable = true;
-    chip.dataset.name = name;
-    chip.dataset.from = 'pool';
-    chip.innerHTML = `<span class="ini" style="background:${c.bg};color:${c.text}">${ini(name)}</span>${name}<button class="del-member" title="Supprimer" onclick="deleteMember('${esc(name)}')">✕</button>`;
-    chip.addEventListener('dragstart', onDragStart);
-    chip.addEventListener('dragend', onDragEnd);
+function renderPool(){
+  const el=document.getElementById('pool');
+  el.innerHTML='';
+  pool.forEach(name=>{
+    const c=clr(name);
+    const chip=document.createElement('div');
+    chip.className='member-chip';
+    chip.draggable=true;
+    chip.dataset.name=name;
+    chip.dataset.from='pool';
+    chip.innerHTML=`<span class="ini" style="background:${c.bg};color:${c.text}">${ini(name)}</span>${name}<button class="del-member" onclick="deleteMember('${esc(name)}')">✕</button>`;
+    chip.addEventListener('dragstart',onDragStart);
+    chip.addEventListener('dragend',onDragEnd);
     el.appendChild(chip);
   });
 }
 
-function renderCars() {
-  const section = document.getElementById('carsSection');
-  section.querySelectorAll('.car-card, .section-hdr').forEach(e => e.remove());
-  const addBtn = section.querySelector('.add-car-btn');
-  const icons = ['🚗','🚙','🚐','🛻','🚕','🏎️','🚌','🛺'];
+function renderCars(){
+  const section=document.getElementById('carsSection');
+  section.querySelectorAll('.car-card,.section-hdr').forEach(e=>e.remove());
+  const addBtn=section.querySelector('.add-car-btn');
+  const icons=['🚗','🚙','🚐','🛻','🚕','🏎️','🚌','🛺'];
+  const vfCars=cars.filter(c=>c.vf);
+  const regCars=cars.filter(c=>!c.vf);
 
-  // Separate VF and regular cars for display
-  const vfCars = cars.filter(c=>c.vf);
-  const regCars = cars.filter(c=>!c.vf);
-
-  // VF section header
-  if(vfCars.length > 0) {
-    const hdr = document.createElement('div');
-    hdr.className = 'section-hdr';
-    hdr.innerHTML = '👑 VOITURES DE FONCTION';
-    section.insertBefore(hdr, addBtn);
+  if(vfCars.length){
+    const h=document.createElement('div');
+    h.className='section-hdr';h.textContent='👑 VOITURES DE FONCTION';
+    section.insertBefore(h,addBtn);
   }
-
-  vfCars.forEach((car) => {
-    const card = document.createElement('div');
-    card.className = 'car-card vf-card';
-    card.dataset.carid = car.id;
-
-    const typeBadges = TYPES.map(t =>
-      `<span class="type-badge ${t.key}${car.type===t.key?' active':''}" onclick="setType('${car.id}','${t.key}')">${t.label}</span>`
-    ).join('');
-
-    const dc = clr(car.driver);
-    card.innerHTML = `
+  vfCars.forEach(car=>{
+    const card=document.createElement('div');
+    card.className='car-card vf-card';
+    card.dataset.carid=car.id;
+    const dc=clr(car.driver);
+    const typeBadges=TYPES.map(t=>`<span class="type-badge ${t.key}${car.type===t.key?' active':''}" onclick="setType('${car.id}','${t.key}')">${t.label}</span>`).join('');
+    card.innerHTML=`
       <div class="car-header vf-header">
         <div class="car-header-top">
           <div class="car-title-row">
@@ -678,665 +265,263 @@ function renderCars() {
         </div>
         <div class="car-type-row">
           ${typeBadges}
-          <input class="car-comment-input" placeholder="Commentaire libre…" value="${esc(car.comment)}"
-            oninput="updateComment('${car.id}',this.value)" maxlength="80">
+          <input class="car-comment-input" placeholder="Commentaire…" value="${esc(car.comment)}" oninput="updateComment('${car.id}',this.value)" maxlength="80">
         </div>
       </div>
       <div class="car-body${car.members.length===0?' empty':''}" data-carid="${car.id}">
-        <div class="driver-chip locked">
+        <div class="driver-chip">
           <span class="ini sm" style="background:${dc.bg};color:${dc.text}">${ini(car.driver)}</span>
-          ${car.driver}
-          <span class="driver-badge">🔑 conducteur</span>
+          ${car.driver}<span class="driver-badge">🔑 conducteur</span>
         </div>
-        ${car.members.map(name => {
-          const c = clr(name);
-          return `<div class="car-chip" draggable="true" data-name="${esc(name)}" data-from="${car.id}">
-            <span class="ini sm" style="background:${c.bg};color:${c.text}">${ini(name)}</span>
-            ${name}
-            <button class="remove-btn" onclick="returnToPool('${car.id}','${esc(name)}')" title="Retirer">✕</button>
-          </div>`;
-        }).join('')}
-      </div>
-    `;
-
-    card.querySelectorAll('.car-chip').forEach(chip => {
-      chip.addEventListener('dragstart', onDragStart);
-      chip.addEventListener('dragend', onDragEnd);
-    });
-    const body = card.querySelector('.car-body');
-    body.addEventListener('dragover', onDragOver);
-    body.addEventListener('dragleave', onDragLeave);
-    body.addEventListener('drop', onDrop);
-
-    section.insertBefore(card, addBtn);
+        ${car.members.map(name=>{const c=clr(name);return`<div class="car-chip" draggable="true" data-name="${esc(name)}" data-from="${car.id}"><span class="ini sm" style="background:${c.bg};color:${c.text}">${ini(name)}</span>${name}<button class="remove-btn" onclick="returnToPool('${car.id}','${esc(name)}')">✕</button></div>`;}).join('')}
+      </div>`;
+    card.querySelectorAll('.car-chip').forEach(ch=>{ch.addEventListener('dragstart',onDragStart);ch.addEventListener('dragend',onDragEnd);});
+    const body=card.querySelector('.car-body');
+    body.addEventListener('dragover',onDragOver);body.addEventListener('dragleave',onDragLeave);body.addEventListener('drop',onDrop);
+    section.insertBefore(card,addBtn);
   });
 
-  // Regular cars section header
-  if(regCars.length > 0) {
-    const hdr2 = document.createElement('div');
-    hdr2.className = 'section-hdr';
-    hdr2.innerHTML = '🚗 AUTRES VOITURES';
-    section.insertBefore(hdr2, addBtn);
+  if(regCars.length){
+    const h=document.createElement('div');
+    h.className='section-hdr';h.textContent='🚗 AUTRES VOITURES';
+    section.insertBefore(h,addBtn);
   }
-
-  regCars.forEach((car, idx) => {
-    const card = document.createElement('div');
-    card.className = 'car-card';
-    card.dataset.carid = car.id;
-
-    const typeBadges = TYPES.map(t =>
-      `<span class="type-badge ${t.key}${car.type===t.key?' active':''}" onclick="setType('${car.id}','${t.key}')">${t.label}</span>`
-    ).join('');
-
-    card.innerHTML = `
+  regCars.forEach((car,idx)=>{
+    const card=document.createElement('div');
+    card.className='car-card';
+    card.dataset.carid=car.id;
+    const typeBadges=TYPES.map(t=>`<span class="type-badge ${t.key}${car.type===t.key?' active':''}" onclick="setType('${car.id}','${t.key}')">${t.label}</span>`).join('');
+    card.innerHTML=`
       <div class="car-header">
         <div class="car-header-top">
           <div class="car-title-row">
             <span class="car-icon">${icons[idx%icons.length]}</span>
             <div class="car-label-wrap">
               <span class="car-number">Voiture ${idx+1}</span>
-              <input class="car-nickname-input" placeholder="Surnom…" value="${esc(car.nickname)}"
-                oninput="updateNickname('${car.id}',this.value)" maxlength="30">
+              <input class="car-nickname-input" placeholder="Surnom…" value="${esc(car.nickname)}" oninput="updateNickname('${car.id}',this.value)" maxlength="30">
             </div>
           </div>
           <div class="car-header-actions">
             <span class="car-count">${car.members.length} passager${car.members.length!==1?'s':''}</span>
-            <button class="icon-btn" onclick="removeCar('${car.id}')" title="Supprimer la voiture">🗑</button>
+            <button class="icon-btn" onclick="removeCar('${car.id}')">🗑</button>
           </div>
         </div>
         <div class="car-type-row">
           ${typeBadges}
-          <input class="car-comment-input" placeholder="Commentaire libre…" value="${esc(car.comment)}"
-            oninput="updateComment('${car.id}',this.value)" maxlength="80">
+          <input class="car-comment-input" placeholder="Commentaire…" value="${esc(car.comment)}" oninput="updateComment('${car.id}',this.value)" maxlength="80">
         </div>
       </div>
       <div class="car-body${car.members.length===0?' empty':''}" data-carid="${car.id}">
-        ${car.members.map(name => {
-          const c = clr(name);
-          return `<div class="car-chip" draggable="true" data-name="${esc(name)}" data-from="${car.id}">
-            <span class="ini sm" style="background:${c.bg};color:${c.text}">${ini(name)}</span>
-            ${name}
-            <button class="remove-btn" onclick="returnToPool('${car.id}','${esc(name)}')" title="Retirer">✕</button>
-          </div>`;
-        }).join('')}
-      </div>
-    `;
-
-    card.querySelectorAll('.car-chip').forEach(chip => {
-      chip.addEventListener('dragstart', onDragStart);
-      chip.addEventListener('dragend', onDragEnd);
-    });
-    const body = card.querySelector('.car-body');
-    body.addEventListener('dragover', onDragOver);
-    body.addEventListener('dragleave', onDragLeave);
-    body.addEventListener('drop', onDrop);
-
-    section.insertBefore(card, addBtn);
+        ${car.members.map(name=>{const c=clr(name);return`<div class="car-chip" draggable="true" data-name="${esc(name)}" data-from="${car.id}"><span class="ini sm" style="background:${c.bg};color:${c.text}">${ini(name)}</span>${name}<button class="remove-btn" onclick="returnToPool('${car.id}','${esc(name)}')">✕</button></div>`;}).join('')}
+      </div>`;
+    card.querySelectorAll('.car-chip').forEach(ch=>{ch.addEventListener('dragstart',onDragStart);ch.addEventListener('dragend',onDragEnd);});
+    const body=card.querySelector('.car-body');
+    body.addEventListener('dragover',onDragOver);body.addEventListener('dragleave',onDragLeave);body.addEventListener('drop',onDrop);
+    section.insertBefore(card,addBtn);
   });
 }
 
-// ============================================================
-//  STATE UPDATES
-// ============================================================
-function updateNickname(carId, val) { const c=cars.find(x=>x.id===carId); if(c) c.nickname=val; }
-function updateComment(carId, val)  { const c=cars.find(x=>x.id===carId); if(c) c.comment=val; }
-function setType(carId, type) {
-  const c=cars.find(x=>x.id===carId); if(!c) return;
-  c.type = (c.type===type)?'':type; render();
+// ---- state updates ----
+function updateNickname(id,val){const c=cars.find(x=>x.id===id);if(c){c.nickname=val;fbSave();}}
+function updateComment(id,val){const c=cars.find(x=>x.id===id);if(c){c.comment=val;fbSave();}}
+function setType(id,type){const c=cars.find(x=>x.id===id);if(!c)return;c.type=(c.type===type)?'':type;render();fbSave();}
+function addMember(){
+  const inp=document.getElementById('newMemberInput');
+  const name=inp.value.trim();if(!name)return;
+  if(!allMembers.includes(name))allMembers.push(name);
+  if(!pool.includes(name)&&!cars.some(c=>c.members.includes(name)))pool.push(name);
+  inp.value='';render();fbSave();
 }
-function addMember() {
-  const input=document.getElementById('newMemberInput');
-  const name=input.value.trim(); if(!name) return;
-  if(!allMembers.includes(name)) allMembers.push(name);
-  if(!pool.includes(name) && !cars.some(c=>c.members.includes(name))) pool.push(name);
-  input.value=''; render();
-}
-function deleteMember(name) {
+function deleteMember(name){
   allMembers=allMembers.filter(m=>m!==name);
   pool=pool.filter(m=>m!==name);
-  cars.forEach(c=>{c.members=c.members.filter(m=>m!==name)});
-  render();
+  cars.forEach(c=>{c.members=c.members.filter(m=>m!==name);});
+  render();fbSave();
 }
-function returnToPool(carId, name) {
-  const c=cars.find(x=>x.id===carId); if(c) c.members=c.members.filter(m=>m!==name);
-  if(!pool.includes(name)) pool.push(name); render();
+function returnToPool(carId,name){
+  const c=cars.find(x=>x.id===carId);if(c)c.members=c.members.filter(m=>m!==name);
+  if(!pool.includes(name))pool.push(name);
+  render();fbSave();
 }
-function addCar() {
-  cars.push({id:'car'+carCounter++,nickname:'',type:'',comment:'',members:[]}); render();
+function addCar(){
+  cars.push({id:'car'+carCounter++,nickname:'',type:'',comment:'',members:[],vf:false});
+  render();fbSave();
 }
-function removeCar(carId) {
-  const c=cars.find(x=>x.id===carId && !x.vf); if(!c) return;
-  c.members.forEach(m=>{if(!pool.includes(m)) pool.push(m)});
-  cars=cars.filter(x=>x.id!==carId); render();
+function removeCar(carId){
+  const c=cars.find(x=>x.id===carId&&!x.vf);if(!c)return;
+  c.members.forEach(m=>{if(!pool.includes(m))pool.push(m);});
+  cars=cars.filter(x=>x.id!==carId);
+  render();fbSave();
 }
 
-// ============================================================
-//  DRAG & DROP
-// ============================================================
-function onDragStart(e) {
+// ---- drag & drop ----
+function onDragStart(e){
   const el=e.currentTarget;
-  dragging={name:el.dataset.name, from:el.dataset.from};
+  dragging={name:el.dataset.name,from:el.dataset.from};
   setTimeout(()=>el.classList.add('dragging'),0);
   e.dataTransfer.effectAllowed='move';
 }
-function onDragEnd(e) { e.currentTarget.classList.remove('dragging'); }
-function onDragOver(e) {
-  e.preventDefault();
-  e.currentTarget.closest('.car-card').classList.add('drag-over');
-  e.dataTransfer.dropEffect='move';
-}
-function onDragLeave(e) {
-  if(!e.currentTarget.contains(e.relatedTarget))
-    e.currentTarget.closest('.car-card').classList.remove('drag-over');
-}
-function onDrop(e) {
+function onDragEnd(e){e.currentTarget.classList.remove('dragging');}
+function onDragOver(e){e.preventDefault();e.currentTarget.closest('.car-card').classList.add('drag-over');e.dataTransfer.dropEffect='move';}
+function onDragLeave(e){if(!e.currentTarget.contains(e.relatedTarget))e.currentTarget.closest('.car-card').classList.remove('drag-over');}
+function onDrop(e){
   e.preventDefault();
   const carId=e.currentTarget.dataset.carid;
   e.currentTarget.closest('.car-card').classList.remove('drag-over');
-  if(!dragging) return;
-  const {name,from}=dragging; dragging=null;
-  if(from==='pool') {
+  if(!dragging)return;
+  const{name,from}=dragging;dragging=null;
+  if(from==='pool'){
     pool=pool.filter(m=>m!==name);
     const c=cars.find(x=>x.id===carId);
-    if(c && !c.members.includes(name)) c.members.push(name);
-  } else if(from!==carId) {
-    const fc=cars.find(x=>x.id===from);
-    if(fc) fc.members=fc.members.filter(m=>m!==name);
-    const tc=cars.find(x=>x.id===carId);
-    if(tc && !tc.members.includes(name)) tc.members.push(name);
+    if(c&&!c.members.includes(name))c.members.push(name);
+  }else if(from!==carId){
+    const fc=cars.find(x=>x.id===from);if(fc)fc.members=fc.members.filter(m=>m!==name);
+    const tc=cars.find(x=>x.id===carId);if(tc&&!tc.members.includes(name))tc.members.push(name);
   }
-  render();
+  render();fbSave();
 }
 
-// ============================================================
-//  EXPORT
-// ============================================================
-function exportSummary() {
-  const tl={lille:'🏢 Départ agence Lille', flers:'🏢 Départ agence Flers', perso:'🏠 Départ perso'};
+// ---- export ----
+function exportSummary(){
+  const tl={lille:'🏢 Départ agence Lille',flers:'🏢 Départ agence Flers',perso:'🏠 Départ perso'};
   let text='🚗 COVOITURAGE ÉQUIPE LILLE\n'+'─'.repeat(30)+'\n\n';
-  const vfCars = cars.filter(c=>c.vf);
-  const regCars = cars.filter(c=>!c.vf);
-  if(vfCars.length) {
-    text+='👑 VOITURES DE FONCTION\n\n';
-    vfCars.forEach(car=>{
-      text+=`🔑 ${car.driver}\n`;
-      if(car.type) text+=`  ${tl[car.type]}\n`;
-      if(car.comment && car.comment!=='Voiture de fonction') text+=`  💬 ${car.comment}\n`;
-      if(car.members.length===0) text+='  (pas de passagers)\n';
-      else car.members.forEach(m=>text+=`  • ${m}\n`);
-      text+='\n';
-    });
-  }
-  if(regCars.length) {
-    text+='🚗 AUTRES VOITURES\n\n';
-    regCars.forEach((car,idx)=>{
-      const title=car.nickname?`Voiture ${idx+1} — ${car.nickname}`:`Voiture ${idx+1}`;
-      text+=`${title}\n`;
-      if(car.type) text+=`  ${tl[car.type]}\n`;
-      if(car.comment) text+=`  💬 ${car.comment}\n`;
-      if(car.members.length===0) text+='  (vide)\n';
-      else car.members.forEach(m=>text+=`  • ${m}\n`);
-      text+='\n';
-    });
-  }
-  if(pool.length>0){ text+='⚠️ Sans voiture :\n'; pool.forEach(m=>text+=`  • ${m}\n`); }
-  navigator.clipboard.writeText(text).then(()=>{
-    const t=document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),2500);
-  });
+  const vf=cars.filter(c=>c.vf),reg=cars.filter(c=>!c.vf);
+  if(vf.length){text+='👑 VOITURES DE FONCTION\n\n';vf.forEach(car=>{text+=`🔑 ${car.driver}\n`;if(car.type)text+=`  ${tl[car.type]}\n`;if(car.comment&&car.comment!=='Voiture de fonction')text+=`  💬 ${car.comment}\n`;if(!car.members.length)text+='  (pas de passagers)\n';else car.members.forEach(m=>text+=`  • ${m}\n`);text+='\n';});}
+  if(reg.length){text+='🚗 AUTRES VOITURES\n\n';reg.forEach((car,i)=>{const t=car.nickname?`Voiture ${i+1} — ${car.nickname}`:`Voiture ${i+1}`;text+=`${t}\n`;if(car.type)text+=`  ${tl[car.type]}\n`;if(car.comment)text+=`  💬 ${car.comment}\n`;if(!car.members.length)text+='  (vide)\n';else car.members.forEach(m=>text+=`  • ${m}\n`);text+='\n';});}
+  if(pool.length){text+='⚠️ Sans voiture :\n';pool.forEach(m=>text+=`  • ${m}\n`);}
+  navigator.clipboard.writeText(text).then(()=>{const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);});
 }
 
-// ============================================================
-//  BACKGROUND AMBIENT PARTICLES
-// ============================================================
-const bgCanvas = document.getElementById('bgCanvas');
-const bgCtx = bgCanvas.getContext('2d');
-let bgParticles = [];
-
-function resizeBg() {
-  bgCanvas.width = window.innerWidth;
-  bgCanvas.height = window.innerHeight;
-}
-resizeBg();
-window.addEventListener('resize', resizeBg);
-
-class BgParticle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * bgCanvas.width;
-    this.y = Math.random() * bgCanvas.height;
-    this.r = Math.random() * 1.5 + 0.3;
-    this.a = Math.random() * 0.4 + 0.05;
-    this.vx = (Math.random()-0.5) * 0.3;
-    this.vy = (Math.random()-0.5) * 0.3;
-    const hues = [170, 300, 340, 50, 200];
-    this.hue = hues[Math.floor(Math.random()*hues.length)];
-  }
-  draw() {
-    bgCtx.beginPath();
-    bgCtx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-    bgCtx.fillStyle = `hsla(${this.hue},100%,70%,${this.a})`;
-    bgCtx.fill();
-  }
-  update() {
-    this.x += this.vx; this.y += this.vy;
-    if(this.x<0||this.x>bgCanvas.width||this.y<0||this.y>bgCanvas.height) this.reset();
-  }
-}
-
-for(let i=0; i<120; i++) bgParticles.push(new BgParticle());
-
-function animateBg() {
-  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  bgParticles.forEach(p=>{p.update();p.draw();});
-  requestAnimationFrame(animateBg);
-}
-animateBg();
-
-// Add floating emojis
-const partyEmojis = ['🎉','🎊','🥳','✨','🌟','💥','🎈','🍾','🎶','🕺','💃','🎵','🚀','🌈'];
-for(let i=0; i<18; i++) {
-  const el = document.createElement('div');
-  el.className = 'floating-emoji';
-  el.textContent = partyEmojis[Math.floor(Math.random()*partyEmojis.length)];
-  el.style.left = Math.random()*100 + 'vw';
-  el.style.animationDuration = (8+Math.random()*12) + 's';
-  el.style.animationDelay = (-Math.random()*20) + 's';
-  el.style.fontSize = (1.2+Math.random()*1.8) + 'rem';
-  document.body.appendChild(el);
-}
-
-// Neon blobs
-const blobColors = ['#ff2d5b','#c44dff','#00f5d4','#ffe44d'];
-blobColors.forEach((col, i) => {
-  const blob = document.createElement('div');
-  blob.className = 'neon-blob';
-  blob.style.cssText = `
-    width:${300+i*80}px; height:${300+i*80}px;
-    background:${col};
-    left:${[10,60,5,70][i]}%;
-    top:${[10,20,70,60][i]}%;
-    animation-delay:${i*1.2}s;
-    animation-duration:${4+i}s;
-  `;
-  document.body.appendChild(blob);
-});
-
-// ============================================================
-//  CONFETTI
-// ============================================================
-const confCanvas = document.getElementById('confettiCanvas');
-const confCtx = confCanvas.getContext('2d');
-let confParticles = [];
-let confRunning = false;
-let confEndTime = 0;
-
-function resizeConf() {
-  confCanvas.width = window.innerWidth;
-  confCanvas.height = window.innerHeight;
-}
-resizeConf();
-window.addEventListener('resize', resizeConf);
-
-const CONF_COLORS = ['#ff2d5b','#ffe44d','#00f5d4','#c44dff','#ff6eb4','#4dffb0','#ff9b3d','#fff'];
-const SHAPES = ['rect','circle','triangle','star'];
-
-class ConfParticle {
-  constructor(burst) {
-    this.x = burst ? Math.random()*confCanvas.width : Math.random()*confCanvas.width;
-    this.y = burst ? Math.random()*confCanvas.height*0.5 : -10;
-    this.size = Math.random()*10+5;
-    this.color = CONF_COLORS[Math.floor(Math.random()*CONF_COLORS.length)];
-    this.shape = SHAPES[Math.floor(Math.random()*SHAPES.length)];
-    this.vx = (Math.random()-0.5)*6;
-    this.vy = Math.random()*4+1;
-    this.rot = Math.random()*Math.PI*2;
-    this.rotV = (Math.random()-0.5)*0.2;
-    this.gravity = 0.08;
-    this.alpha = 1;
-    this.wobble = Math.random()*Math.PI*2;
-    this.wobbleSpeed = Math.random()*0.05+0.02;
-  }
-  update() {
-    this.wobble += this.wobbleSpeed;
-    this.x += this.vx + Math.sin(this.wobble)*1.5;
-    this.vy += this.gravity;
-    this.y += this.vy;
-    this.rot += this.rotV;
-    if(this.y > confCanvas.height + 20) this.alpha = 0;
-  }
-  draw() {
-    confCtx.save();
-    confCtx.globalAlpha = this.alpha;
-    confCtx.translate(this.x, this.y);
-    confCtx.rotate(this.rot);
-    confCtx.fillStyle = this.color;
-    if(this.shape==='rect') {
-      confCtx.fillRect(-this.size/2, -this.size/4, this.size, this.size/2);
-    } else if(this.shape==='circle') {
-      confCtx.beginPath();
-      confCtx.arc(0,0,this.size/2,0,Math.PI*2);
-      confCtx.fill();
-    } else if(this.shape==='triangle') {
-      confCtx.beginPath();
-      confCtx.moveTo(0,-this.size/2);
-      confCtx.lineTo(this.size/2,this.size/2);
-      confCtx.lineTo(-this.size/2,this.size/2);
-      confCtx.closePath(); confCtx.fill();
-    } else { // star
-      confCtx.beginPath();
-      for(let i=0;i<5;i++){
-        const a=i*Math.PI*2/5-Math.PI/2;
-        const ia=a+Math.PI/5;
-        confCtx.lineTo(Math.cos(a)*this.size/2, Math.sin(a)*this.size/2);
-        confCtx.lineTo(Math.cos(ia)*this.size/4, Math.sin(ia)*this.size/4);
-      }
-      confCtx.closePath(); confCtx.fill();
-    }
-    confCtx.restore();
-  }
-}
-
-function animateConf() {
-  if(!confRunning) return;
-  confCtx.clearRect(0,0,confCanvas.width,confCanvas.height);
-
-  if(Date.now() < confEndTime) {
-    for(let i=0;i<8;i++) confParticles.push(new ConfParticle(false));
-  }
-
-  confParticles = confParticles.filter(p=>p.alpha>0);
-  confParticles.forEach(p=>{p.update();p.draw();});
-
-  if(Date.now() >= confEndTime && confParticles.length===0) {
-    confRunning = false;
-    confCanvas.style.display = 'none';
-    return;
-  }
-  requestAnimationFrame(animateConf);
-}
-
-function launchConfetti(duration=5000) {
-  confCanvas.style.display = 'block';
-  confParticles = [];
-  // burst spawn
-  for(let i=0;i<150;i++) confParticles.push(new ConfParticle(true));
-  confRunning = true;
-  confEndTime = Date.now() + duration;
-  animateConf();
-}
-
-// ============================================================
-//  AUDIO ENGINE — Web Audio API (no external files needed)
-// ============================================================
-let audioCtx = null;
-
-function getAudioCtx() {
-  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
-
-function playTone(freq, type='sine', duration=0.2, vol=0.3, delay=0) {
-  const ctx = getAudioCtx();
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain); gain.connect(ctx.destination);
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, ctx.currentTime+delay);
-  gain.gain.setValueAtTime(0, ctx.currentTime+delay);
-  gain.gain.linearRampToValueAtTime(vol, ctx.currentTime+delay+0.01);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+delay+duration);
-  osc.start(ctx.currentTime+delay);
-  osc.stop(ctx.currentTime+delay+duration+0.01);
-}
-
-function playNoise(duration=0.3, vol=0.1, delay=0) {
-  const ctx = getAudioCtx();
-  const bufSize = ctx.sampleRate * duration;
-  const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-  const data = buf.getChannelData(0);
-  for(let i=0;i<bufSize;i++) data[i]=Math.random()*2-1;
-  const src = ctx.createBufferSource();
-  src.buffer = buf;
-  const gain = ctx.createGain();
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'bandpass';
-  filter.frequency.value = 800+Math.random()*1200;
-  filter.Q.value = 0.5;
-  src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
-  gain.gain.setValueAtTime(vol, ctx.currentTime+delay);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+delay+duration);
-  src.start(ctx.currentTime+delay);
-  src.stop(ctx.currentTime+delay+duration+0.01);
-}
-
-// PARTY sounds sequences
-const SOUNDS = {
-  fanfare: () => {
-    const notes=[523,659,784,1047,1319];
-    notes.forEach((f,i)=>playTone(f,'square',0.25,0.25,i*0.12));
-    playNoise(0.08,0.15,0);
-    playNoise(0.08,0.15,0.6);
-  },
-  airhorn: () => {
-    const ctx=getAudioCtx();
-    const osc=ctx.createOscillator();
-    const gain=ctx.createGain();
-    osc.connect(gain);gain.connect(ctx.destination);
-    osc.type='sawtooth';
-    osc.frequency.setValueAtTime(220,ctx.currentTime);
-    osc.frequency.linearRampToValueAtTime(180,ctx.currentTime+0.5);
-    gain.gain.setValueAtTime(0.4,ctx.currentTime);
-    gain.gain.setValueAtTime(0.4,ctx.currentTime+0.4);
-    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.6);
-    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.65);
-    playNoise(0.5,0.08,0);
-  },
-  woohoo: () => {
-    const ctx=getAudioCtx();
-    const osc=ctx.createOscillator();
-    const gain=ctx.createGain();
-    osc.connect(gain);gain.connect(ctx.destination);
-    osc.type='sine';
-    osc.frequency.setValueAtTime(400,ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(1200,ctx.currentTime+0.3);
-    osc.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+0.6);
-    gain.gain.setValueAtTime(0.3,ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.7);
-    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.75);
-  },
-  disco: () => {
-    const pattern=[261,330,392,523,659,784,659,523,392,330];
-    pattern.forEach((f,i)=>playTone(f,'triangle',0.1,0.2,i*0.07));
-    [0,0.49].forEach(d=>playNoise(0.05,0.2,d));
-  },
-  tada: () => {
-    playNoise(0.05,0.2,0);
-    [523,659,784,1047].forEach((f,i)=>playTone(f,'sine',0.3,0.3,0.05+i*0.08));
-    playTone(1047,2,'square',0.15,0.45);
-  },
-  partyhorn: () => {
-    const ctx=getAudioCtx();
-    const freqs=[330,415,523,622,784];
-    freqs.forEach((f,i)=>{
-      const osc=ctx.createOscillator(); const g=ctx.createGain();
-      osc.connect(g);g.connect(ctx.destination);
-      osc.type='sawtooth'; osc.frequency.value=f;
-      g.gain.setValueAtTime(0.15,ctx.currentTime+i*0.05);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.05+0.4);
-      osc.start(ctx.currentTime+i*0.05); osc.stop(ctx.currentTime+i*0.05+0.45);
-    });
-    playNoise(0.1,0.25,0);
-  }
-};
-
-const soundKeys = Object.keys(SOUNDS);
-let lastSoundIdx = -1;
-
-function playPartySound() {
-  let idx;
-  do { idx = Math.floor(Math.random()*soundKeys.length); } while(idx===lastSoundIdx);
-  lastSoundIdx = idx;
-  SOUNDS[soundKeys[idx]]();
-}
-
-// ============================================================
-//  PARTY TIME BUTTON
-// ============================================================
-function partyTime() {
-  launchConfetti(6000);
-  playPartySound();
-
-  // Shake the whole page briefly
-  document.body.style.animation = 'none';
-  const shake = document.createElement('style');
-  shake.textContent = `@keyframes pageShake {
-    0%,100%{transform:translate(0,0) rotate(0)}
-    15%{transform:translate(-4px,2px) rotate(-0.5deg)}
-    30%{transform:translate(4px,-2px) rotate(0.5deg)}
-    45%{transform:translate(-3px,3px) rotate(-0.3deg)}
-    60%{transform:translate(3px,-1px) rotate(0.3deg)}
-    75%{transform:translate(-2px,2px) rotate(-0.2deg)}
-  }`;
-  document.head.appendChild(shake);
-  document.body.style.animation = 'pageShake 0.5s ease';
-  setTimeout(()=>{ document.body.style.animation=''; shake.remove(); }, 500);
-
-  // Temporarily rainbow-ize some chips
-  document.querySelectorAll('.member-chip, .car-chip').forEach((chip,i)=>{
-    const hue = (i*37)%360;
-    chip.style.transition = 'border-color 0.3s, box-shadow 0.3s';
-    chip.style.borderColor = `hsl(${hue},100%,60%)`;
-    chip.style.boxShadow = `0 0 8px hsl(${hue},100%,50%)`;
-    setTimeout(()=>{ chip.style.borderColor=''; chip.style.boxShadow=''; }, 3000);
-  });
-}
-
-// ============================================================
-//  FIREBASE SYNC
-// ============================================================
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAStAeW6-WSTR5mJP24U1ftISzsnp9aLiY",
-  authDomain: "seminaire-faeab.firebaseapp.com",
-  projectId: "seminaire-faeab",
-  storageBucket: "seminaire-faeab.firebasestorage.app",
-  messagingSenderId: "322919926076",
-  appId: "1:322919926076:web:b28d0e9c863fc28ef77639",
-  measurementId: "G-HXPJ7XNTS9"
-};
-
-const fbApp = initializeApp(firebaseConfig);
-const db = getFirestore(fbApp);
-const STATE_DOC = doc(db, "covoiturage", "state");
-
-let isSyncing = false;
-let saveTimeout = null;
-
-// Indicateur de statut sync
-const syncEl = document.createElement('div');
-syncEl.id = 'syncStatus';
-syncEl.style.cssText = `
-  position:fixed; top:14px; right:18px; z-index:9999;
-  font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600;
-  padding:5px 14px; border-radius:20px; letter-spacing:0.5px;
-  transition: all 0.3s; pointer-events:none;
-  background: rgba(0,245,212,0.12); border: 1px solid rgba(0,245,212,0.3);
-  color: #00f5d4;
-`;
-syncEl.textContent = '⟳ Connexion…';
-document.body.appendChild(syncEl);
-
-function setSyncStatus(state) {
-  if(state === 'saving') {
-    syncEl.style.background = 'rgba(255,228,77,0.12)';
-    syncEl.style.borderColor = 'rgba(255,228,77,0.3)';
-    syncEl.style.color = '#ffe44d';
-    syncEl.textContent = '💾 Sauvegarde…';
-  } else if(state === 'saved') {
-    syncEl.style.background = 'rgba(0,245,212,0.12)';
-    syncEl.style.borderColor = 'rgba(0,245,212,0.3)';
-    syncEl.style.color = '#00f5d4';
-    syncEl.textContent = '✓ Synchronisé';
-  } else if(state === 'error') {
-    syncEl.style.background = 'rgba(255,45,91,0.12)';
-    syncEl.style.borderColor = 'rgba(255,45,91,0.3)';
-    syncEl.style.color = '#ff2d5b';
-    syncEl.textContent = '✕ Erreur sync';
-  } else {
-    syncEl.style.background = 'rgba(0,245,212,0.12)';
-    syncEl.style.borderColor = 'rgba(0,245,212,0.3)';
-    syncEl.style.color = '#00f5d4';
-    syncEl.textContent = '⟳ Connexion…';
-  }
-}
-
-function saveToFirebase() {
-  clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(async () => {
-    setSyncStatus('saving');
-    try {
-      await setDoc(STATE_DOC, {
-        pool: pool,
-        cars: cars.map(c => ({
-          id: c.id, nickname: c.nickname, type: c.type,
-          comment: c.comment, members: c.members,
-          vf: c.vf || false, driver: c.driver || ''
-        })),
-        allMembers: allMembers,
-        updatedAt: Date.now()
-      });
-      setSyncStatus('saved');
-    } catch(e) {
-      console.error('Firebase save error:', e);
-      setSyncStatus('error');
-    }
-  }, 800);
-}
-
-// Écoute les changements en temps réel
-onSnapshot(STATE_DOC, (snap) => {
-  if(!snap.exists()) {
-    // Première fois : on initialise avec les données par défaut
-    saveToFirebase();
-    render();
-    return;
-  }
-  const data = snap.data();
-  // On ne réapplique pas si c'est nous qui venons de sauvegarder
-  isSyncing = true;
-  pool = data.pool || [];
-  cars = data.cars || cars;
-  allMembers = data.allMembers || allMembers;
-  isSyncing = false;
+// ---- firebase bridge (appelé depuis le module ci-dessous) ----
+let fbSave=function(){};  // sera remplacé par le module Firebase
+function fbApplyState(data){
+  isSyncing=true;
+  if(data.pool)pool=data.pool;
+  if(data.cars)cars=data.cars;
+  if(data.allMembers)allMembers=data.allMembers;
+  isSyncing=false;
   render();
   setSyncStatus('saved');
-});
-
-// render() appelle _render() + sauvegarde Firebase
-function render() {
-  _render();
-  if(!isSyncing) saveToFirebase();
 }
 
-// ============================================================
-//  EXPOSE FUNCTIONS TO WINDOW (requis avec type="module")
-// ============================================================
-window.partyTime      = partyTime;
-window.addCar         = addCar;
-window.removeCar      = removeCar;
-window.addMember      = addMember;
-window.deleteMember   = deleteMember;
-window.returnToPool   = returnToPool;
-window.setType        = setType;
-window.updateNickname = updateNickname;
-window.updateComment  = updateComment;
-window.exportSummary  = exportSummary;
+// ---- background particles ----
+const bgCanvas=document.getElementById('bgCanvas');
+const bgCtx=bgCanvas.getContext('2d');
+let bgParticles=[];
+function resizeBg(){bgCanvas.width=window.innerWidth;bgCanvas.height=window.innerHeight;}
+resizeBg();window.addEventListener('resize',resizeBg);
+class BgP{constructor(){this.reset();}reset(){this.x=Math.random()*bgCanvas.width;this.y=Math.random()*bgCanvas.height;this.r=Math.random()*1.5+.3;this.a=Math.random()*.4+.05;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.hue=[170,300,340,50,200][Math.floor(Math.random()*5)];}draw(){bgCtx.beginPath();bgCtx.arc(this.x,this.y,this.r,0,Math.PI*2);bgCtx.fillStyle=`hsla(${this.hue},100%,70%,${this.a})`;bgCtx.fill();}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>bgCanvas.width||this.y<0||this.y>bgCanvas.height)this.reset();}}
+for(let i=0;i<120;i++)bgParticles.push(new BgP());
+function animateBg(){bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);bgParticles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animateBg);}
+animateBg();
 
+// floating emojis
+['🎉','🎊','🥳','✨','🌟','💥','🎈','🍾','🎶','🕺','💃','🎵','🚀','🌈'].forEach((_,i)=>{
+  if(i>17)return;
+  const el=document.createElement('div');el.className='floating-emoji';
+  el.textContent=['🎉','🎊','🥳','✨','🌟','💥','🎈','🍾','🎶','🕺','💃','🎵','🚀','🌈'][i%14];
+  el.style.left=Math.random()*100+'vw';el.style.animationDuration=(8+Math.random()*12)+'s';el.style.animationDelay=(-Math.random()*20)+'s';el.style.fontSize=(1.2+Math.random()*1.8)+'rem';
+  document.body.appendChild(el);
+});
+
+// neon blobs
+['#ff2d5b','#c44dff','#00f5d4','#ffe44d'].forEach((col,i)=>{
+  const b=document.createElement('div');b.className='neon-blob';
+  b.style.cssText=`width:${300+i*80}px;height:${300+i*80}px;background:${col};left:${[10,60,5,70][i]}%;top:${[10,20,70,60][i]}%;animation-delay:${i*1.2}s;animation-duration:${4+i}s;`;
+  document.body.appendChild(b);
+});
+
+// ---- confetti ----
+const confCanvas=document.getElementById('confettiCanvas');
+const confCtx=confCanvas.getContext('2d');
+let confParts=[],confRunning=false,confEnd=0;
+function resizeConf(){confCanvas.width=window.innerWidth;confCanvas.height=window.innerHeight;}
+resizeConf();window.addEventListener('resize',resizeConf);
+const CC=['#ff2d5b','#ffe44d','#00f5d4','#c44dff','#ff6eb4','#4dffb0','#ff9b3d','#fff'];
+const SH=['rect','circle','triangle','star'];
+class CP{constructor(b){this.x=b?Math.random()*confCanvas.width:Math.random()*confCanvas.width;this.y=b?Math.random()*confCanvas.height*.5:-10;this.size=Math.random()*10+5;this.color=CC[Math.floor(Math.random()*CC.length)];this.shape=SH[Math.floor(Math.random()*SH.length)];this.vx=(Math.random()-.5)*6;this.vy=Math.random()*4+1;this.rot=Math.random()*Math.PI*2;this.rotV=(Math.random()-.5)*.2;this.gravity=.08;this.alpha=1;this.wobble=Math.random()*Math.PI*2;this.wobbleSpeed=Math.random()*.05+.02;}update(){this.wobble+=this.wobbleSpeed;this.x+=this.vx+Math.sin(this.wobble)*1.5;this.vy+=this.gravity;this.y+=this.vy;this.rot+=this.rotV;if(this.y>confCanvas.height+20)this.alpha=0;}draw(){confCtx.save();confCtx.globalAlpha=this.alpha;confCtx.translate(this.x,this.y);confCtx.rotate(this.rot);confCtx.fillStyle=this.color;if(this.shape==='rect'){confCtx.fillRect(-this.size/2,-this.size/4,this.size,this.size/2);}else if(this.shape==='circle'){confCtx.beginPath();confCtx.arc(0,0,this.size/2,0,Math.PI*2);confCtx.fill();}else if(this.shape==='triangle'){confCtx.beginPath();confCtx.moveTo(0,-this.size/2);confCtx.lineTo(this.size/2,this.size/2);confCtx.lineTo(-this.size/2,this.size/2);confCtx.closePath();confCtx.fill();}else{confCtx.beginPath();for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2,ia=a+Math.PI/5;confCtx.lineTo(Math.cos(a)*this.size/2,Math.sin(a)*this.size/2);confCtx.lineTo(Math.cos(ia)*this.size/4,Math.sin(ia)*this.size/4);}confCtx.closePath();confCtx.fill();}confCtx.restore();}}
+function animateConf(){if(!confRunning)return;confCtx.clearRect(0,0,confCanvas.width,confCanvas.height);if(Date.now()<confEnd)for(let i=0;i<8;i++)confParts.push(new CP(false));confParts=confParts.filter(p=>p.alpha>0);confParts.forEach(p=>{p.update();p.draw();});if(Date.now()>=confEnd&&confParts.length===0){confRunning=false;confCanvas.style.display='none';return;}requestAnimationFrame(animateConf);}
+function launchConfetti(d=5000){confCanvas.style.display='block';confParts=[];for(let i=0;i<150;i++)confParts.push(new CP(true));confRunning=true;confEnd=Date.now()+d;animateConf();}
+
+// ---- audio ----
+let audioCtx=null;
+function getAC(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function tone(f,type,dur,vol,delay){const ctx=getAC(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(f,ctx.currentTime+delay);g.gain.setValueAtTime(0,ctx.currentTime+delay);g.gain.linearRampToValueAtTime(vol,ctx.currentTime+delay+.01);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+dur);o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+dur+.01);}
+function noise(dur,vol,delay){const ctx=getAC(),buf=ctx.createBuffer(1,ctx.sampleRate*dur,ctx.sampleRate),d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const src=ctx.createBufferSource(),g=ctx.createGain(),f=ctx.createBiquadFilter();f.type='bandpass';f.frequency.value=800+Math.random()*1200;src.buffer=buf;src.connect(f);f.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(vol,ctx.currentTime+delay);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+dur);src.start(ctx.currentTime+delay);src.stop(ctx.currentTime+delay+dur+.01);}
+const SOUNDS={
+  fanfare:()=>{[523,659,784,1047,1319].forEach((f,i)=>tone(f,'square',.25,.25,i*.12));noise(.08,.15,0);noise(.08,.15,.6);},
+  airhorn:()=>{const ctx=getAC(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.setValueAtTime(220,ctx.currentTime);o.frequency.linearRampToValueAtTime(180,ctx.currentTime+.5);g.gain.setValueAtTime(.4,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.6);o.start();o.stop(ctx.currentTime+.65);noise(.5,.08,0);},
+  woohoo:()=>{const ctx=getAC(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(400,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(1200,ctx.currentTime+.3);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.6);g.gain.setValueAtTime(.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.7);o.start();o.stop(ctx.currentTime+.75);},
+  disco:()=>{[261,330,392,523,659,784,659,523,392,330].forEach((f,i)=>tone(f,'triangle',.1,.2,i*.07));[0,.49].forEach(d=>noise(.05,.2,d));},
+  tada:()=>{noise(.05,.2,0);[523,659,784,1047].forEach((f,i)=>tone(f,'sine',.3,.3,.05+i*.08));tone(1047,'square',.15,.15,.45);},
+};
+const SK=Object.keys(SOUNDS);let lastSnd=-1;
+function playPartySound(){let i;do{i=Math.floor(Math.random()*SK.length);}while(i===lastSnd);lastSnd=i;SOUNDS[SK[i]]();}
+
+// ---- PARTY TIME ----
+function partyTime(){
+  launchConfetti(6000);
+  playPartySound();
+  const shake=document.createElement('style');
+  shake.textContent='@keyframes pageShake{0%,100%{transform:translate(0,0)}15%{transform:translate(-4px,2px)}30%{transform:translate(4px,-2px)}45%{transform:translate(-3px,3px)}60%{transform:translate(3px,-1px)}75%{transform:translate(-2px,2px)}}';
+  document.head.appendChild(shake);
+  document.body.style.animation='pageShake .5s ease';
+  setTimeout(()=>{document.body.style.animation='';shake.remove();},500);
+  document.querySelectorAll('.member-chip,.car-chip').forEach((chip,i)=>{
+    const hue=(i*37)%360;
+    chip.style.transition='border-color .3s,box-shadow .3s';
+    chip.style.borderColor=`hsl(${hue},100%,60%)`;
+    chip.style.boxShadow=`0 0 8px hsl(${hue},100%,50%)`;
+    setTimeout(()=>{chip.style.borderColor='';chip.style.boxShadow='';},3000);
+  });
+}
+
+// Lance le rendu initial (Firebase prendra la main dès qu'il est prêt)
 render();
+</script>
+
+<!-- ============================================================
+     FIREBASE MODULE — séparé pour pouvoir utiliser les imports
+     ============================================================ -->
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,doc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const app=initializeApp({
+  apiKey:"AIzaSyAStAeW6-WSTR5mJP24U1ftISzsnp9aLiY",
+  authDomain:"seminaire-faeab.firebaseapp.com",
+  projectId:"seminaire-faeab",
+  storageBucket:"seminaire-faeab.firebasestorage.app",
+  messagingSenderId:"322919926076",
+  appId:"1:322919926076:web:b28d0e9c863fc28ef77639"
+});
+const db=getFirestore(app);
+const REF=doc(db,"covoiturage","state");
+
+let saveTimer=null;
+
+// On remplace le fbSave() vide défini dans le script principal
+window.fbSave=function(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    setSyncStatus('saving');
+    try{
+      await setDoc(REF,{
+        pool:window.pool,
+        cars:window.cars.map(c=>({id:c.id,nickname:c.nickname,type:c.type,comment:c.comment,members:c.members,vf:c.vf||false,driver:c.driver||''})),
+        allMembers:window.allMembers,
+        updatedAt:Date.now()
+      });
+      setSyncStatus('saved');
+    }catch(e){console.error(e);setSyncStatus('error');}
+  },800);
+};
+
+// Écoute temps réel
+onSnapshot(REF,(snap)=>{
+  if(!snap.exists()){window.fbSave();return;}
+  window.fbApplyState(snap.data());
+});
 </script>
 </body>
 </html>
