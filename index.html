@@ -1,3206 +1,1328 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet Seconde Vie - Terres & Eaux</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎉 Covoiturage Équipe Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 8px rgba(255,255,255,0.5);
-    font-weight: 800;
-    letter-spacing: -1px;
-    color: #003d5c;
-}
-
-.subtitle {
-    font-size: 1.3rem;
-    opacity: 0.9;
-    font-weight: 300;
-    text-shadow: 1px 1px 4px rgba(255,255,255,0.3);
-    color: #005580;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1rem 0;
-}
-
-nav li {
-    margin: 0.5rem 0.8rem;
-}
-
-nav a {
-    text-decoration: none;
-    color: #006080;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    padding: 0.7rem 1.3rem;
-    border-radius: 25px;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    position: relative;
-}
-
-nav a:hover {
-    background: linear-gradient(135deg, #2FA1C5 0%, #1E90FF 100%);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
-}
-
-main {
-    background: rgba(255, 255, 255, 0.9);
-    margin: 3rem auto;
-    padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    position: relative;
-    z-index: 1;
-}
-
-/* POISSONS qui nagent sur les côtés */
-main::before {
-    content: "🐠";
-    position: fixed;
-    right: -50px;
-    font-size: 2.5rem;
-    animation: fish-swim-right 20s linear infinite;
-    z-index: -1;
-    opacity: 0.7;
-}
-
-main::after {
-    content: "🐟";
-    position: fixed;
-    left: -50px;
-    font-size: 2rem;
-    animation: fish-swim-left 25s linear infinite 5s;
-    z-index: -1;
-    opacity: 0.6;
-}
-
-@keyframes fish-swim-right {
-    0% { right: -50px; top: 40vh; }
-    50% { right: 110vw; top: 45vh; }
-    51% { right: 110vw; top: 60vh; transform: scaleX(-1); }
-    100% { right: -50px; top: 65vh; transform: scaleX(-1); }
-}
-
-@keyframes fish-swim-left {
-    0% { left: -50px; top: 50vh; transform: scaleX(-1); }
-    50% { left: 110vw; top: 55vh; transform: scaleX(-1); }
-    51% { left: 110vw; top: 70vh; transform: scaleX(1); }
-    100% { left: -50px; top: 75vh; transform: scaleX(1); }
-}
-
-section {
-    margin-bottom: 4rem;
-    scroll-margin-top: 100px;
-    position: relative;
-}
-
-/* BULLES qui remontent */
-section::before {
-    content: "○";
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 1.5rem;
-    animation: bubbles-rise 8s ease-in infinite;
-}
-
-section::after {
-    content: "○";
-    position: absolute;
-    right: 10%;
-    bottom: 0;
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 1rem;
-    animation: bubbles-rise 10s ease-in infinite 2s;
-}
-
-@keyframes bubbles-rise {
-    0% { transform: translateY(0) scale(1); opacity: 0; }
-    10% { opacity: 0.4; }
-    90% { opacity: 0.4; }
-    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-}
-
-/* PROFONDEUR 1 : Introduction (Surface) */
-#introduction {
-    color: #003d5c;
-}
-
-/* PROFONDEUR 2 : Contexte Marché (Eau peu profonde) */
-#contexte-marche {
-    color: #004d73;
-}
-
-#contexte-marche::before {
-    content: "🐡";
-    position: absolute;
-    right: 5%;
-    top: 20%;
-    font-size: 2rem;
-    animation: float 4s ease-in-out infinite;
-    opacity: 0.5;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-/* PROFONDEUR 3 : SWOT / Personas (Eau moyenne) */
-#swot, #personas {
-    color: #005580;
-}
-
-#swot::after {
-    content: "🐠";
-    position: absolute;
-    left: 8%;
-    top: 30%;
-    font-size: 2.5rem;
-    animation: fish-wiggle 5s ease-in-out infinite;
-    opacity: 0.4;
-}
-
-@keyframes fish-wiggle {
-    0%, 100% { transform: translateX(0) rotate(0deg); }
-    25% { transform: translateX(10px) rotate(5deg); }
-    75% { transform: translateX(-10px) rotate(-5deg); }
-}
-
-/* PROFONDEUR 4 : Catégories (Eau profonde) */
-#categories {
-    color: #004466;
-}
-
-#categories::before {
-    content: "🦈";
-    position: absolute;
-    right: 3%;
-    top: 10%;
-    font-size: 3rem;
-    animation: shark-patrol 15s linear infinite;
-    opacity: 0.3;
-}
-
-@keyframes shark-patrol {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-200px); }
-    100% { transform: translateX(0); }
-}
-
-/* PROFONDEUR 5 : Reprise / Événement (Très profond) */
-#reprise, #evenement-tournoi {
-    color: #003355;
-}
-
-#reprise::after {
-    content: "🦑";
-    position: absolute;
-    left: 5%;
-    bottom: 10%;
-    font-size: 3rem;
-    animation: octopus-move 12s ease-in-out infinite;
-    opacity: 0.25;
-}
-
-@keyframes octopus-move {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(30px, -20px) rotate(10deg); }
-    50% { transform: translate(50px, -10px) rotate(-10deg); }
-    75% { transform: translate(20px, -30px) rotate(5deg); }
-}
-
-/* PROFONDEUR 6 : Vente / Communication (Abysses) */
-#vente, #communication {
-    color: #002244;
-}
-
-#vente::before {
-    content: "🦞";
-    position: absolute;
-    right: 8%;
-    top: 40%;
-    font-size: 2.5rem;
-    animation: crab-walk 10s ease-in-out infinite;
-    opacity: 0.2;
-}
-
-@keyframes crab-walk {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-80px); }
-}
-
-/* PROFONDEUR 7 : Économique (Abysses profonds) */
-#economique {
-    color: #001133;
-}
-
-#economique::after {
-    content: "🐙";
-    position: absolute;
-    left: 10%;
-    top: 20%;
-    font-size: 4rem;
-    animation: giant-octopus 20s ease-in-out infinite;
-    opacity: 0.15;
-}
-
-@keyframes giant-octopus {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.1) rotate(15deg); }
-}
-
-/* PROFONDEUR 8 : Planning / Conclusion (Fosse des Mariannes) */
-#planning, #conclusion {
-    color: #000d1a;
-}
-
-#planning::before {
-    content: "🦈";
-    position: absolute;
-    right: 5%;
-    bottom: 15%;
-    font-size: 4rem;
-    animation: deep-shark 25s linear infinite;
-    opacity: 0.1;
-    filter: brightness(0.5);
-}
-
-@keyframes deep-shark {
-    0% { transform: translateX(100vw) scaleX(-1); }
-    100% { transform: translateX(-100px) scaleX(-1); }
-}
-
-/* LUMIÈRES BIOLUMINESCENTES (sections profondes) */
-#economique::before,
-#planning::after,
-#conclusion::before {
-    content: "✨";
-    position: absolute;
-    font-size: 1rem;
-    animation: bioluminescence 3s ease-in-out infinite;
-    opacity: 0;
-}
-
-#economique::before { left: 15%; top: 60%; animation-delay: 0s; }
-#planning::after { right: 20%; top: 30%; animation-delay: 1s; }
-#conclusion::before { left: 50%; top: 50%; animation-delay: 2s; }
-
-@keyframes bioluminescence {
-    0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 0.6; transform: scale(1); }
-}
-
-h2 {
-    border-bottom: none;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    font-weight: 800;
-    position: relative;
-    padding-left: 60px;
-}
-
-h2::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, rgba(30, 144, 255, 0.3) 0%, rgba(47, 161, 197, 0.3) 100%);
-    border-radius: 50%;
-    animation: pulse-slow 2s ease-in-out infinite;
-}
-
-@keyframes pulse-slow {
-    0%, 100% { transform: translateY(-50%) scale(1); }
-    50% { transform: translateY(-50%) scale(1.1); }
-}
-
-h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 120px;
-    height: 4px;
-    background: linear-gradient(90deg, currentColor 0%, transparent 100%);
-    border-radius: 2px;
-}
-
-h3 {
-    margin: 2rem 0 1.2rem;
-    font-size: 1.8rem;
-    font-weight: 700;
-    padding-left: 20px;
-    border-left: 5px solid currentColor;
-    opacity: 0.9;
-}
-
-h4 {
-    margin: 1.5rem 0 0.8rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    opacity: 0.85;
-}
-
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin: 2rem 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.95);
-}
-
-th {
-    background: linear-gradient(135deg, #1E90FF 0%, #2FA1C5 100%);
-    color: white;
-    padding: 1.2rem;
-    text-align: left;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.9rem;
-}
-
-td {
-    padding: 1.2rem;
-    border-bottom: 1px solid rgba(30, 144, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-tr:hover {
-    background: rgba(30, 144, 255, 0.05);
-    transform: scale(1.005);
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-.etat-neuf {
-    background: linear-gradient(135deg, rgba(224, 247, 250, 0.8) 0%, rgba(178, 235, 242, 0.8) 100%);
-    border-left: 5px solid #00acc1;
-}
-
-.etat-tres-bon {
-    background: linear-gradient(135deg, rgba(224, 242, 241, 0.8) 0%, rgba(178, 223, 219, 0.8) 100%);
-    border-left: 5px solid #26a69a;
-}
-
-.etat-bon {
-    background: linear-gradient(135deg, rgba(255, 248, 225, 0.8) 0%, rgba(255, 236, 179, 0.8) 100%);
-    border-left: 5px solid #ffa726;
-}
-
-.etat-satisfaisant {
-    background: linear-gradient(135deg, rgba(252, 228, 236, 0.8) 0%, rgba(248, 187, 208, 0.8) 100%);
-    border-left: 5px solid #ef5350;
-}
-
-.badge {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    border-radius: 25px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin: 0.3rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.badge-success { 
-    background: linear-gradient(135deg, #00acc1 0%, #26c6da 100%);
-    color: white; 
-}
-.badge-info { 
-    background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%);
-    color: white; 
-}
-.badge-warning { 
-    background: linear-gradient(135deg, #ffa726 0%, #ffb74d 100%);
-    color: white; 
-}
-.badge-danger { 
-    background: linear-gradient(135deg, #ef5350 0%, #e57373 100%);
-    color: white; 
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    border: 2px solid rgba(30, 144, 255, 0.2);
-    border-radius: 15px;
-    padding: 2rem;
-    margin: 1.5rem 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(180deg, #1E90FF 0%, #2FA1C5 100%);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(30, 144, 255, 0.2);
-}
-
-.highlight {
-    background: linear-gradient(135deg, rgba(255, 253, 231, 0.95) 0%, rgba(255, 249, 196, 0.95) 100%);
-    padding: 2rem;
-    border-left: 6px solid #fbc02d;
-    margin: 2rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(251, 192, 45, 0.15);
-    position: relative;
-}
-
-.highlight::before {
-    content: "💡";
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 2rem;
-    opacity: 0.3;
-}
-
-ul, ol {
-    margin: 1.5rem 0 1.5rem 2.5rem;
-}
-
-li {
-    margin: 0.8rem 0;
-    padding-left: 0.5rem;
-}
-
-.exclusion {
-    background: linear-gradient(135deg, rgba(255, 235, 238, 0.95) 0%, rgba(255, 205, 210, 0.95) 100%);
-    padding: 1.5rem;
-    border-left: 5px solid #ef5350;
-    margin: 1.5rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.1);
-}
-
-.inclusion {
-    background: linear-gradient(135deg, rgba(224, 247, 250, 0.95) 0%, rgba(178, 235, 242, 0.95) 100%);
-    padding: 1.5rem;
-    border-left: 5px solid #00acc1;
-    margin: 1.5rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 172, 193, 0.1);
-}
-
-/* STAT-CARDS = BULLES D'AIR */
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin: 2.5rem 0;
-}
-
-.stat-card {
-    background: linear-gradient(135deg, rgba(30, 144, 255, 0.9) 0%, rgba(47, 161, 197, 0.9) 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 50%;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.3);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid rgba(255, 255, 255, 0.5);
-}
-
-.stat-card::before {
-    content: "";
-    position: absolute;
-    top: -20%;
-    left: -20%;
-    width: 140%;
-    height: 140%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
-    animation: bubble-shine 3s ease-in-out infinite;
-}
-
-@keyframes bubble-shine {
-    0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.3; }
-    50% { transform: scale(1.2) translate(10%, -10%); opacity: 0.6; }
-}
-
-.stat-card:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(30, 144, 255, 0.4);
-    animation: bubble-float 2s ease-in-out infinite;
-}
-
-@keyframes bubble-float {
-    0%, 100% { transform: translateY(-15px) scale(1.05); }
-    50% { transform: translateY(-25px) scale(1.05); }
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 1;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    opacity: 0.95;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-}
-
-footer {
-    background: linear-gradient(135deg, #000000 0%, #001a33 100%);
-    color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 3rem 0;
-    margin-top: 4rem;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 1;
-}
-
-footer::before {
-    content: "🦑";
-    position: absolute;
-    left: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-    opacity: 0.1;
-    animation: deep-creature 10s ease-in-out infinite;
-}
-
-footer::after {
-    content: "🐙";
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-    opacity: 0.1;
-    animation: deep-creature 12s ease-in-out infinite reverse;
-}
-
-@keyframes deep-creature {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50% { transform: translateY(-50%) translateX(20px); }
-}
-
-.print-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: linear-gradient(135deg, #1E90FF 0%, #00acc1 100%);
-    color: white;
-    border: none;
-    padding: 1.2rem;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.4);
-    font-size: 1.8rem;
-    transition: all 0.3s ease;
-    z-index: 999;
-    border: 3px solid rgba(255, 255, 255, 0.5);
-}
-
-.print-btn:hover {
-    background: linear-gradient(135deg, #00acc1 0%, #26c6da 100%);
-    transform: scale(1.15) translateY(-5px);
-    box-shadow: 0 10px 30px rgba(30, 144, 255, 0.5);
-}
-
-@media print {
-    nav, .print-btn { display: none; }
-    main { box-shadow: none; margin: 0; }
-    body::before, body::after { display: none; }
-}
-
-@media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.8rem; padding-left: 40px; }
-    nav ul { flex-direction: column; }
-    nav li { margin: 0.3rem 0; }
-    table { font -size: 0.85rem; }
-    th, td { padding: 0.8rem; }
-    main { padding: 1.5rem; }
-    .stats { grid-template-columns: 1fr; }
-    .stat-card { border-radius: 15px; aspect-ratio: auto; }
-    
-    /* Masquer certaines animations sur mobile pour performances */
-    section::before, section::after { display: none; }
-    main::before, main::after { display: none; }
-}
-
-/* Scrollbar personnalisée - gradient bleu profond */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: linear-gradient(180deg, #B0E0E6 0%, #001a33 100%);
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #1E90FF 0%, #006080 100%);
-    border-radius: 6px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #00acc1 0%, #003d5c 100%);
-}
-
-/* Méduses pour les sections moyennes */
-#categories::after,
-#reprise::before {
-    content: "🪼";
-    position: absolute;
-    font-size: 2rem;
-    animation: jellyfish 8s ease-in-out infinite;
-    opacity: 0.2;
-}
-
-#categories::after { right: 10%; top: 50%; }
-#reprise::before { left: 15%; top: 25%; animation-delay: 3s; }
-
-@keyframes jellyfish {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-20px) rotate(5deg); }
-    50% { transform: translateY(-10px) rotate(-5deg); }
-    75% { transform: translateY(-30px) rotate(3deg); }
-}
-
-/* Coraux pour décoration sections moyennes */
-#swot::before {
-    content: "🪸";
-    position: absolute;
-    left: 3%;
-    bottom: 5%;
-    font-size: 2rem;
-    opacity: 0.15;
-    animation: coral-sway 6s ease-in-out infinite;
-}
-
-@keyframes coral-sway {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-}
-
-/* Poissons tropicaux pour sections peu profondes */
-#contexte-marche::after {
-    content: "🐠";
-    position: absolute;
-    left: 12%;
-    top: 60%;
-    font-size: 1.8rem;
-    animation: tropical-swim 12s linear infinite;
-    opacity: 0.4;
-}
-
-@keyframes tropical-swim {
-    0% { transform: translateX(0) scaleX(1); }
-    45% { transform: translateX(200px) scaleX(1); }
-    50% { transform: translateX(200px) scaleX(-1); }
-    95% { transform: translateX(0) scaleX(-1); }
-    100% { transform: translateX(0) scaleX(1); }
-}
-
-/* Étoiles de mer sections peu profondes */
-#personas::before {
-    content: "⭐";
-    position: absolute;
-    right: 8%;
-    bottom: 10%;
-    font-size: 2rem;
-    opacity: 0.2;
-    animation: starfish-pulse 4s ease-in-out infinite;
-}
-
-@keyframes starfish-pulse {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.1) rotate(15deg); }
-}
-
-/* Tortue pour section communication */
-#communication::after {
-    content: "🐢";
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    font-size: 3rem;
-    animation: turtle-swim 30s linear infinite;
-    opacity: 0.15;
-}
-
-@keyframes turtle-swim {
-    0% { transform: translateX(0) scaleX(-1); }
-    100% { transform: translateX(80vw) scaleX(-1); }
-}
-
-/* Raie manta pour section vente */
-#vente::after {
-    content: "🐋";
-    position: absolute;
-    left: -100px;
-    top: 30%;
-    font-size: 4rem;
-    animation: whale-pass 40s linear infinite;
-    opacity: 0.12;
-}
-
-@keyframes whale-pass {
-    0% { transform: translateX(0) scaleX(-1); }
-    100% { transform: translateX(120vw) scaleX(-1); }
-}
-
-/* Anémone de mer sections profondes */
-#economique h3::before {
-    content: "🌺";
-    position: absolute;
-    left: -30px;
-    opacity: 0.15;
-    filter: hue-rotate(180deg) brightness(0.6);
-}
-
-/* Algues qui ondulent dans sections peu profondes */
-#introduction::after {
-    content: "🌿";
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-    font-size: 4rem;
-    opacity: 0.2;
-    animation: seaweed 5s ease-in-out infinite;
-    transform-origin: bottom;
-}
-
-@keyframes seaweed {
-    0%, 100% { transform: rotate(-8deg); }
-    50% { transform: rotate(8deg); }
-}
-
-/* Effet de profondeur sur les titres selon la section */
-#introduction h2, #contexte-marche h2 { color: #003d5c; }
-#swot h2, #personas h2 { color: #005580; }
-#categories h2 { color: #004466; }
-#reprise h2, #evenement-tournoi h2 { color: #003355; }
-#vente h2, #communication h2 { color: #002244; }
-#economique h2 { color: #001133; }
-#planning h2, #conclusion h2 { color: #000d1a; text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
-
-/* Particules lumineuses pour sections très profondes */
-#planning {
-    position: relative;
-}
-
-#planning .card::after,
-#conclusion .card::after {
-    content: "·";
-    position: absolute;
-    color: rgba(100, 200, 255, 0.4);
-    font-size: 2rem;
-    animation: sparkle 2s ease-in-out infinite;
-}
-
-#planning .card:nth-child(1)::after { right: 10%; top: 20%; animation-delay: 0s; }
-#planning .card:nth-child(2)::after { left: 15%; top: 60%; animation-delay: 0.7s; }
-#planning .card:nth-child(3)::after { right: 20%; bottom: 30%; animation-delay: 1.4s; }
-
-@keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0); }
-    50% { opacity: 0.6; transform: scale(1.5); }
-}
-
-/* Texte plus clair dans sections très profondes pour lisibilité */
-#planning, #conclusion {
-    background: rgba(255, 255, 255, 0.98);
-}
-
-#planning h3, #planning h4, #planning p,
-#conclusion h3, #conclusion h4, #conclusion p {
-    color: #003355;
-}
-
-/* Amélioration lisibilité footer (fosse des mariannes) */
-footer p, footer strong {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-}
-
-/* Transition douce entre sections */
-section {
-    animation: fade-in 0.8s ease-out;
-}
-
-@keyframes fade-in {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Coquillage sections peu profondes */
-#contexte-marche h2::after {
-    content: "🐚";
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 2rem;
-    opacity: 0.15;
-    animation: shell-rotate 10s linear infinite;
-}
-
-@keyframes shell-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Plancton lumineux (micro-organismes) dans sections profondes */
-#economique table::before,
-#planning table::before {
-    content: "·";
-    position: absolute;
-    left: 5%;
-    top: 30%;
-    color: rgba(150, 220, 255, 0.3);
-    font-size: 1rem;
-    animation: plankton 4s ease-in-out infinite;
-}
-
-@keyframes plankton {
-    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
-    50% { transform: translate(10px, -10px); opacity: 0.6; }
-}
-
-/* Effet d'ombre portée qui s'accentue avec la profondeur */
-#introduction main { filter: brightness(1.05); }
-#contexte-marche main { filter: brightness(1.03); }
-#swot main, #personas main { filter: brightness(1); }
-#categories main { filter: brightness(0.98); }
-#reprise main, #evenement-tournoi main { filter: brightness(0.96); }
-#vente main, #communication main { filter: brightness(0.94); }
-#economique main { filter: brightness(0.92); }
-#planning main, #conclusion main { filter: brightness(0.9); }
-
-/* Zone bioluminescente dans le footer */
-footer .container::before {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: bio-glow 5s ease-in-out infinite;
-    left: 30%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-@keyframes bio-glow {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.7;
-    color: #2d3436;
-    position: relative;
-    overflow-x: hidden;
+  :root {
+    --bg: #0a0a12;
+    --card: #13131f;
+    --card2: #1a1a2e;
+    --accent: #ff2d5b;
+    --teal: #00f5d4;
+    --gold: #ffe44d;
+    --purple: #c44dff;
+    --pink: #ff6eb4;
+    --text: #f0f0ff;
+    --muted: #8888aa;
+    --border: #252540;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
-}
+    padding: 32px 16px 100px;
+    overflow-x: hidden;
+    position: relative;
+  }
 
-/* ========== DÉGRADÉ FOND PROGRESSIF ========== */
-body {
-    background: linear-gradient(
-        to bottom,
-        #E0F6FF 0%,
-        #B8E6FF 8%,
-        #87CEEB 15%,
-        #6DC5E8 22%,
-        #4FB3D1 28%,
-        #2FA1C5 35%,
-        #1E90FF 42%,
-        #1873CC 50%,
-        #0D5A99 58%,
-        #094266 66%,
-        #052A44 74%,
-        #021B2E 82%,
-        #000D1A 90%,
-        #000000 100%
-    );
-    background-attachment: fixed;
-}
-
-/* ========== NUAGES ANIMÉS ========== */
-.clouds {
+  /* ===== BACKGROUND MADNESS ===== */
+  #bgCanvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 300px;
-    background: 
-        radial-gradient(ellipse 300px 100px at 20% 40%, rgba(255,255,255,0.9), transparent),
-        radial-gradient(ellipse 400px 130px at 60% 30%, rgba(255,255,255,0.75), transparent),
-        radial-gradient(ellipse 320px 110px at 85% 50%, rgba(255,255,255,0.85), transparent);
-    animation: clouds-move 60s linear infinite;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .floating-emoji {
+    position: fixed;
+    font-size: 2rem;
     pointer-events: none;
     z-index: 1;
-}
+    animation: floatUp linear infinite;
+    opacity: 0.18;
+    user-select: none;
+  }
 
-@keyframes clouds-move {
-    from { transform: translateX(0); }
-    to { transform: translateX(-100vw); }
-}
+  @keyframes floatUp {
+    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.18; }
+    90%  { opacity: 0.18; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
 
-/* ========== SOLEIL FIXE ========== */
-.sun {
+  /* neon glow pulse on bg */
+  @keyframes neonPulse {
+    0%, 100% { opacity: 0.06; }
+    50% { opacity: 0.14; }
+  }
+
+  .neon-blob {
     position: fixed;
-    top: 80px;
-    right: 120px;
-    font-size: 7rem;
-    animation: sun-glow 4s ease-in-out infinite;
-    z-index: 2;
+    border-radius: 50%;
+    filter: blur(80px);
     pointer-events: none;
-}
-
-@keyframes sun-glow {
-    0%, 100% { 
-        filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.8));
-        transform: scale(1);
-    }
-    50% { 
-        filter: drop-shadow(0 0 80px rgba(255, 200, 0, 1));
-        transform: scale(1.1);
-    }
-}
-
-/* ========== OISEAUX VOLANTS ========== */
-.bird {
-    position: fixed;
-    font-size: 2.5rem;
-    animation: bird-path 20s linear infinite;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.bird:nth-child(1) {
-    top: 150px;
-    animation-delay: 0s;
-}
-
-.bird:nth-child(2) {
-    top: 200px;
-    animation-delay: 7s;
-}
-
-@keyframes bird-path {
-    0% { left: -100px; transform: translateY(0); }
-    50% { left: 50%; transform: translateY(-30px); }
-    100% { left: 110%; transform: translateY(0); }
-}
-
-/* ========== BARQUE FLOTTANTE (RESTE EN HAUT) ========== */
-.boat {
-    position: fixed;
-    top: 250px;
-    left: 15%;
-    font-size: 5rem;
-    animation: boat-bobbing 6s ease-in-out infinite;
-    z-index: 3;
-    pointer-events: none;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-}
-
-@keyframes boat-bobbing {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-18px) rotate(2deg); }
-}
-
-/* ========== VAGUES RÉALISTES ========== */
-header {
-    position: relative;
-    background: linear-gradient(180deg, rgba(224, 246, 255, 0.5) 0%, rgba(79, 179, 209, 0.3) 100%);
-    padding: 4rem 0;
-    overflow: hidden;
-}
-
-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,0 Q300,40 600,0 T1200,0 L1200,120 L0,120 Z' fill='%234FB3D1' opacity='0.6'/%3E%3C/svg%3E");
-    background-size: 100% 50px;
-    animation: wave-motion 8s ease-in-out infinite;
-}
-
-@keyframes wave-motion {
-    0%, 100% { transform: translateX(0) scaleY(1); }
-    50% { transform: translateX(-50px) scaleY(1.1); }
-}
-
-nav {
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-bottom: 3px solid #2FA1C5;
-}
-
-nav::before {
-    content: '';
-    position: absolute;
-    bottom: -25px;
-    left: 0;
-    width: 200%;
-    height: 25px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 Q150,10 300,30 T600,30 T900,30 T1200,30' stroke='%232FA1C5' stroke-width='3' fill='none' opacity='0.5'/%3E%3C/svg%3E");
-    background-size: 50% 25px;
-    animation: wave-small 10s linear infinite;
-}
-
-@keyframes wave-small {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-/* ========== POISSONS QUI NAGENT ========== */
-.fish {
-    position: fixed;
-    font-size: 3rem;
     z-index: 0;
-    pointer-events: none;
-    opacity: 0.8;
-}
+    animation: neonPulse 4s ease-in-out infinite;
+  }
 
-.fish-1 {
-    animation: swim-right 20s linear infinite;
-}
+  /* ===== CONTENT ===== */
+  .content { position: relative; z-index: 2; }
 
-.fish-2 {
-    animation: swim-left 25s linear infinite 5s;
-}
+  /* HEADER */
+  .site-header { text-align: center; margin-bottom: 10px; }
 
-.fish-3 {
-    top: 50vh;
-    right: 10%;
-    animation: float-fish 8s ease-in-out infinite;
-}
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--pink), var(--teal), var(--purple), var(--gold));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(255,110,180,0.5));
+  }
 
-@keyframes swim-right {
-    0% { right: -100px; top: 35vh; transform: scaleX(1); }
-    48% { right: 110%; top: 40vh; transform: scaleX(1); }
-    50% { right: 110%; top: 40vh; transform: scaleX(-1); }
-    98% { right: -100px; top: 35vh; transform: scaleX(-1); }
-    100% { right: -100px; top: 35vh; transform: scaleX(1); }
-}
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
 
-@keyframes swim-left {
-    0% { left: -100px; top: 45vh; transform: scaleX(-1); }
-    48% { left: 110%; top: 48vh; transform: scaleX(-1); }
-    50% { left: 110%; top: 48vh; transform: scaleX(1); }
-    98% { left: -100px; top: 45vh; transform: scaleX(1); }
-    100% { left: -100px; top: 45vh; transform: scaleX(-1); }
-}
-
-@keyframes float-fish {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-30px) translateX(20px); }
-}
-
-/* ========== REQUIN ========== */
-.shark {
-    position: fixed;
-    top: 65vh;
-    font-size: 5rem;
-    animation: shark-hunt 30s linear infinite;
-    opacity: 0.6;
-    filter: brightness(0.7);
-    z-index: 0;
-    pointer-events: none;
-}
-
-@keyframes shark-hunt {
-    from { right: -200px; transform: scaleX(-1); }
-    to { right: 120%; transform: scaleX(-1); }
-}
-
-/* ========== MÉDUSE ========== */
-.jellyfish {
-    position: fixed;
-    left: 20%;
-    top: 70vh;
-    font-size: 3.5rem;
-    animation: jellyfish-pulse 10s ease-in-out infinite;
-    opacity: 0.5;
-    z-index: 0;
-    pointer-events: none;
-}
-
-@keyframes jellyfish-pulse {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    25% { transform: translateY(-30px) rotate(10deg); }
-    75% { transform: translateY(-40px) rotate(-10deg); }
-}
-
-/* ========== PIEUVRE ABYSSALE ========== */
-.octopus {
-    position: fixed;
-    left: 15%;
-    top: 80vh;
-    font-size: 7rem;
-    animation: octopus-wave 25s ease-in-out infinite;
-    opacity: 0.3;
-    filter: brightness(0.5);
-    z-index: 0;
-    pointer-events: none;
-}
-
-@keyframes octopus-wave {
-    0%, 100% { transform: scale(1) rotate(0); }
-    50% { transform: scale(1.15) rotate(20deg); }
-}
-
-/* ========== CALMAR ========== */
-.squid {
-    position: fixed;
-    right: 15%;
-    top: 85vh;
-    font-size: 5rem;
-    animation: squid-float 30s ease-in-out infinite;
-    opacity: 0.25;
-    filter: brightness(0.4);
-    z-index: 0;
-    pointer-events: none;
-}
-
-@keyframes squid-float {
-    0%, 100% { transform: translateY(0) translateX(0) rotate(0); }
-    33% { transform: translateY(-40px) translateX(30px) rotate(15deg); }
-    66% { transform: translateY(-20px) translateX(-30px) rotate(-15deg); }
-}
-
-/* ========== SOUS-MARIN (FOND) ========== */
-.submarine {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10rem;
-    animation: sub-drift 10s ease-in-out infinite;
-    z-index: 5;
-    filter: drop-shadow(0 0 60px rgba(100, 200, 255, 0.8));
-    pointer-events: none;
-}
-
-@keyframes sub-drift {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
-    50% { transform: translateX(-50%) translateY(-12px) rotate(1deg); }
-}
-
-/* Lumière sous-marin */
-.submarine::before {
-    content: '';
-    position: absolute;
-    top: -150px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 400px;
-    background: radial-gradient(ellipse at top, rgba(100, 200, 255, 0.5), transparent);
-    animation: light-beam 4s ease-in-out infinite;
-    pointer-events: none;
-}
-
-@keyframes light-beam {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-}
-
-/* ========== BULLES ========== */
-.bubble {
-    position: fixed;
-    bottom: -50px;
-    font-size: 2rem;
-    color: rgba(255, 255, 255, 0.6);
-    animation: bubble-up 12s ease-in infinite;
-    pointer-events: none;
-}
-
-.bubble:nth-child(1) { left: 10%; animation-delay: 0s; }
-.bubble:nth-child(2) { left: 30%; animation-delay: 4s; font-size: 1.5rem; }
-.bubble:nth-child(3) { left: 60%; animation-delay: 2s; }
-.bubble:nth-child(4) { left: 85%; animation-delay: 6s; font-size: 1.8rem; }
-
-@keyframes bubble-up {
-    0% { bottom: -50px; opacity: 0; }
-    10% { opacity: 0.7; }
-    90% { opacity: 0.7; }
-    100% { bottom: 110vh; opacity: 0; }
-}
-
-/* ========== STRUCTURE PRINCIPALE ========== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 10;
-}
-
-h1 {
-    font-size: 3.5rem;
-    margin-bottom: 0.5rem;
-    color: #003d5c;
-    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
-}
-
-.subtitle {
-    font-size: 1.4rem;
-    color: #005580;
-    opacity: 0.95;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 1.2rem 0;
-}
-
-nav li {
-    margin: 0.5rem 1rem;
-}
-
-nav a {
-    text-decoration: none;
-    color: #006080;
-    font-weight: 700;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    transition: all 0.3s;
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    font-size: 0.9rem;
-}
+    margin-bottom: 10px;
+  }
 
-nav a:hover {
-    background: linear-gradient(135deg, #2FA1C5, #1E90FF);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(30, 144, 255, 0.4);
-}
+  .accent-bar {
+    width: 80px; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--purple));
+    margin: 0 auto 32px;
+    border-radius: 2px;
+    animation: barShift 2s ease-in-out infinite alternate;
+  }
+  @keyframes barShift {
+    from { width: 60px; }
+    to { width: 120px; }
+  }
 
-main {
-    background: rgba(255, 255, 255, 0.95);
-    margin: 3rem auto;
-    padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    position: relative;
-    z-index: 10;
-}
-
-section {
-    margin-bottom: 4rem;
-    scroll-margin-top: 100px;
-}
-
-h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    padding-left: 60px;
-    position: relative;
-    color: #003d5c;
-}
-
-h2::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, rgba(30, 144, 255, 0.4), rgba(47, 161, 197, 0.4));
-    border-radius: 50%;
-    animation: pulse-icon 2s ease-in-out infinite;
-}
-
-@keyframes pulse-icon {
-    0%, 100% { transform: translateY(-50%) scale(1); }
-    50% { transform: translateY(-50%) scale(1.15); }
-}
-
-.highlight {
-    background: linear-gradient(135deg, rgba(255, 253, 231, 0.95), rgba(255, 249, 196, 0.95));
-    padding: 2rem;
-    border-left: 6px solid #fbc02d;
-    border-radius: 12px;
-    margin: 2rem 0;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.stat-card {
-    background: linear-gradient(135deg, rgba(30, 144, 255, 0.9), rgba(47, 161, 197, 0.9));
-    color: white;
-    padding: 2rem;
-    border-radius: 50%;
-    aspect-ratio: 1;
+  /* PARTY BUTTON */
+  .party-btn-wrap {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    border: 3px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.3s;
+    margin-bottom: 28px;
+  }
+
+  .party-btn {
+    background: linear-gradient(135deg, var(--accent), var(--purple), var(--gold));
+    background-size: 200% 200%;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 36px;
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    cursor: pointer;
     position: relative;
     overflow: hidden;
-}
+    transition: transform 0.1s;
+    animation: gradShift 2s ease infinite;
+    box-shadow: 0 0 30px rgba(196,77,255,0.4), 0 0 60px rgba(255,45,91,0.2);
+  }
+  @keyframes gradShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .party-btn:hover { transform: scale(1.07) rotate(-1deg); }
+  .party-btn:active { transform: scale(0.95); }
+  .party-btn .btn-shine {
+    position: absolute;
+    top: -50%; left: -60%;
+    width: 40%; height: 200%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-20deg);
+    animation: shine 2.5s ease-in-out infinite;
+  }
+  @keyframes shine {
+    0% { left: -60%; }
+    60%, 100% { left: 140%; }
+  }
 
-.stat-card::before {
+  /* LAYOUT */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  @media (max-width: 780px) { .layout { grid-template-columns: 1fr; } }
+
+  /* POOL */
+  .pool-panel {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    position: sticky;
+    top: 20px;
+    box-shadow: 0 0 40px rgba(0,245,212,0.06);
+  }
+  .panel-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--teal);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+    text-shadow: 0 0 10px rgba(0,245,212,0.4);
+  }
+  .panel-title .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    display: inline-block;
+    animation: blink 1s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .add-member-row { display: flex; gap: 8px; margin-bottom: 14px; }
+  .add-member-row input {
+    flex: 1;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 7px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .add-member-row input:focus { border-color: var(--teal); box-shadow: 0 0 8px rgba(0,245,212,0.2); }
+  .add-member-row input::placeholder { color: var(--muted); }
+  .add-member-row button {
+    background: var(--teal);
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    color: #0a0a12;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    box-shadow: 0 0 10px rgba(0,245,212,0.3);
+  }
+  .add-member-row button:hover { background: #00ddb8; transform: rotate(90deg); }
+
+  .members-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  .member-chip {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 6px 8px 6px 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: grab;
+    transition: all 0.18s ease;
+    user-select: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .member-chip:active { cursor: grabbing; }
+  .member-chip:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    transform: translateY(-2px) rotate(-1deg);
+    box-shadow: 0 4px 12px rgba(0,245,212,0.15);
+  }
+  .member-chip.dragging { opacity: 0.3; transform: scale(0.9) rotate(5deg); }
+  .del-member {
+    background: none; border: none;
+    color: var(--muted); cursor: pointer;
+    font-size: 0.72rem; padding: 0 0 0 2px;
+    line-height: 1; transition: color 0.15s;
+  }
+  .del-member:hover { color: var(--accent); }
+
+  .ini {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.68rem; font-weight: 700; flex-shrink: 0;
+  }
+  .ini.sm { width: 22px; height: 22px; font-size: 0.6rem; }
+
+  /* CARS */
+  .cars-section { display: flex; flex-direction: column; gap: 18px; }
+
+  .car-card {
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .car-card::before {
     content: '';
     position: absolute;
-    top: -30%;
-    left: -30%;
-    width: 160%;
-    height: 160%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
-    animation: shine-bubble 3s ease-in-out infinite;
-}
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--purple), var(--teal));
+    opacity: 0.6;
+  }
+  .car-card.drag-over {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 2px rgba(0,245,212,0.2), 0 0 30px rgba(0,245,212,0.1);
+  }
 
-@keyframes shine-bubble {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.3); opacity: 0.6; }
-}
+  .car-header { padding: 12px 16px 0; background: var(--card2); }
+  .car-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .car-title-row { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+  .car-icon { font-size: 1.4rem; flex-shrink: 0; animation: wiggle 3s ease-in-out infinite; }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(0); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+  }
+  .car-label-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .car-number { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 2px; color: var(--muted); line-height: 1; }
+  .car-nickname-input {
+    background: transparent; border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--text);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem; letter-spacing: 2px;
+    outline: none; width: 100%; max-width: 190px;
+    transition: border-color 0.2s; padding: 1px 0;
+  }
+  .car-nickname-input:focus { border-bottom-color: var(--teal); }
+  .car-nickname-input::placeholder { color: #2a2a45; }
 
-.stat-card:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(30, 144, 255, 0.5);
-}
+  .car-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .car-count {
+    font-size: 0.75rem; color: var(--muted);
+    background: var(--bg); padding: 3px 10px;
+    border-radius: 20px; border: 1px solid var(--border); white-space: nowrap;
+  }
+  .icon-btn {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 0.95rem; padding: 4px 6px;
+    border-radius: 6px; transition: all 0.15s; line-height: 1;
+  }
+  .icon-btn:hover { color: var(--accent); background: rgba(255,45,91,0.1); }
 
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 900;
-    position: relative;
-    z-index: 1;
-}
+  .car-type-row { display: flex; gap: 6px; padding-bottom: 12px; flex-wrap: wrap; align-items: center; }
+  .type-badge {
+    font-size: 0.7rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 20px;
+    cursor: pointer; border: 1px solid transparent;
+    transition: all 0.18s; letter-spacing: 0.2px;
+    white-space: nowrap; user-select: none;
+  }
+  .type-badge.lille { border-color: var(--gold); color: var(--gold); }
+  .type-badge.lille.active { background: var(--gold); color: #0a0a12; box-shadow: 0 0 10px rgba(255,228,77,0.4); }
+  .type-badge.perso { border-color: var(--teal); color: var(--teal); }
+  .type-badge.perso.active { background: var(--teal); color: #0a0a12; box-shadow: 0 0 10px rgba(0,245,212,0.4); }
 
-.stat-label {
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    position: relative;
-    z-index: 1;
-}
+  .car-comment-input {
+    flex: 1; min-width: 100px;
+    background: transparent; border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; outline: none; padding: 2px 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .car-comment-input:focus { border-bottom-color: var(--teal); color: var(--text); }
+  .car-comment-input::placeholder { color: #2a2a45; font-style: italic; }
 
-footer {
-    background: linear-gradient(135deg, #000000, #001a33);
-    color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 10rem 0 3rem 0;
-    position: relative;
-    z-index: 10;
-}
+  .car-body {
+    padding: 12px 16px;
+    min-height: 56px;
+    display: flex; flex-wrap: wrap;
+    gap: 7px; align-content: flex-start;
+    border-top: 1px solid var(--border);
+  }
+  .car-body.empty::before {
+    content: '🚀 Glisser des membres ici';
+    color: var(--muted); font-size: 0.8rem;
+    font-style: italic; width: 100%;
+    text-align: center; padding: 8px 0;
+  }
 
-.print-btn {
+  .car-chip {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 5px 10px 5px 5px;
+    font-size: 0.8rem; font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.15s; cursor: grab; user-select: none;
+  }
+  .car-chip:active { cursor: grabbing; }
+  .car-chip.dragging { opacity: 0.3; transform: scale(0.9) rotate(-3deg); }
+  .car-chip:hover { border-color: var(--muted); }
+  .remove-btn {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 0.78rem; padding: 0 0 0 3px;
+    line-height: 1; transition: color 0.15s;
+  }
+  .remove-btn:hover { color: var(--accent); }
+
+  .add-car-btn {
+    background: transparent;
+    border: 2px dashed var(--border);
+    border-radius: 20px; padding: 14px; width: 100%;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .add-car-btn:hover { border-color: var(--purple); color: var(--purple); box-shadow: 0 0 15px rgba(196,77,255,0.15); }
+
+  /* EXPORT */
+  .export-btn {
+    display: block; margin: 32px auto 0;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    color: #fff; border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 2px;
+    padding: 14px 40px; border-radius: 50px;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 20px rgba(255,45,91,0.3);
+  }
+  .export-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,45,91,0.4); }
+
+  /* CONFETTI CANVAS */
+  #confettiCanvas {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: linear-gradient(135deg, #1E90FF, #00acc1);
-    color: white;
-    border: none;
-    padding: 1.2rem;
-    border-radius: 50%;
-    font-size: 2rem;
-    cursor: pointer;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
     z-index: 999;
-    border: 3px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.3s;
-}
+    display: none;
+  }
 
-.print-btn:hover {
-    transform: scale(1.2) translateY(-5px);
-    box-shadow: 0 10px 30px rgba(30, 144, 255, 0.6);
-}
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: linear-gradient(135deg, var(--teal), var(--purple));
+    color: #fff; font-weight: 700;
+    padding: 12px 22px; border-radius: 12px; font-size: 0.88rem;
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.3s; pointer-events: none; z-index: 1000;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    .fish, .shark, .jellyfish, .octopus, .squid { display: none; }
-    .submarine { font-size: 6rem; }
-    nav ul { flex-direction: column; }
-}
+  /* SECTION HEADERS */
+  .section-hdr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    padding: 4px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* VF CARD */
+  .vf-card {
+    border-color: rgba(255,228,77,0.3) !important;
+    box-shadow: 0 0 20px rgba(255,228,77,0.07);
+  }
+  .vf-card::before {
+    background: linear-gradient(90deg, var(--gold), #ffb347, var(--gold)) !important;
+    opacity: 1 !important;
+  }
+  .vf-header {
+    background: linear-gradient(135deg, #1f1a08, #1a1a2e) !important;
+  }
+  .car-nickname-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255,228,77,0.3);
+  }
+
+  /* LOCKED DRIVER CHIP */
+  .driver-chip {
+    background: linear-gradient(135deg, rgba(255,228,77,0.12), rgba(255,179,71,0.08));
+    border: 1px solid rgba(255,228,77,0.35);
+    border-radius: 24px;
+    padding: 5px 10px 5px 5px;
+    font-size: 0.8rem; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    color: var(--gold);
+    cursor: default;
+  }
+  .driver-badge {
+    font-size: 0.68rem;
+    background: rgba(255,228,77,0.15);
+    border: 1px solid rgba(255,228,77,0.3);
+    border-radius: 10px;
+    padding: 1px 7px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* FLERS badge color */
+  .type-badge.flers { border-color: #ff9b3d; color: #ff9b3d; }
+  .type-badge.flers.active { background: #ff9b3d; color: #0a0a12; box-shadow: 0 0 10px rgba(255,155,61,0.4); }
+
+  input, button { font-family: inherit; }
+
+  /* Star decoration */
+  .deco-star {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    font-size: 1.5rem;
+    animation: starTwinkle ease-in-out infinite;
+    opacity: 0.15;
+  }
+  @keyframes starTwinkle {
+    0%,100% { opacity: 0.05; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.25; transform: scale(1.3) rotate(180deg); }
+  }
 </style>
 </head>
- <body>
-     <div class="clouds"></div>
-    <div class="sun">☀️</div>
-    <div class="bird">🦅</div>
-   
-    
-    <!-- Poissons -->
-    <div class="fish fish-1">🐠</div>
-    <div class="fish fish-2">🐟</div>
-    <div class="fish fish-3">🐡</div>
-    
-    <!-- Créatures profondes -->
-    <div class="shark">🦈</div>
-    <div class="jellyfish">🪼</div>
-    <div class="octopus">🐙</div>
-    <div class="squid">🦑</div>
-    
-    <!-- Bulles -->
-    <div class="bubble">○</div>
-    <div class="bubble">○</div>
-    <div class="bubble">○</div>
-    <div class="bubble">○</div>
-    
-    <!-- Sous-marin -->
-    <div class="submarine">🚢</div>
-    <header>
-        <div class="container">
-            <h1>🎣 Projet Seconde Vie</h1>
-            <p class="subtitle">Analyse de l'offre - Univers Occasion Pêche | Terres & Eaux</p>
+<body>
+
+<!-- Background canvas for ambient particles -->
+<canvas id="bgCanvas"></canvas>
+<!-- Confetti canvas -->
+<canvas id="confettiCanvas"></canvas>
+
+<div class="content">
+  <div class="site-header">
+    <h1>🚗 COVOITURAGE 🎉</h1>
+    <p class="subtitle">Équipe Lille — Séminaire 2025</p>
+    <div class="accent-bar"></div>
+  </div>
+
+  <div class="party-btn-wrap">
+    <button class="party-btn" onclick="partyTime()">
+      <span class="btn-shine"></span>
+      🎊 AMBIANCE FÊTE 🎊
+    </button>
+  </div>
+
+  <div class="layout">
+    <div class="cars-section" id="carsSection">
+      <button class="add-car-btn" onclick="addCar()">＋ Ajouter une voiture</button>
+    </div>
+    <div>
+      <div class="pool-panel">
+        <div class="panel-title"><span class="dot"></span>Membres disponibles</div>
+        <div class="add-member-row">
+          <input type="text" id="newMemberInput" placeholder="Prénom NOM…" onkeydown="if(event.key==='Enter')addMember()">
+          <button onclick="addMember()" title="Ajouter">＋</button>
         </div>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#categories">Catégories</a></li>
-            <li><a href="#reprise">Reprise</a></li>
-            <li><a href="#vente">Vente</a></li>
-            <li><a href="#communication">Communication</a></li>
-            <li><a href="#economique">Viabilité</a></li>
-            <li><a href="#planning">Planning</a></li>
-        </ul>
-    </nav>
-    
-    <div class="container">
-        <main>
-            <section id="introduction">
-                <h2>📋 Introduction</h2>
-                <div class="highlight">
-                    <h4>🎯 Objectif du projet</h4>
-                    <p>Créer un système de reprise et revente de matériel de pêche d'occasion permettant à Terres & Eaux de :</p>
-                    <ul>
-                        <li>Se positionner comme acteur de l'économie circulaire</li>
-                        <li>Fidéliser sa clientèle via des bons d'achat</li>
-                        <li>Rendre la pêche plus accessible financièrement</li>
-                        <li>Renforcer son image écoresponsable</li>
-                    </ul>
-                </div>
-                
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Catégories de produits</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">300</div>
-                        <div class="stat-label">Produits collectés/an</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">18k€</div>
-                        <div class="stat-label">CA Seconde Vie An 1</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">16%</div>
-                        <div class="stat-label">Marge opérationnelle</div>
-                    </div>
-                </div>
-                
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">2</div>
-                        <div class="stat-label">Week-ends collecte/an</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">365j</div>
-                        <div class="stat-label">Corner ouvert toute l'année</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">Web+</div>
-                        <div class="stat-label">Section occasion en ligne</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">Pêche</div>
-                        <div class="stat-label">Uniquement</div>
-                    </div>
-                </div>
-            </section>
-            <section id="contexte-marche">
-    <h2>📊 Contexte de Marché</h2>
-    
-    <h3>🌍 Marché de la Seconde Main en France</h3>
-    <div class="card">
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">7 Mds €</div>
-                <div class="stat-label">En 2024, croissance annuelle moyenne +15%</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">64%</div>
-                <div class="stat-label">Des Français ont acheté d'occasion</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">44%</div>
-                <div class="stat-label">Au moins 1x/mois</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">3/11</div>
-                <div class="stat-label">Achats en seconde main</div>
-            </div>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
-            <div class="inclusion">
-                <h4>➕ Motivations</h4>
-                <ul>
-                    <li><strong>Prix :</strong> 86%</li>
-                    <li><strong>Écologie :</strong> 65%</li>
-                </ul>
-            </div>
-            
-            <div class="exclusion">
-                <h4>➖ Freins</h4>
-                <ul>
-                    <li><strong>Traçabilité :</strong> 77%</li>
-                    <li><strong>Absence de garantie :</strong> 40%</li>
-                </ul>
-            </div>
-        </div>
+        <div class="members-grid" id="pool"></div>
+      </div>
     </div>
-    
-    <h3>🎣 Marché de la Pêche en France</h3>
-    <div class="card">
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">~15M</div>
-                <div class="stat-label">De pratiquants, 3 400 associations</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">30%</div>
-                <div class="stat-label">Jeunes des pratiquants</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">2 Mds €</div>
-                <div class="stat-label">Impact économique global</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">4/11</div>
-                <div class="stat-label">Place de la pêche dans les loisirs</div>
-            </div>
-        </div>
-        
-        <div class="highlight" style="margin-top: 2rem;">
-            <h4>📈 Transmission Familiale Forte</h4>
-            <p>Parents 51% | Grands-parents 23%</p>
-        </div>
-    </div>
-    
-    <h3>🛒 Achat de Matériel de Pêche & Tendances</h3>
-    <div class="card">
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">23,8 Mds $</div>
-                <div class="stat-label">Marché 2021</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">31,8 Mds $</div>
-                <div class="stat-label">Prévisions 2028</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Hommes</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">24%</div>
-                <div class="stat-label">Entre 45-54 ans</div>
-            </div>
-        </div>
-        
-        <table style="margin-top: 2rem;">
-            <tr>
-                <th>Caractéristique</th>
-                <th>Données</th>
-            </tr>
-            <tr>
-                <td><strong>Ancienneté pratique</strong></td>
-                <td>73% pratiquent depuis +20 ans</td>
-            </tr>
-            <tr>
-                <td><strong>Motivations</strong></td>
-                <td>Passion/plaisir (90%), nature (80%), évasion (60%), alimentaire (11%)</td>
-            </tr>
-            <tr>
-                <td><strong>Fréquence</strong></td>
-                <td>Plus de la moitié pêchent au moins 1x/semaine</td>
-            </tr>
-            <tr>
-                <td><strong>Rang loisirs</strong></td>
-                <td>5/11 dans les activités préférées</td>
-            </tr>
-        </table>
-    </div>
-    
-    <div class="highlight">
-        <h3>💡 Synthèse du Contexte</h3>
-        <p>Le marché de la seconde main explose (+15%/an) avec une adoption massive (64% des Français), porté par des motivations économiques (86%) et écologiques (65%). Parallèlement, le marché de la pêche représente 15 millions de pratiquants et 2 milliards d'euros d'impact économique, avec une forte transmission familiale et une pratique ancrée (73% pêchent depuis +20 ans).</p>
-        <p><strong>Les freins principaux</strong> (traçabilité 77%, absence de garantie 40%) justifient pleinement la proposition de valeur du projet Seconde Vie : une offre d'occasion contrôlée, garantie et accompagnée par des experts.</p>
-    </div>
-</section>
-            <section id="swot">
-    <h2>🔍 Analyse SWOT</h2>
-    
-    <div class="highlight">
-        <p><strong>Analyse stratégique de Terres & Eaux face au marché de la seconde main</strong></p>
-    </div>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; margin: 2rem 0;">
-        
-        <!-- FORCES -->
-        <div class="card" style="border-left: 5px solid #28a745;">
-            <h3 style="color: #28a745;">💪 Forces</h3>
-            <ul>
-                <li><strong>Image de spécialiste :</strong> Enseigne reconnue dans les univers passion (pêche, chasse, équitation, animaux)</li>
-                <li><strong>ADN orienté expertise et authenticité :</strong> Vendeurs pratiquants, proximité avec la communauté</li>
-                <li><strong>Infrastructures différenciantes :</strong> Magasin de Seclin avec plan d'eau pour tester le matériel</li>
-                <li><strong>Engagement RSE déjà visible :</strong> Bâtiment écoresponsable, récupération d'eau de pluie, LED, bois durable</li>
-                <li><strong>Capacité à instaurer un cadre sécurisé pour l'occasion :</strong> Contrôle qualité, garanties, conseil expert</li>
-            </ul>
-        </div>
-        
-        <!-- FAIBLESSES -->
-        <div class="card" style="border-left: 5px solid #dc3545;">
-            <h3 style="color: #dc3545;">⚠️ Faiblesses</h3>
-            <ul>
-                <li><strong>Notoriété limitée :</strong> Par rapport à des enseignes généralistes (Decathlon, grandes surfaces)</li>
-                <li><strong>Offre de seconde main inexistante :</strong> Ou peu développée actuellement</li>
-                <li><strong>Dépendance forte à un public passionné :</strong> Majoritairement masculin, peu diversifié</li>
-                <li><strong>Érosion du marché de base :</strong> Baisse du nombre global de cartes de pêche adultes</li>
-                <li><strong>Communication moins moderne :</strong> Que certaines plateformes digitales</li>
-            </ul>
-        </div>
-        
-        <!-- OPPORTUNITÉS -->
-        <div class="card" style="border-left: 5px solid #17a2b8;">
-            <h3 style="color: #17a2b8;">🚀 Opportunités</h3>
-            <ul>
-                <li><strong>Croissance rapide du marché :</strong> Seconde main +15%/an, 7 Mds € en France en 2024</li>
-                <li><strong>Demande accrue :</strong> Pour des produits durables et responsables</li>
-                <li><strong>Dynamique positive jeunes pêcheurs :</strong> +12%/an sur les cartes mineurs</li>
-                <li><strong>Différenciation possible :</strong> Face à la méfiance envers les plateformes entre particuliers</li>
-                <li><strong>Renforcement communautaire :</strong> Événements et partenariats pour l'image RSE</li>
-            </ul>
-        </div>
-        
-        <!-- MENACES -->
-        <div class="card" style="border-left: 5px solid #ffc107;">
-            <h3 style="color: #856404;">⚡ Menaces</h3>
-            <ul>
-                <li><strong>Concurrence enseignes généralistes :</strong> Decathlon "Seconde Vie", Carrefour avec corners d'occasion</li>
-                <li><strong>Concurrence plateformes en ligne :</strong> Leboncoin, Vinted, Naturabuy, Pecheur.com</li>
-                <li><strong>Freins consommateurs :</strong> Traçabilité, absence de garantie, qualité perçue</li>
-                <li><strong>Pression économique :</strong> Arbitrages budgétaires des ménages</li>
-                <li><strong>Contraintes réglementaires :</strong> Sur la pêche et les matériaux (plomb, surpêche)</li>
-            </ul>
-        </div>
-        
-    </div>
-    
-    <div class="highlight">
-        <h3>💡 Synthèse Stratégique</h3>
-        <p><strong>Le projet Seconde Vie s'appuie sur les forces de Terres & Eaux (expertise, RSE, infrastructures) pour saisir une opportunité majeure (boom de la seconde main, jeunes pêcheurs) tout en répondant aux faiblesses identifiées (manque d'offre occasion, communication) et en se différenciant des menaces concurrentielles par la garantie, le conseil et l'authenticité.</strong></p>
-    </div>
-</section>
-   <section id="personas">
-    <h2>👥 Personas et Ciblage</h2>
-    
-    <div class="highlight">
-        <p><strong>Identification des profils cibles pour le projet Seconde Vie</strong></p>
-    </div>
-    
-    <h3>🎯 Les 3 Personas Clés</h3>
-    
-    <!-- PERSONA 1 - MARC -->
-    <div class="card" style="border-left: 5px solid #2c5f2d;">
-        <h4>👨 Persona 1 – Marc, le Passionné Fidèle</h4>
-        <table>
-            <tr>
-                <th style="width: 25%;">Caractéristique</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><strong>Âge</strong></td>
-                <td>48 ans</td>
-            </tr>
-            <tr>
-                <td><strong>Profil</strong></td>
-                <td>Pêcheur depuis l'adolescence, pratique chaque semaine</td>
-            </tr>
-            <tr>
-                <td><strong>Motivations</strong></td>
-                <td>Passion, contact avec la nature, transmission familiale</td>
-            </tr>
-            <tr>
-                <td><strong>Habitudes</strong></td>
-                <td>Achète régulièrement du matériel neuf en magasin spécialisé, sensible au conseil expert</td>
-            </tr>
-            <tr class="etat-satisfaisant">
-                <td><strong>Freins</strong></td>
-                <td>Méfiance vis-à-vis de l'occasion (traçabilité, garantie)</td>
-            </tr>
-            <tr class="etat-neuf">
-                <td><strong>Opportunité</strong></td>
-                <td>✅ Prêt à tester la seconde main si produits contrôlés & garantis</td>
-            </tr>
-        </table>
-    </div>
-    
-    <!-- PERSONA 2 - LUCAS -->
-    <div class="card" style="border-left: 5px solid #17a2b8;">
-        <h4>👦 Persona 2 – Lucas, le Jeune Débrouillard</h4>
-        <table>
-            <tr>
-                <th style="width: 25%;">Caractéristique</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><strong>Âge</strong></td>
-                <td>16 ans</td>
-            </tr>
-            <tr>
-                <td><strong>Profil</strong></td>
-                <td>Initié par son grand-père, débute avec des amis</td>
-            </tr>
-            <tr>
-                <td><strong>Motivations</strong></td>
-                <td>Loisirs abordables, découverte, recherche de bons plans</td>
-            </tr>
-            <tr>
-                <td><strong>Habitudes</strong></td>
-                <td>Consulte YouTube, TikTok et forums pêche, achète parfois sur Leboncoin</td>
-            </tr>
-            <tr class="etat-satisfaisant">
-                <td><strong>Freins</strong></td>
-                <td>Budget limité, peur de se tromper dans ses choix de matériel</td>
-            </tr>
-            <tr class="etat-neuf">
-                <td><strong>Opportunité</strong></td>
-                <td>✅ Sensible aux offres accessibles et aux ateliers découverte proposés par Terres & Eaux</td>
-            </tr>
-        </table>
-    </div>
-    
-    <!-- PERSONA 3 - SOPHIE -->
-    <div class="card" style="border-left: 5px solid #97bc62;">
-        <h4>👩 Persona 3 – Sophie, la Maman Responsable</h4>
-        <table>
-            <tr>
-                <th style="width: 25%;">Caractéristique</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><strong>Âge</strong></td>
-                <td>34 ans</td>
-            </tr>
-            <tr>
-                <td><strong>Profil</strong></td>
-                <td>Pratique la pêche en famille de manière occasionnelle</td>
-            </tr>
-            <tr>
-                <td><strong>Motivations</strong></td>
-                <td>Activités nature, consommation responsable, sensibilisation des enfants</td>
-            </tr>
-            <tr>
-                <td><strong>Habitudes</strong></td>
-                <td>Achète plutôt d'occasion (Vinted, Naturabuy), compare toujours les prix</td>
-            </tr>
-            <tr class="etat-satisfaisant">
-                <td><strong>Freins</strong></td>
-                <td>Manque de garanties sur l'occasion, difficulté à trouver des équipements fiables</td>
-            </tr>
-            <tr class="etat-neuf">
-                <td><strong>Opportunité</strong></td>
-                <td>✅ Séduite par une offre d'occasion sécurisée & intégrée à une démarche RSE</td>
-            </tr>
-        </table>
-    </div>
-    
-    <h3>🎯 Stratégie de Ciblage</h3>
-    
-    <!-- COEUR DE CIBLE -->
-    <div class="card etat-neuf">
-        <h4>🥇 1. Cœur de Cible (Prioritaire)</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
-            <div>
-                <p><strong>📋 Profil :</strong></p>
-                <p>Pêcheurs passionnés, réguliers, pratiquant depuis plusieurs années (ex. Persona Marc)</p>
-            </div>
-            <div>
-                <p><strong>👤 Âge :</strong></p>
-                <p>30 – 55 ans</p>
-            </div>
-        </div>
-        <p><strong>🎯 Comportements :</strong></p>
-        <ul>
-            <li>Fidèles aux enseignes spécialisées</li>
-            <li>Recherchent du matériel fiable</li>
-            <li>Prêts à investir dans du neuf ou de l'occasion sécurisé</li>
-        </ul>
-        <p><strong>✅ Attentes :</strong> Expertise, traçabilité, garantie sur le matériel d'occasion</p>
-    </div>
-    
-    <!-- CIBLE RELAIS -->
-    <div class="card etat-tres-bon">
-        <h4>🥈 2. Cible Relais (En croissance)</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
-            <div>
-                <p><strong>📋 Profil :</strong></p>
-                <p>Jeunes pêcheurs (adolescents / jeunes adultes) découvrant la pratique (ex. Persona Lucas)</p>
-            </div>
-            <div>
-                <p><strong>👤 Âge :</strong></p>
-                <p>12 – 25 ans</p>
-            </div>
-        </div>
-        <p><strong>🎯 Comportements :</strong></p>
-        <ul>
-            <li>Pratiquent de manière régulière ou occasionnelle</li>
-            <li>Budget limité</li>
-            <li>Utilisent beaucoup les plateformes en ligne et les réseaux sociaux</li>
-        </ul>
-        <p><strong>✅ Attentes :</strong> Accessibilité prix, bons plans, expérience ludique et apprentissage</p>
-    </div>
-    
-    <!-- CIBLE ÉLARGIE -->
-    <div class="card etat-bon">
-        <h4>🥉 3. Cible Élargie (Opportunité secondaire)</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
-            <div>
-                <p><strong>📋 Profil :</strong></p>
-                <p>Familles et consommateurs responsables (ex. Persona Sophie)</p>
-            </div>
-            <div>
-                <p><strong>👤 Âge :</strong></p>
-                <p>30 – 45 ans</p>
-            </div>
-        </div>
-        <p><strong>🎯 Comportements :</strong></p>
-        <ul>
-            <li>Pratiquent la pêche comme activité loisir</li>
-            <li>Sensibles au développement durable</li>
-            <li>Transmission aux enfants</li>
-        </ul>
-        <p><strong>✅ Attentes :</strong> Consommation responsable, transparence, matériel d'occasion pour limiter l'impact écologique</p>
-    </div>
-    
-    <div class="highlight">
-        <h3>💡 Synthèse du Ciblage</h3>
-        <p>Le projet Seconde Vie répond aux attentes de <strong>trois segments complémentaires</strong> :</p>
-        <ul>
-            <li><strong>Les passionnés fidèles</strong> recherchent expertise et sécurité → Garantie 1-3 mois, contrôle qualité, conseil vendeur</li>
-            <li><strong>Les jeunes en découverte</strong> recherchent accessibilité et apprentissage → Prix attractifs, tournois enfants/familles, ateliers</li>
-            <li><strong>Les familles responsables</strong> recherchent éthique et transparence → Engagement RSE, traçabilité, économie circulaire</li>
-        </ul>
-    </div>
-</section>        
-            <section id="categories">
-                <h2>🎯 1. Catégories de Produits Éligibles</h2>
-                
-                <h3>A. Bipers / Détecteurs de Touche</h3>
-                <div class="card">
-                    <p><strong>Prix neuf :</strong> 40€ à 300€ | <strong>Marques :</strong> Fox, Prologic, Carp Spirit, Nash</p>
-                    
-                    <h4>Grille de reprise</h4>
-                    <table>
-                        <tr>
-                            <th>État</th>
-                            <th>Critères</th>
-                            <th>Reprise</th>
-                            <th>Exemple (150€ neuf)</th>
-                        </tr>
-                        <tr class="etat-neuf">
-                            <td><span class="badge badge-success">NEUF</span></td>
-                            <td>Emballage scellé, jamais utilisé, garantie valide</td>
-                            <td>50%</td>
-                            <td><strong>75€</strong></td>
-                        </tr>
-                        <tr class="etat-tres-bon">
-                            <td><span class="badge badge-info">TRÈS BON</span></td>
-                            <td>Aucune rayure, fonctionne parfaitement, accessoires complets</td>
-                            <td>40%</td>
-                            <td><strong>60€</strong></td>
-                        </tr>
-                        <tr class="etat-bon">
-                            <td><span class="badge badge-warning">BON</span></td>
-                            <td>Traces d'usage légères, tous modes fonctionnels</td>
-                            <td>30%</td>
-                            <td><strong>45€</strong></td>
-                        </tr>
-                        <tr class="etat-satisfaisant">
-                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
-                            <td>Usure visible, 100% fonctionnel</td>
-                            <td>20%</td>
-                            <td><strong>30€</strong></td>
-                        </tr>
-                    </table>
-                    
-                    <div class="exclusion">
-                        <strong>❌ Exclusions :</strong>
-                        <ul>
-                            <li>Électronique défaillante (son/LED ne fonctionne pas)</li>
-                            <li>Oxydation du compartiment à piles</li>
-                            <li>Boîtier fissuré compromettant l'étanchéité</li>
-                            <li>Câbles manquants ou coupés</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="inclusion">
-                        <strong>✅ Points de contrôle en magasin :</strong>
-                        <ul>
-                            <li>Test sonore et lumineux</li>
-                            <li>Vérification de la portée radio</li>
-                            <li>État du compartiment à piles</li>
-                            <li>Présence notice et câbles</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h3>B. Cannes à Pêche</h3>
-                <div class="card">
-                    <p><strong>Prix neuf :</strong> 50€ à 600€+ | <strong>Marques :</strong> Garbolino, Shimano, Daiwa, Mitchell</p>
-                    
-                    <table>
-                        <tr>
-                            <th>État</th>
-                            <th>Critères</th>
-                            <th>Reprise</th>
-                            <th>Exemple (200€ neuf)</th>
-                        </tr>
-                        <tr class="etat-neuf">
-                            <td><span class="badge badge-success">NEUF</span></td>
-                            <td>Emballage scellé, film protecteur sur anneaux</td>
-                            <td>50%</td>
-                            <td><strong>100€</strong></td>
-                        </tr>
-                        <tr class="etat-tres-bon">
-                            <td><span class="badge badge-info">TRÈS BON</span></td>
-                            <td>Aucune rayure, anneaux parfaits, housse incluse</td>
-                            <td>40%</td>
-                            <td><strong>80€</strong></td>
-                        </tr>
-                        <tr class="etat-bon">
-                            <td><span class="badge badge-warning">BON</span></td>
-                            <td>Micro-rayures, anneaux en bon état</td>
-                            <td>30%</td>
-                            <td><strong>60€</strong></td>
-                        </tr>
-                        <tr class="etat-satisfaisant">
-                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
-                            <td>Usure visible, mais blank sain</td>
-                            <td>20%</td>
-                            <td><strong>40€</strong></td>
-                        </tr>
-                    </table>
-                    
-                    <div class="exclusion">
-                        <strong>❌ Exclusions :</strong>
-                        <ul>
-                            <li>Fissure ou microfissure sur le blank</li>
-                            <li>Anneau cassé ou céramique fêlée</li>
-                            <li>Emmanchement desserré avec jeu excessif</li>
-                            <li>Réparations amateur (scotch, colle visible)</li>
-                            <li>Pointe cassée</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h3>C. Moulinets</h3>
-                <div class="card">
-                    <p><strong>Prix neuf :</strong> 60€ à 500€ | <strong>Marques :</strong> Shimano, Daiwa, Penn, Mitchell</p>
-                    
-                    <table>
-                        <tr>
-                            <th>État</th>
-                            <th>Critères</th>
-                            <th>Reprise</th>
-                            <th>Exemple (180€ neuf)</th>
-                        </tr>
-                        <tr class="etat-neuf">
-                            <td><span class="badge badge-success">NEUF</span></td>
-                            <td>Emballage scellé, jamais monté</td>
-                            <td>50%</td>
-                            <td><strong>90€</strong></td>
-                        </tr>
-                        <tr class="etat-tres-bon">
-                            <td><span class="badge badge-info">TRÈS BON</span></td>
-                            <td>Rotation parfaite, aucune rayure, bobine spare</td>
-                            <td>40%</td>
-                            <td><strong>72€</strong></td>
-                        </tr>
-                        <tr class="etat-bon">
-                            <td><span class="badge badge-warning">BON</span></td>
-                            <td>Micro-rayures, rotation fluide, frein progressif</td>
-                            <td>30%</td>
-                            <td><strong>54€</strong></td>
-                        </tr>
-                        <tr class="etat-satisfaisant">
-                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
-                            <td>Rayures visibles, nettoyage nécessaire</td>
-                            <td>20%</td>
-                            <td><strong>36€</strong></td>
-                        </tr>
-                    </table>
-                    
-                    <div class="exclusion">
-                        <strong>❌ Exclusions :</strong>
-                        <ul>
-                            <li>Grippage ou rotation difficile</li>
-                            <li>Frein bloqué ou inefficace</li>
-                            <li>Anti-retour défaillant</li>
-                            <li>Anse de panier cassée</li>
-                            <li>Corrosion importante</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h3>D. Chaises / Sièges de Pêche</h3>
-                <div class="card">
-                    <p><strong>Prix neuf :</strong> 30€ à 250€ | <strong>Marques :</strong> JRC, Nash, Carp Spirit, Mack2</p>
-                    
-                    <table>
-                        <tr>
-                            <th>État</th>
-                            <th>Reprise</th>
-                            <th>Exemple (120€ neuf)</th>
-                        </tr>
-                        <tr class="etat-neuf">
-                            <td><span class="badge badge-success">NEUF</span></td>
-                            <td>50%</td>
-                            <td><strong>60€</strong></td>
-                        </tr>
-                        <tr class="etat-tres-bon">
-                            <td><span class="badge badge-info">TRÈS BON</span></td>
-                            <td>40%</td>
-                            <td><strong>48€</strong></td>
-                        </tr>
-                        <tr class="etat-bon">
-                            <td><span class="badge badge-warning">BON</span></td>
-                            <td>30%</td>
-                            <td><strong>36€</strong></td>
-                        </tr>
-                        <tr class="etat-satisfaisant">
-                            <td><span class="badge badge-danger">SATISFAISANT</span></td>
-                            <td>20%</td>
-                            <td><strong>24€</strong></td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>E. Épuisettes</h3>
-                <div class="card">
-                    <p><strong>Prix neuf :</strong> 25€ à 200€ | <strong>Marques :</strong> Garbolino, Prowess, Savage Gear</p>
-                </div>
-                
-                <h3>F. Stations / Postes de Pêche</h3>
-                <div class="card">
-                    <p><strong>Prix neuf :</strong> 150€ à 600€ | <strong>Marques :</strong> Rive, Sensas, Garbolino, Matrix</p>
-                </div>
-                
-                <h3>G. Petit Équipement</h3>
-                <div class="card">
-                    <div class="inclusion">
-                        <strong>✅ Éligible :</strong>
-                        <ul>
-                            <li>Boîtes de rangement rigides (30-100€)</li>
-                            <li>Rod pod / support cannes (50-200€)</li>
-                            <li>Tapis de réception carpe (40-150€)</li>
-                            <li>Pinces, ciseaux professionnels (15-50€)</li>
-                            <li>Sacs de transport rigides (30-120€)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="exclusion">
-                        <strong>❌ NON éligible (CONSOMMABLES) :</strong>
-                        <ul>
-                            <li>Fils de pêche (nylon, tresse)</li>
-                            <li>Hameçons, émerillons, agrafes</li>
-                            <li>Plombs, flotteurs</li>
-                            <li>Leurres souples entamés</li>
-                            <li>Appâts, amorces</li>
-                            <li>Piles, batteries</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h3>H. Textile Technique</h3>
-                <div class="card">
-                    <div class="inclusion">
-                        <strong>✅ Éligible :</strong>
-                        <ul>
-                            <li>Waders (bottes-pantalon) : 80€ à 400€</li>
-                            <li>Vestes imperméables : 60€ à 300€</li>
-                            <li>Combinaisons thermiques : 50€ à 250€</li>
-                            <li>Bottes de pêche néoprène : 40€ à 150€</li>
-                            <li>Gilets multi-poches : 30€ à 120€</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="exclusion">
-                        <strong>❌ NON éligible :</strong>
-                        <ul>
-                            <li>Sous-vêtements techniques</li>
-                            <li>Chaussettes de pêche</li>
-                            <li>Vêtements tachés de manière indélébile</li>
-                            <li>Textile avec odeurs tenaces</li>
-                        </ul>
-                    </div>
-                    
-                    <p><strong>⚠️ Point crucial :</strong> Test d'étanchéité OBLIGATOIRE pour les waders (gonflage)</p>
-                </div>
-            </section>
-            
-            <section id="reprise">
-                <h2>💰 2. Système de Reprise</h2>
-                
-                <div class="highlight">
-                    <h3>Grille Unique Simplifiée</h3>
-                    <table>
-                        <tr>
-                            <th>État</th>
-                            <th>% Reprise</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr class="etat-neuf">
-                            <td><span class="badge badge-success">🟢 NEUF</span></td>
-                            <td><strong>50%</strong></td>
-                            <td>Jamais utilisé, emballage intact, garantie valide</td>
-                        </tr>
-                        <tr class="etat-tres-bon">
-                            <td><span class="badge badge-info">🔵 TRÈS BON ÉTAT</span></td>
-                            <td><strong>40%</strong></td>
-                            <td>Usage léger, aucune pièce à changer</td>
-                        </tr>
-                        <tr class="etat-bon">
-                            <td><span class="badge badge-warning">🟡 BON ÉTAT</span></td>
-                            <td><strong>30%</strong></td>
-                            <td>Traces d'usage, produit 100% fonctionnel</td>
-                        </tr>
-                        <tr class="etat-satisfaisant">
-                            <td><span class="badge badge-danger">🟠 SATISFAISANT</span></td>
-                            <td><strong>20%</strong></td>
-                            <td>Usure visible, parfois réparé/révisé</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>Processus en 6 étapes</h3>
-                
-                <div class="card">
-                    <h4>ÉTAPE 1 : Accueil (5 min)</h4>
-                    <ul>
-                        <li>Accueil au comptoir "Seconde Vie"</li>
-                        <li>Présentation du matériel</li>
-                        <li>Pré-diagnostic visuel</li>
-                        <li>Explication de la grille</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>ÉTAPE 2 : Évaluation détaillée (10-15 min)</h4>
-                    <ul>
-                        <li>Test fonctionnel complet</li>
-                        <li>Vérification selon grille standardisée</li>
-                        <li>Photos du produit</li>
-                        <li>Attribution d'un état (A/B/C/D ou Refusé)</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>ÉTAPE 3 : Proposition (5 min)</h4>
-                    <p><strong>Calcul :</strong> Prix neuf × % selon état = Montant du bon d'achat</p>
-                    <p><strong>Exemple :</strong> Moulinet 200€ neuf en "Très bon état" → 200€ × 40% = <strong>80€ de bon d'achat</strong></p>
-                </div>
-                
-                <div class="card">
-                    <h4>ÉTAPE 4 : Choix du client</h4>
-                    <p><strong>Option unique :</strong> Bon d'achat valable 6 mois sur tout le magasin (neuf ET occasion)</p>
-                    <p><strong>Alternative :</strong> Don solidaire aux écoles de pêche (reçu fiscal)</p>
-                </div>
-                
-                <div class="card">
-                    <h4>ÉTAPE 5 : Validation</h4>
-                    <ul>
-                        <li>Signature du contrat de reprise</li>
-                        <li>Émission du bon d'achat (version papier + email)</li>
-                        <li>Remise d'un flyer explicatif</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>ÉTAPE 6 : Traçabilité</h4>
-                    <ul>
-                        <li>Code unique attribué (ex: TE-SV-2026-00142)</li>
-                        <li>Étiquetage du produit</li>
-                        <li>Enregistrement informatique avec photos</li>
-                        <li>Stockage organisé</li>
-                    </ul>
-                </div>
-                
-                <h3>📅 Événement de Collecte (Week-end uniquement)</h3>
-                <div class="card">
-                    <h4>Grande Collecte - Format Week-end</h4>
-                    <p><strong>🗓️ Samedi 27 & Dimanche 28 septembre 2026</strong></p>
-                    <p><strong>⏰ Horaires :</strong> 9h00 - 19h00 (non-stop)</p>
-                    
-                    <h4>🎪 Moyens déployés :</h4>
-                    <ul>
-                        <li>🏕️ <strong>Tonnelle extérieure 3x3m</strong> : Stand d'évaluation visible et accessible</li>
-                        <li>🍔 <strong>Food truck</strong> : Restauration sur place (midi, ~100 repas)</li>
-                        <li>🎣 <strong>Influenceur pêche partenaire</strong> : Présent sam+dim (démonstrations, conseils, live réseaux)</li>
-                        <li>📸 <strong>Photographe professionnel</strong> : Coverage événement + photos produits HD</li>
-                        <li>🛡️ <strong>Agent de sécurité</strong> : Gestion flux visiteurs, surveillance matériel collecté</li>
-</ul>
-                    
-                    <h4>🎉 Animations :</h4>
-                    <ul>
-                        <li>☕ Café et viennoiseries offerts (9h-12h)</li>
-                        <li>🛠️ Atelier "Entretien du matériel" avec influenceur (14h-16h samedi)</li>
-                        <li>🎁 Tombola : 1 participation par produit déposé (tirage dimanche 18h)</li>
-                        <li>🎥 Live Instagram/Facebook avec influenceur</li>
-                        <li>📸 Photobooth "Ma session pêche" (photos souvenirs)</li>
-                    </ul>
-                    
-                    <h4>💰 Budget événement week-end :</h4>
-                    <p>Tonnelle (300€) + Food truck (800€) + Influenceur (300€ Dép +hotel + repas) + Photographe (400€) + Sécurité (400€) + Communication (350€) + Animations (200€) = <strong>2 950€</strong></p>
-                    <p><strong>2 événements/an = 5 800€</strong></p>
-                </div>
-            </section>
-            
-            <section id="vente"> <section id="evenement-tournoi">
-    <h2>🎣 Planning de l'Événement Week-end</h2>
-    
-    <h3>📅 SAMEDI 27 SEPTEMBRE</h3>
-    <table>
-        <tr>
-            <th>Jour</th>
-            <th>Horaire</th>
-            <th>Tournoi / Activité</th>
-            <th>Public concerné</th>
-            <th>Durée / Format</th>
-            <th>Participants</th>
-            <th>Description / Objectif</th>
-        </tr>
-        <tr>
-            <td><strong>Samedi</strong></td>
-            <td>9h00 – 10h00</td>
-            <td><strong>Accueil & lancement officiel</strong></td>
-            <td>Tous publics</td>
-            <td>1h</td>
-            <td>Ouvert à tous</td>
-            <td>Ouverture du week-end, présentation du concept "Seconde main", café d'accueil, présentation des tournois.</td>
-        </tr>
-        <tr>
-            <td><strong>Samedi</strong></td>
-            <td>10h00 – 12h30</td>
-            <td><strong>Tournoi Enfants – "Je découvre la pêche"</strong></td>
-            <td>Enfants de 8 à 14 ans</td>
-            <td>2h30</td>
-            <td>20 participants (sur inscription)</td>
-            <td>Tournoi ludique et éducatif, encadré par les vendeurs Terre & Eau. Classement au nombre de poissons pêchés. Matériel et appâts fournis.</td>
-        </tr>
-        <tr>
-            <td><strong>Samedi</strong></td>
-            <td>12h30 – 14h00</td>
-            <td><strong>Pause déjeuner & découverte du coin seconde main</strong></td>
-            <td>Tous publics</td>
-            <td>1h30</td>
-            <td>Libre</td>
-            <td>Restauration sur place (food truck), présentation du stock d'occasion et échanges avec les vendeurs.</td>
-        </tr>
-        <tr>
-            <td><strong>Samedi</strong></td>
-            <td>14h00 – 16h30</td>
-            <td><strong>Tournoi Famille – "Duo Parent / Enfant"</strong></td>
-            <td>Duos familiaux (parent/enfant ou grands-parents/petits-enfants)</td>
-            <td>2h30</td>
-            <td>10 équipes (20 pers.)</td>
-            <td>Tournoi intergénérationnel axé sur la transmission. Une seule canne par duo, classement au poids total. Photo souvenir offerte.</td>
-        </tr>
-        <tr>
-            <td><strong>Samedi</strong></td>
-            <td>16h30 – 17h30</td>
-            <td><strong>Animation "Choisir son matériel d'occasion" + présence influenceur pêche</strong></td>
-            <td>Tous publics</td>
-            <td>1h</td>
-            <td>Libre</td>
-            <td>Atelier conseils et démonstration d'équipement seconde main. Échanges avec un influenceur spécialisé.</td>
-        </tr>
-        <tr>
-            <td><strong>Samedi</strong></td>
-            <td>17h30 – 18h00</td>
-            <td><strong>Remise des prix – Enfants & Familles</strong></td>
-            <td>Tous publics</td>
-            <td>30 min</td>
-            <td>Gagnants des 2 tournois</td>
-            <td>Podium, remise de bons d'achat, trophées et médailles. Moment festif de clôture de la première journée.</td>
-        </tr>
-    </table>
-    
-    <h3>📅 DIMANCHE 28 SEPTEMBRE</h3>
-    <table>
-        <tr>
-            <th>Jour</th>
-            <th>Horaire</th>
-            <th>Tournoi / Activité</th>
-            <th>Public concerné</th>
-            <th>Durée / Format</th>
-            <th>Participants</th>
-            <th>Description / Objectif</th>
-        </tr>
-        <tr>
-            <td><strong>Dimanche</strong></td>
-            <td>7h00 – 8h00</td>
-            <td><strong>Accueil des participants – Concours Carpe</strong></td>
-            <td>Pêcheurs confirmés</td>
-            <td>1h</td>
-            <td>10 participants</td>
-            <td>Petit-déjeuner offert, tirage des postes, vérification du matériel et rappel des règles de sécurité.</td>
-        </tr>
-        <tr>
-            <td><strong>Dimanche</strong></td>
-            <td>8h00 – 17h00</td>
-            <td><strong>Grand Concours Carpe Terre & Eau</strong></td>
-            <td>Adultes expérimentés</td>
-            <td>9h (2 sessions + pause)</td>
-            <td>10 participants</td>
-            <td>Tournoi principal du week-end. Classement au poids total cumulé. Remise à l'eau obligatoire, points doublés sur la dernière heure.</td>
-        </tr>
-        <tr>
-            <td><strong>Dimanche</strong></td>
-            <td>12h00 – 13h30</td>
-            <td><strong>Pause déjeuner & échanges</strong></td>
-            <td>Tous publics</td>
-            <td>1h30</td>
-            <td>Libre</td>
-            <td>Pause conviviale autour de la restauration sur place. Présentation du matériel d'occasion utilisé par les participants.</td>
-        </tr>
-        <tr>
-            <td><strong>Dimanche</strong></td>
-            <td>16h30 – 17h30</td>
-            <td><strong>Tombola "L'occasion fait la pêche"</strong></td>
-            <td>Tous publics</td>
-            <td>1h</td>
-            <td>Environ 100 bulletins</td>
-            <td>Tirage au sort des visiteurs du week-end. Lots à gagner : bons d'achat, matériel d'occasion, accessoires Terre & Eau.</td>
-        </tr>
-        <tr>
-            <td><strong>Dimanche</strong></td>
-            <td>17h30 – 18h00</td>
-            <td><strong>Remise des prix – Concours Carpe & clôture de l'événement</strong></td>
-            <td>Tous publics</td>
-            <td>30 min</td>
-            <td>3 lauréats + podium</td>
-            <td>Podium final, remise des trophées et bons d'achat, discours de clôture, photo de groupe officielle.</td>
-        </tr>
-    </table>
-</section>
-                <h2>🏪 3. Système de Vente</h2>
-                
-                <h3>Grille de Prix de Vente</h3>
-                <table>
-                    <tr>
-                        <th>État d'origine</th>
-                        <th>Reprise</th>
-                        <th>Revente</th>
-                        <th>Marge</th>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td><span class="badge badge-success">NEUF</span></td>
-                        <td>50%</td>
-                        <td>75-80%</td>
-                        <td>25-30%</td>
-                    </tr>
-                    <tr class="etat-tres-bon">
-                        <td><span class="badge badge-info">TRÈS BON</span></td>
-                        <td>40%</td>
-                        <td>65-70%</td>
-                        <td>25-30%</td>
-                    </tr>
-                    <tr class="etat-bon">
-                        <td><span class="badge badge-warning">BON</span></td>
-                        <td>30%</td>
-                        <td>50-60%</td>
-                        <td>20-30%</td>
-                    </tr>
-                    <tr class="etat-satisfaisant">
-                        <td><span class="badge badge-danger">SATISFAISANT</span></td>
-                        <td>20%</td>
-                        <td>40-50%</td>
-                        <td>20-30%</td>
-                    </tr>
-                </table>
-                
-                <h3>Exemple Concret : Moulinet Shimano Stradic 4000 (220€ neuf)</h3>
-                <table>
-                    <tr>
-                        <th>État</th>
-                        <th>Reprise client</th>
-                        <th>Prix revente</th>
-                        <th>Économie vs neuf</th>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td>Neuf</td>
-                        <td>110€</td>
-                        <td><strong>165€</strong></td>
-                        <td>55€ (25%)</td>
-                    </tr>
-                    <tr class="etat-tres-bon">
-                        <td>Très bon</td>
-                        <td>88€</td>
-                        <td><strong>143€</strong></td>
-                        <td>77€ (35%)</td>
-                    </tr>
-                    <tr class="etat-bon">
-                        <td>Bon</td>
-                        <td>66€</td>
-                        <td><strong>121€</strong></td>
-                        <td>99€ (45%)</td>
-                    </tr>
-                    <tr class="etat-satisfaisant">
-                        <td>Satisfaisant</td>
-                        <td>44€</td>
-                        <td><strong>99€</strong></td>
-                        <td>121€ (55%)</td>
-                    </tr>
-                </table>
-                
-                <h3>Garanties et Services Inclus</h3>
-                <div class="card">
-                    <h4>✅ Garantie Seconde Vie Terres & Eaux</h4>
-                    <table>
-                        <tr>
-                            <th>Catégorie</th>
-                            <th>Durée</th>
-                            <th>Couverture</th>
-                        </tr>
-                        <tr>
-                            <td>Cannes / Moulinets / Bipers / Stations</td>
-                            <td><strong>3 mois</strong></td>
-                            <td>Défaut caché, casse non accidentelle</td>
-                        </tr>
-                        <tr>
-                            <td>Épuisettes / Chaises</td>
-                            <td><strong>2 mois</strong></td>
-                            <td>Défaut structure, mécanisme</td>
-                        </tr>
-                        <tr>
-                            <td>Textile / Petit équipement</td>
-                            <td><strong>1 mois</strong></td>
-                            <td>Défaut étanchéité, fonctionnel</td>
-                        </tr>
-                    </table>
-                    
-                    <h4>✅ Droit de rétractation : 7 jours</h4>
-                    <p>Possibilité de changer d'avis (produit non utilisé)</p>
-                    
-                    <h4>✅ Services additionnels</h4>
-                    <ul>
-                        <li>📖 Livret d'entretien personnalisé offert</li>
-                        <li>🎓 Atelier gratuit "Entretenir son matériel" (1/mois)</li>
-                        <li>🎣 Fil neuf offert pour les moulinets</li>
-                        <li>💬 Conseil personnalisé illimité</li>
-                        <li>🌊 Essai possible sur plan d'eau (Seclin)</li>
-                    </ul>
-                </div>
-                
-                <h3>🏪 Corner Seconde Vie PERMANENT en Magasin</h3>
-                <div class="card">
-                    <h4>✅ Disponible 365 jours par an</h4>
-                    <p><strong>Emplacement :</strong> Zone visible dès l'entrée du magasin</p>
-                    <p><strong>Identité visuelle :</strong> Corner "Seconde Vie Terres & Eaux" avec signalétique verte</p>
-                    
-                    <h4>Organisation :</h4>
-                    <ul>
-                        <li>📦 Présentoirs par catégorie (Cannes / Moulinets / Textile / Accessoires)</li>
-                        <li>🏷️ Étiquetage clair : Prix occasion + Prix neuf barré + % économie</li>
-                        <li>✅ Panneau garanties et services bien visible</li>
-                        <li>📱 QR codes sur produits → fiche technique détaillée</li>
-                        <li>🪑 Coin essai : Tester moulinets, monter cannes</li>
-                    </ul>
-                    
-                    <h4>Approvisionnement :</h4>
-                    <p>Stock alimenté en continu après entretient des produits collectés lors des 2 week-ends annuels. Nouveautés ajoutées régulièrement tout au long de l'année.</p>
-                </div>
-                
-                <h3>🌐 Section Occasion sur terreseteaux.fr</h3>
-                <div class="card">
-                    <h4>Page dédiée en ligne</h4>
-                    
-                    <h4>Contenu :</h4>
-                    <ul>
-                        <li>📸 <strong>Catalogue photo complet</strong> : Tous les produits avec photos HD professionnelles</li>
-                        <li>🔍 <strong>Filtres de recherche</strong> : Par catégorie, marque, état, prix</li>
-                        <li>📋 <strong>Fiches produits détaillées</strong> : 
-                            <ul>
-                                <li>Photos multiples (angles différents)</li>
-                                <li>Description précise de l'état</li>
-                                <li>Garantie applicable</li>
-                                <li>Prix occasion vs neuf</li>
-                            </ul>
-                        </li>
-                        <li>🛒 <strong>Click & Collect</strong> : Réservation en ligne, retrait magasin sous 24h</li>
-                        <li>📞 <strong>Contact direct</strong> : Appel vendeur avant achat si questions</li>
-                        <li>♻️ <strong>Section "Comment ça marche"</strong> : Explication reprise/vente</li>
-                    </ul>
-                    
-                    <h4>Mise à jour temps réel :</h4>
-                    <p>Produit vendu en magasin = retiré du site immédiatement (synchronisation automatique).</p>
-                </div>
-                
-                <h3>✅ Avantages du Modèle Permanent</h3>
-                <div class="highlight">
-                    <ul>
-                        <li><strong>Disponibilité constante :</strong> Client peut acheter toute l'année (pas limité à un événement ponctuel)</li>
-                        <li><strong>Visibilité maximale :</strong> Corner visible à chaque visite magasin</li>
-                        <li><strong>Omnicanal :</strong> Web + Magasin = couverture totale</li>
-                        <li><strong>Pas de pression temporelle :</strong> Stock écoulé progressivement</li>
-                        <li><strong>Fidélisation :</strong> Raison de revenir régulièrement voir les nouveautés</li>
-                    </ul>
-                </div>
-            </section>
-            
-            <section id="communication">
-                <h2>📣 4. Communication et Animation</h2>
-                
-                <h3>Stratégie Multi-Canal</h3>
-                
-                <div class="card">
-                    <h4>📧 Email Marketing</h4>
-                    <ul>
-                        <li><strong>J-14 :</strong> Teasing "Votre matériel vaut de l'or"</li>
-                        <li><strong>J-7 :</strong> Rappel avec exemples concrets</li>
-                        <li><strong>J-1 :</strong> Dernière ligne droite</li>
-                        <li><strong>Pendant :</strong> Compteur temps réel produits collectés</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>📱 Réseaux Sociaux</h4>
-                    <ul>
-                        <li>Posts Facebook/Instagram quotidiens</li>
-                        <li>Stories interactives (sondages, quiz)</li>
-                        <li>Vidéos coulisses entretient</li>
-                        <li>Live shopping visite corner</li>
-                        <li>UGC : Hashtag #SecondVieTE</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>🤝 Partenariat Influenceur Pêche</h4>
-                    <p><strong>Profil :</strong> Influenceur DÉJÀ PARTENAIRE de Terres & Eaux</p>
-                    
-                    <h4>Rôle lors des événements week-end :</h4>
-                    <ul>
-                        <li>📍 <strong>Présence physique :</strong> Samedi 9h-18h + Dimanche 9h-18h</li>
-                        <li>🎣 <strong>Animations terrain :</strong> 
-                            <ul>
-                                <li>Démonstrations techniques (montages, lancers)</li>
-                                <li>Conseils personnalisés aux visiteurs</li>
-                                <li>Co-animation atelier "Entretien du matériel" avec vendeurs</li>
-                            </ul>
-                        </li>
-                        <li>📱 <strong>Coverage digitale :</strong>
-                            <ul>
-                                <li>Stories Instagram/Facebook en direct (tag @terreseaux)</li>
-                                <li>1-2 posts dédiés avant, pendant, après</li>
-                                <li>Live "Visite de l'événement Seconde Vie"</li>
-                                <li>Témoignages clients filmés</li>
-                            </ul>
-                        </li>
-                        <li>🎤 <strong>Ambassadeur :</strong> Promotion économie circulaire dans la pêche</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>📰 Presse Locale</h4>
-                    <ul>
-                        <li>Communiqué avant collecte (angle éco-responsabilité)</li>
-                        <li>Communiqué bilan (chiffres impact RSE)</li>
-                        <li>Interview radio locale</li>
-                        <li>Invitation journalistes le samedi (coverage avec photographe)</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h4>🤝 Partenariats Associatifs</h4>
-                    <ul>
-                        <li><strong>FNPF / AAPPMA :</strong> Relai communication dans newsletters, dons matériel collecté</li>
-                        <li><strong>Écoles de pêche :</strong> Programme "Équipons les jeunes" (dons solidaires)</li>
-                        <li><strong>Fédérations départementales :</strong> Affichage événements, stands communs</li>
-                    </ul>
-                </div>
-                
-                <h3>Avantages Compétitifs</h3>
-                <table>
-                    <tr>
-                        <th>VS</th>
-                        <th>Leurs limites</th>
-                        <th>Notre force</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Leboncoin / Naturabuy</strong></td>
-                        <td>Aucune garantie, risque d'arnaque</td>
-                        <td>✅ Contrôle qualité + Garantie 1-3 mois</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Decathlon Seconde Vie</strong></td>
-                        <td>Généraliste multisport</td>
-                        <td>✅ Spécialiste 100% pêche + Vendeurs-pratiquants</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pecheur.com Occasion</strong></td>
-                        <td>100% en ligne, pas d'essai</td>
-                        <td>✅ Essai en magasin + Plan d'eau Seclin</td>
-                    </tr>
-                </table>
-            </section>
-            
-            <section id="economique">
-                <h2>💰 5. Viabilité Économique</h2>
-                
-                <h3>Budget Événement Week-end de Collecte</h3>
-                <table>
-                    <tr>
-                        <th>Poste</th>
-                        <th>Détail</th>
-                        <th>Total</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Tonnelle extérieure 3x3m</strong></td>
-                        <td>Location sam+dim</td>
-                        <td>300€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Food truck</strong></td>
-                        <td>Prestation midi </td>
-                        <td>800€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Influenceur pêche partenaire</strong></td>
-                        <td>Présence 2 jours + posts</td>
-                         <td>300€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Photographe professionnel</strong></td>
-                        <td>Coverage + photos produits</td>
-                        <td>400€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Agent de sécurité</strong></td>
-                        <td>2 jours 9h-19h</td>
-                        <td>400€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Communication</strong></td>
-                        <td>Flyers, affiches, bannières</td>
-                        <td>350€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Animations</strong></td>
-                        <td>Café, viennoiseries, tombola</td>
-                        <td>400€</td>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td colspan="2"><strong>TOTAL PAR ÉVÉNEMENT WEEK-END</strong></td>
-                        <td><strong>2 950€</strong></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><strong>TOTAL ANNUEL (2 week-ends)</strong></td>
-                        <td><strong>5 900€</strong></td>
-                    </tr>
-                </table>
-                
-                <h3>Budget Global Année 1</h3>
-                <table>
-                    <tr>
-                        <th>Poste</th>
-                        <th>Montant</th>
-                    </tr>
-                    <tr>
-                        <td>Aménagement corner magasin permanent</td>
-                        <td>3 000€</td>
-                    </tr>
-                    <tr>
-                        <td>Développement section web terreseteaux.fr</td>
-                        <td>2 000€</td>
-                    </tr>
-                    <tr>
-                        <td>Événements collecte (2 week-ends complets)</td>
-                        <td>5 900€</td>
-                    </tr>
-                    <tr>
-                        <td>Entretient annuel</td>
-                        <td>1 500€</td>
-                    </tr>
-                    <tr>
-                        <td>Formation équipe vendeurs</td>
-                        <td>500€</td>
-                    </tr>
-                    <tr>
-                        <td>Communication continue</td>
-                        <td>1 500€</td>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td><strong>INVESTISSEMENT INITIAL TOTAL</strong></td>
-                        <td><strong>23 400€</strong></td>
-                    </tr>
-                </table>
-                
-                <h3>Hypothèses Année 1</h3>
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">300</div>
-                        <div class="stat-label">Produits collectés</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">225</div>
-                        <div class="stat-label">Produits vendus (75%)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">18 000€</div>
-                        <div class="stat-label">CA Seconde Vie</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">4 300€</div>
-                        <div class="stat-label">Marge brute</div>
-                    </div>
-                </div>
-                
-                <h3>Compte d'Exploitation Simplifié</h3>
-                <table>
-                    <tr>
-                        <th>Poste</th>
-                        <th>Montant</th>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td><strong>REVENUS</strong></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Ventes produits occasion</td>
-                        <td>18 000€</td>
-                    </tr>
-                    <tr>
-                        <td>Utilisation bons sur neuf (bonus indirect)</td>
-                        <td>+9 000€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Total revenus</strong></td>
-                        <td><strong>27 000€</strong></td>
-                    </tr>
-                    <tr class="etat-satisfaisant">
-                        <td><strong>COÛTS</strong></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Bons d'achat utilisés</td>
-                        <td>-9 000€</td>
-                    </tr>
-                    <tr>
-                        <td>Événements collecte (2 week-ends complets)</td>
-                        <td>-5 900€</td>
-                    </tr>
-                    <tr>
-                        <td>Entretient annuel</td>
-                        <td>-1 500€</td>
-                    </tr>
-                    <tr>
-                        <td>Communication continue</td>
-                        <td>-1 500€</td>
-                    </tr>
-                    <tr>
-                        <td>Logistique / Stockage / Gestion corner</td>
-                        <td>-5 500€</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Total coûts opérationnels</strong></td>
-                        <td><strong>-23 400€</strong></td>
-                    </tr>
-                    <tr class="etat-tres-bon">
-                        <td><strong>MARGE BRUTE OPÉRATIONNELLE</strong></td>
-                        <td><strong>4 300€</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Taux de marge</strong></td>
-                        <td><strong>16%</strong></td>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td colspan="2" style="padding: 1rem;">
-                            <strong>💡 Note :</strong> Investissement initial An 1 (23 400€) à amortir. 
-                            Années suivantes, seuls les coûts opérationnels (18 400€) seront récurrents.
-                        </td>
-                    </tr>
-                </table>
-                
-                <h3>Bénéfices Indirects</h3>
-                <div class="card">
-                    <ul>
-                        <li>✅ <strong>Trafic magasin :</strong> 300 déposants = 600 visites supplémentaires</li>
-                        <li>✅ <strong>Fidélisation :</strong> Bons d'achat = garantie de retour client</li>
-                        <li>✅ <strong>Nouveaux clients :</strong> 20% via occasion (lifetime value long terme)</li>
-                        <li>✅ <strong>Image RSE :</strong> Différenciation concurrentielle</li>
-                        <li>✅ <strong>Partenariats :</strong> Relations fédérations consolidées</li>
-                    </ul>
-                </div>
-                
-                <h3>Indicateurs de Performance (KPI)</h3>
-                <table>
-                    <tr>
-                        <th>KPI</th>
-                        <th>Objectif An 1</th>
-                    </tr>
-                    <tr>
-                        <td>Produits collectés</td>
-                        <td>300</td>
-                    </tr>
-                    <tr>
-                        <td>Taux de transformation collecte→vente</td>
-                        <td>75%</td>
-                    </tr>
-                    <tr>
-                        <td>CA Seconde Vie</td>
-                        <td>18 000€</td>
-                    </tr>
-                    <tr>
-                        <td>Panier moyen occasion</td>
-                        <td>80€</td>
-                    </tr>
-                    <tr>
-                        <td>Nouveaux clients</td>
-                        <td>20%</td>
-                    </tr>
-                    <tr>
-                        <td>Satisfaction client</td>
-                        <td>≥ 8,5/10</td>
-                    </tr>
-                    <tr>
-                        <td>Taux de retour/réclamation</td>
-                        <td>< 3%</td>
-                    </tr>
-                </table>
-                
-                <h3>Impact RSE</h3>
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">300</div>
-                        <div class="stat-label">Produits évitant la décharge</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">~5T</div>
-                        <div class="stat-label">CO2 économisées</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">30+</div>
-                        <div class="stat-label">Jeunes équipés (dons)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">1000</div>
-                        <div class="stat-label">Clients sensibilisés</div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="planning">
-                <h2>📅 6. Planning de Déploiement</h2>
-                
-                <h3>Phase de Lancement - Année 1</h3>
-                
-                <table>
-                    <tr>
-                        <th>Période</th>
-                        <th>Actions</th>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td><strong>JAN-FÉV 2026</strong><br>Préparation</td>
-                        <td>
-                            • Validation projet direction<br>
-                            • Budget : 23 400€ investissement initial<br>
-                            • Formation équipe vendeurs<br>
-                            • Aménagement corner + stockage<br>
-                            • Création supports communication<br>
-                            • Mise en place système informatique
-                        </td>
-                    </tr>
-                    <tr class="etat-tres-bon">
-                        <td><strong>MARS 2026</strong><br>Communication</td>
-                        <td>
-                            • Annonce officielle (email, réseaux, presse)<br>
-                            • Page web dédiée terreseteaux.fr<br>
-                            • Campagne teasing<br>
-                            • Posts réseaux sociaux quotidiens
-                        </td>
-                    </tr>
-                    <tr class="etat-bon">
-                        <td><strong>AVRIL 2026</strong><br>Collecte Week-end</td>
-                        <td>
-                            • <strong>Samedi 25 & Dimanche 26 avril :</strong> Grande Collecte Printemps<br>
-                            • <strong>Moyens :</strong> Tonnelle, Food truck, Influenceur, Photographe, Sécurité<br>
-                            • Animations : Atelier entretien, tombola, live réseaux
-                        </td>
-                    </tr>
-                    <tr class="etat-satisfaisant">
-                        <td><strong>MAI 2026</strong><br>Entretient</td>
-                        <td>
-                            • Atelier Entretient (2 semaines)<br>
-                            • Photos HD produits pour site web<br>
-                            • Contenu making-of avec influenceur
-                        </td>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td><strong>JUIN 2026</strong><br>Ouverture Corner & Web</td>
-                        <td>
-                            • <strong>Samedi 7 juin :</strong> Inauguration Corner permanent<br>
-                            • Mise en ligne section occasion terreseteaux.fr<br>
-                            • Campagne communication (email, réseaux, presse)
-                        </td>
-                    </tr>
-                    <tr class="etat-tres-bon">
-                        <td><strong>JUILLET 2026</strong><br>Bilan intermédiaire</td>
-                        <td>
-                            • Analyse KPI (ventes corner + web)<br>
-                            • Retours équipe et clients<br>
-                            • Ajustements si nécessaire
-                        </td>
-                    </tr>
-                    <tr class="etat-bon">
-                        <td><strong>SEPT 2026</strong><br>Collecte #2</td>
-                        <td>
-                            • <strong>Samedi 26 & Dimanche 27 septembre :</strong> Grande Collecte Automne<br>
-                            • Mêmes moyens : tonnelle, food truck, influenceur, photographe, sécurité<br>
-                            • Entretient en octobre
-                        </td>
-                    </tr>
-                    <tr class="etat-satisfaisant">
-                        <td><strong>NOV 2026</strong><br>Enrichissement stock</td>
-                        <td>
-                            • Intégration nouveaux produits au corner<br>
-                            • Mise à jour catalogue web<br>
-                            • Communication "Nouvelles arrivées"
-                        </td>
-                    </tr>
-                    <tr class="etat-neuf">
-                        <td><strong>DÉC 2026</strong><br>Bilan annuel</td>
-                        <td>
-                            • Rapport d'activité complet<br>
-                            • Bilan financier (corner + web)<br>
-                            • Rapport impact RSE (~5T CO2, 30 jeunes équipés)<br>
-                            • Objectifs Année
-                            • Évaluation partenariats (influenceur, fédérations)
-</td>
-</tr>
-</table>
-            <h3>Évolutions Futures (An 2-3)</h3>
-            <div class="card">
-                <h4>⚠️ Périmètre : UNIQUEMENT Univers Pêche</h4>
-                <p><strong>Important :</strong> Les recommandations concernent EXCLUSIVEMENT le secteur pêche. Pas d'extension chasse ou outdoor.</p>
-                
-                <h4>Court terme (Année 2) - Pêche uniquement</h4>
-                <ul>
-                    <li>🌐 <strong>E-commerce livraison</strong> : Achat en ligne avec livraison domicile (actuellement Click & Collect uniquement)</li>
-                    <li>🤝 <strong>Dépôt-vente pêche</strong> : Commission partagée (ex: 70% vendeur / 30% magasin)</li>
-                    <li>📦 <strong>Packs thématiques occasion</strong> : "Découverte Carnassier", "Initiation Carpe", "Coup familial"</li>
-                    <li>📅 <strong>Augmentation fréquence</strong> : Passer à 4 week-ends collecte/an (trimestriels)</li>
-                </ul>
-                
-                <h4>Moyen terme (Année 3) - Pêche uniquement</h4>
-                <ul>
-                    <li>🎣 <strong>Location matériel pêche</strong> : Échosondeurs, tentes carpe haut de gamme (formule week-end/semaine)</li>
-                    <li>🔧 <strong>Atelier réparation pêche</strong> : Service payant (cannes, moulinets, waders) + vente pièces détachées</li>
-                    <li>🌍 <strong>Marketplace communautaire pêche</strong> : Plateforme Terres & Eaux entre pêcheurs (commission + service premium contrôle qualité)</li>
-                    <li>🎓 <strong>Formations pêche</strong> : Stages "Débuter en carpe" avec matériel occasion prêté</li>
-                </ul>
-            </div>
-        </section>
-        
-        <section id="conclusion">
-            <h2>🎯 Conclusion</h2>
-            
-            <div class="highlight">
-                <h3>Le projet Seconde Vie Terres & Eaux répond à un triple enjeu :</h3>
-                
-                <h4>1️⃣ ÉCONOMIQUE</h4>
-                <ul>
-                    <li>Marge opérationnelle de 16% (rentabilité prouvée)</li>
-                    <li>Fidélisation via bons d'achat</li>
-                    <li>Ventes croisées neuf/occasion</li>
-                    <li>ROI attendu < 18 mois</li>
-                </ul>
-                
-                <h4>2️⃣ ÉCOLOGIQUE</h4>
-                <ul>
-                    <li>300 produits/an évitant la décharge</li>
-                    <li>~5 tonnes CO2 économisées</li>
-                    <li>Économie circulaire concrète</li>
-                    <li>Sensibilisation de 1000+ clients</li>
-                </ul>
-                
-                <h4>3️⃣ SOCIAL</h4>
-                <ul>
-                    <li>Accessibilité financière de la pêche</li>
-                    <li>30+ jeunes équipés via dons solidaires</li>
-                    <li>Transmission intergénérationnelle</li>
-                    <li>Renforcement du lien communautaire</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3>🏆 Les Points Forts du Modèle</h3>
-                <ul>
-                    <li>✅ <strong>Simplicité :</strong> Grille claire (50/40/30/20%)</li>
-                    <li>✅ <strong>Sécurité :</strong> Contrôle qualité + Garanties</li>
-                    <li>✅ <strong>Différenciation :</strong> Vendeurs-pratiquants experts</li>
-                    <li>✅ <strong>Rentabilité :</strong> Marge préservée + fidélisation</li>
-                    <li>✅ <strong>Engagement :</strong> Impact RSE mesurable</li>
-                    <li>✅ <strong>Évolutivité :</strong> Extension possible au sein de l'univers pêche</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3>🚀 Prochaines Étapes Immédiates</h3>
-                <ol>
-                    <li><strong>Validation direction</strong> (budget 23 400€)</li>
-                    <li><strong>Formation équipe</strong> (2 jours)</li>
-                    <li><strong>Aménagement corner</strong> (3 semaines)</li>
-                    <li><strong>Développement section web</strong> (4 semaines)</li>
-                    <li><strong>Communication lancement</strong> (J-30)</li>
-                    <li><strong>Événement collecte #1</strong> (25-26 avril 2026)</li>
-                </ol>
-            </div>
-            
-            <div class="highlight">
-                <h3 style="text-align: center;">💚 Terres & Eaux Seconde Vie</h3>
-                <h4 style="text-align: center; color: #2c5f2d; margin-top: 1rem;">
-                    "La passion se transmet, le matériel aussi."
-                </h4>
-                
-                <div style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 8px;">
-                    <h4>📋 Récapitulatif Format Final</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin: 0.8rem 0;">✅ <strong>Collecte :</strong> 2 week-ends/an (sam-dim) avec tonnelle, food truck, influenceur partenaire, photographe, agent de sécurité</li>
-                        <li style="margin: 0.8rem 0;">✅ <strong>Vente :</strong> Corner permanent en magasin (365j) + Section web terreseteaux.fr (Click & Collect)</li>
-                        <li style="margin: 0.8rem 0;">✅ <strong>Grille unique :</strong> Neuf 50% / Très bon 40% / Bon 30% / Satisfaisant 20%</li>
-                        <li style="margin: 0.8rem 0;">✅ <strong>Rémunération :</strong> Bons d'achat 6 mois (ou don solidaire)</li>
-                        <li style="margin: 0.8rem 0;">✅ <strong>Évolutions :</strong> Uniquement secteur PÊCHE (pas chasse/outdoor)</li>
-                        <li style="margin: 0.8rem 0;">✅ <strong>Investissement :</strong> 23 400€ An 1 / Marge opérationnelle 16 puis 35%</li>
-                        <li style="margin: 0.8rem 0;">✅ <strong>Moyens événement :</strong> Tonnelle 3x3m, food truck , influenceur partenaire, photographe pro, agent sécurité = 2 950€/week-end</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </main>
+  </div>
+
+  <button class="export-btn" onclick="exportSummary()">📋 Copier le résumé</button>
 </div>
 
-<footer>
-    <div class="container">
-        <p><strong>Projet Seconde Vie - Terres & Eaux</strong></p>
-        <p>Analyse de l'offre - Univers Occasion Pêche | Octobre 2026</p>
-        <p style="margin-top: 1rem; opacity: 0.8;">
-            Document réalisé dans le cadre d'un projet de développement commercial
-        </p>
-    </div>
-</footer>
+<div class="toast" id="toast">✅ Résumé copié !</div>
 
-<button class="print-btn" onclick="window.print()" title="Imprimer le document">
-    🖨️
-</button>
+<script type="module">
+// ============================================================
+//  DATA
+// ============================================================
+const COLORS = [
+  { bg: '#00f5d4', text: '#0a0a12' },
+  { bg: '#ff2d5b', text: '#fff' },
+  { bg: '#ffe44d', text: '#0a0a12' },
+  { bg: '#c44dff', text: '#fff' },
+  { bg: '#ff6eb4', text: '#0a0a12' },
+  { bg: '#4dffb0', text: '#0a0a12' },
+  { bg: '#ff9b3d', text: '#0a0a12' },
+  { bg: '#4d9fff', text: '#fff' },
+];
 
-<script>
-    // Smooth scroll pour la navigation
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
+const TYPES = [
+  { key: 'lille',  label: '🏢 Départ agence Lille' },
+  { key: 'flers',  label: '🏢 Départ agence Flers' },
+  { key: 'perso',  label: '🏠 Départ perso' },
+];
+
+let allMembers = [
+  "Peggy LARIVIERE","Sébastien DUBOIS","Yann MOURET",
+  "Gaylord DEVADDER","Vincent SARAPATA","Florent MARECAUX",
+  "Olivier DAL","Paul HAZELAERE","Céline MERESSE",
+  "François COLLET","Damien HOUVENAEGHEL","Charles LABELLE","Emmanuel FENART",
+  "Dominique MENDES","Benjamin MOTTE","Natalie CHOCRY",
+  "François SAVARY","David DEWAELE","Jean-Antoine ROCHETTE","Louana BRANDAO BORGES",
+  "Blaise DELPLANQUE","Delphin MOLINARD","Alexandre BEGHIN",
+  "Antony ZATOUT","Paul DESCAMPS","Neftalia MATONDO",
+  "Laurende DEFAUT","Caroline DE CORTE","Sarah FROISSART",
+  "Charlotte HAMADENE","Céline MARIANNE"
+];
+
+// Conducteurs voiture de fonction (locked)
+const VF_DRIVERS = [
+  "Gilles MONTAGNE",
+  "Emmanuel SOUFFLET",
+  "David GOSSART",
+  "Laurent DRUESNES",
+  "Guenaelle SEIGNEUR"
+];
+
+let pool = [...allMembers];
+let cars = [
+  { id:'vf1', nickname:'Gilles MONTAGNE',  type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'Gilles MONTAGNE' },
+  { id:'vf2', nickname:'Emmanuel SOUFFLET',type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'Emmanuel SOUFFLET' },
+  { id:'vf3', nickname:'David GOSSART',    type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'David GOSSART' },
+  { id:'vf4', nickname:'Laurent DRUESNES', type:'', comment:'Voiture de fonction', members:[], vf:true, driver:'Laurent DRUESNES' },
+  { id:'vf5', nickname:'Guenaelle SEIGNEUR',type:'',comment:'Voiture de fonction', members:[], vf:true, driver:'Guenaelle SEIGNEUR' },
+  { id:'car1', nickname:'', type:'', comment:'', members:[], vf:false },
+  { id:'car2', nickname:'', type:'', comment:'', members:[], vf:false },
+  { id:'car3', nickname:'', type:'', comment:'', members:[], vf:false },
+];
+let carCounter = 4;
+let vfCounter = 6;
+let dragging = null;
+
+function ini(name) { return name.split(' ').map(p=>p[0]||'').join('').slice(0,2).toUpperCase(); }
+function clr(name) {
+  let h=0; for(let c of name) h=(h*31+c.charCodeAt(0))&0xffffffff;
+  return COLORS[Math.abs(h)%COLORS.length];
+}
+function esc(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+// ============================================================
+//  RENDER
+// ============================================================
+function _render() { renderPool(); renderCars(); }
+
+function renderPool() {
+  const el = document.getElementById('pool');
+  el.innerHTML = '';
+  pool.forEach(name => {
+    const c = clr(name);
+    const chip = document.createElement('div');
+    chip.className = 'member-chip';
+    chip.draggable = true;
+    chip.dataset.name = name;
+    chip.dataset.from = 'pool';
+    chip.innerHTML = `<span class="ini" style="background:${c.bg};color:${c.text}">${ini(name)}</span>${name}<button class="del-member" title="Supprimer" onclick="deleteMember('${esc(name)}')">✕</button>`;
+    chip.addEventListener('dragstart', onDragStart);
+    chip.addEventListener('dragend', onDragEnd);
+    el.appendChild(chip);
+  });
+}
+
+function renderCars() {
+  const section = document.getElementById('carsSection');
+  section.querySelectorAll('.car-card, .section-hdr').forEach(e => e.remove());
+  const addBtn = section.querySelector('.add-car-btn');
+  const icons = ['🚗','🚙','🚐','🛻','🚕','🏎️','🚌','🛺'];
+
+  // Separate VF and regular cars for display
+  const vfCars = cars.filter(c=>c.vf);
+  const regCars = cars.filter(c=>!c.vf);
+
+  // VF section header
+  if(vfCars.length > 0) {
+    const hdr = document.createElement('div');
+    hdr.className = 'section-hdr';
+    hdr.innerHTML = '👑 VOITURES DE FONCTION';
+    section.insertBefore(hdr, addBtn);
+  }
+
+  vfCars.forEach((car) => {
+    const card = document.createElement('div');
+    card.className = 'car-card vf-card';
+    card.dataset.carid = car.id;
+
+    const typeBadges = TYPES.map(t =>
+      `<span class="type-badge ${t.key}${car.type===t.key?' active':''}" onclick="setType('${car.id}','${t.key}')">${t.label}</span>`
+    ).join('');
+
+    const dc = clr(car.driver);
+    card.innerHTML = `
+      <div class="car-header vf-header">
+        <div class="car-header-top">
+          <div class="car-title-row">
+            <span class="car-icon">👑</span>
+            <div class="car-label-wrap">
+              <span class="car-number" style="color:var(--gold)">VOITURE DE FONCTION</span>
+              <span class="car-nickname-display">${car.driver}</span>
+            </div>
+          </div>
+          <div class="car-header-actions">
+            <span class="car-count">${car.members.length} passager${car.members.length!==1?'s':''}</span>
+          </div>
+        </div>
+        <div class="car-type-row">
+          ${typeBadges}
+          <input class="car-comment-input" placeholder="Commentaire libre…" value="${esc(car.comment)}"
+            oninput="updateComment('${car.id}',this.value)" maxlength="80">
+        </div>
+      </div>
+      <div class="car-body${car.members.length===0?' empty':''}" data-carid="${car.id}">
+        <div class="driver-chip locked">
+          <span class="ini sm" style="background:${dc.bg};color:${dc.text}">${ini(car.driver)}</span>
+          ${car.driver}
+          <span class="driver-badge">🔑 conducteur</span>
+        </div>
+        ${car.members.map(name => {
+          const c = clr(name);
+          return `<div class="car-chip" draggable="true" data-name="${esc(name)}" data-from="${car.id}">
+            <span class="ini sm" style="background:${c.bg};color:${c.text}">${ini(name)}</span>
+            ${name}
+            <button class="remove-btn" onclick="returnToPool('${car.id}','${esc(name)}')" title="Retirer">✕</button>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+
+    card.querySelectorAll('.car-chip').forEach(chip => {
+      chip.addEventListener('dragstart', onDragStart);
+      chip.addEventListener('dragend', onDragEnd);
     });
-    
-    // Highlight navigation active
-    window.addEventListener('scroll', () => {
-        let current = '';
-        document.querySelectorAll('section').forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 100) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        document.querySelectorAll('nav a').forEach(link => {
-            link.style.background = '';
-            link.style.color = '#2c5f2d';
-            if (link.getAttribute('href') === `#${current}`) {
-                link.style.background = '#97bc62';
-                link.style.color = 'white';
-            }
-        });
+    const body = card.querySelector('.car-body');
+    body.addEventListener('dragover', onDragOver);
+    body.addEventListener('dragleave', onDragLeave);
+    body.addEventListener('drop', onDrop);
+
+    section.insertBefore(card, addBtn);
+  });
+
+  // Regular cars section header
+  if(regCars.length > 0) {
+    const hdr2 = document.createElement('div');
+    hdr2.className = 'section-hdr';
+    hdr2.innerHTML = '🚗 AUTRES VOITURES';
+    section.insertBefore(hdr2, addBtn);
+  }
+
+  regCars.forEach((car, idx) => {
+    const card = document.createElement('div');
+    card.className = 'car-card';
+    card.dataset.carid = car.id;
+
+    const typeBadges = TYPES.map(t =>
+      `<span class="type-badge ${t.key}${car.type===t.key?' active':''}" onclick="setType('${car.id}','${t.key}')">${t.label}</span>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="car-header">
+        <div class="car-header-top">
+          <div class="car-title-row">
+            <span class="car-icon">${icons[idx%icons.length]}</span>
+            <div class="car-label-wrap">
+              <span class="car-number">Voiture ${idx+1}</span>
+              <input class="car-nickname-input" placeholder="Surnom…" value="${esc(car.nickname)}"
+                oninput="updateNickname('${car.id}',this.value)" maxlength="30">
+            </div>
+          </div>
+          <div class="car-header-actions">
+            <span class="car-count">${car.members.length} passager${car.members.length!==1?'s':''}</span>
+            <button class="icon-btn" onclick="removeCar('${car.id}')" title="Supprimer la voiture">🗑</button>
+          </div>
+        </div>
+        <div class="car-type-row">
+          ${typeBadges}
+          <input class="car-comment-input" placeholder="Commentaire libre…" value="${esc(car.comment)}"
+            oninput="updateComment('${car.id}',this.value)" maxlength="80">
+        </div>
+      </div>
+      <div class="car-body${car.members.length===0?' empty':''}" data-carid="${car.id}">
+        ${car.members.map(name => {
+          const c = clr(name);
+          return `<div class="car-chip" draggable="true" data-name="${esc(name)}" data-from="${car.id}">
+            <span class="ini sm" style="background:${c.bg};color:${c.text}">${ini(name)}</span>
+            ${name}
+            <button class="remove-btn" onclick="returnToPool('${car.id}','${esc(name)}')" title="Retirer">✕</button>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+
+    card.querySelectorAll('.car-chip').forEach(chip => {
+      chip.addEventListener('dragstart', onDragStart);
+      chip.addEventListener('dragend', onDragEnd);
     });
+    const body = card.querySelector('.car-body');
+    body.addEventListener('dragover', onDragOver);
+    body.addEventListener('dragleave', onDragLeave);
+    body.addEventListener('drop', onDrop);
+
+    section.insertBefore(card, addBtn);
+  });
+}
+
+// ============================================================
+//  STATE UPDATES
+// ============================================================
+function updateNickname(carId, val) { const c=cars.find(x=>x.id===carId); if(c) c.nickname=val; }
+function updateComment(carId, val)  { const c=cars.find(x=>x.id===carId); if(c) c.comment=val; }
+function setType(carId, type) {
+  const c=cars.find(x=>x.id===carId); if(!c) return;
+  c.type = (c.type===type)?'':type; renderCars();
+}
+function addMember() {
+  const input=document.getElementById('newMemberInput');
+  const name=input.value.trim(); if(!name) return;
+  if(!allMembers.includes(name)) allMembers.push(name);
+  if(!pool.includes(name) && !cars.some(c=>c.members.includes(name))) pool.push(name);
+  input.value=''; render();
+}
+function deleteMember(name) {
+  allMembers=allMembers.filter(m=>m!==name);
+  pool=pool.filter(m=>m!==name);
+  cars.forEach(c=>{c.members=c.members.filter(m=>m!==name)});
+  render();
+}
+function returnToPool(carId, name) {
+  const c=cars.find(x=>x.id===carId); if(c) c.members=c.members.filter(m=>m!==name);
+  if(!pool.includes(name)) pool.push(name); render();
+}
+function addCar() {
+  cars.push({id:'car'+carCounter++,nickname:'',type:'',comment:'',members:[]}); render();
+}
+function removeCar(carId) {
+  const c=cars.find(x=>x.id===carId && !x.vf); if(!c) return;
+  c.members.forEach(m=>{if(!pool.includes(m)) pool.push(m)});
+  cars=cars.filter(x=>x.id!==carId); render();
+}
+
+// ============================================================
+//  DRAG & DROP
+// ============================================================
+function onDragStart(e) {
+  const el=e.currentTarget;
+  dragging={name:el.dataset.name, from:el.dataset.from};
+  setTimeout(()=>el.classList.add('dragging'),0);
+  e.dataTransfer.effectAllowed='move';
+}
+function onDragEnd(e) { e.currentTarget.classList.remove('dragging'); }
+function onDragOver(e) {
+  e.preventDefault();
+  e.currentTarget.closest('.car-card').classList.add('drag-over');
+  e.dataTransfer.dropEffect='move';
+}
+function onDragLeave(e) {
+  if(!e.currentTarget.contains(e.relatedTarget))
+    e.currentTarget.closest('.car-card').classList.remove('drag-over');
+}
+function onDrop(e) {
+  e.preventDefault();
+  const carId=e.currentTarget.dataset.carid;
+  e.currentTarget.closest('.car-card').classList.remove('drag-over');
+  if(!dragging) return;
+  const {name,from}=dragging; dragging=null;
+  if(from==='pool') {
+    pool=pool.filter(m=>m!==name);
+    const c=cars.find(x=>x.id===carId);
+    if(c && !c.members.includes(name)) c.members.push(name);
+  } else if(from!==carId) {
+    const fc=cars.find(x=>x.id===from);
+    if(fc) fc.members=fc.members.filter(m=>m!==name);
+    const tc=cars.find(x=>x.id===carId);
+    if(tc && !tc.members.includes(name)) tc.members.push(name);
+  }
+  render();
+}
+
+// ============================================================
+//  EXPORT
+// ============================================================
+function exportSummary() {
+  const tl={lille:'🏢 Départ agence Lille', flers:'🏢 Départ agence Flers', perso:'🏠 Départ perso'};
+  let text='🚗 COVOITURAGE ÉQUIPE LILLE\n'+'─'.repeat(30)+'\n\n';
+  const vfCars = cars.filter(c=>c.vf);
+  const regCars = cars.filter(c=>!c.vf);
+  if(vfCars.length) {
+    text+='👑 VOITURES DE FONCTION\n\n';
+    vfCars.forEach(car=>{
+      text+=`🔑 ${car.driver}\n`;
+      if(car.type) text+=`  ${tl[car.type]}\n`;
+      if(car.comment && car.comment!=='Voiture de fonction') text+=`  💬 ${car.comment}\n`;
+      if(car.members.length===0) text+='  (pas de passagers)\n';
+      else car.members.forEach(m=>text+=`  • ${m}\n`);
+      text+='\n';
+    });
+  }
+  if(regCars.length) {
+    text+='🚗 AUTRES VOITURES\n\n';
+    regCars.forEach((car,idx)=>{
+      const title=car.nickname?`Voiture ${idx+1} — ${car.nickname}`:`Voiture ${idx+1}`;
+      text+=`${title}\n`;
+      if(car.type) text+=`  ${tl[car.type]}\n`;
+      if(car.comment) text+=`  💬 ${car.comment}\n`;
+      if(car.members.length===0) text+='  (vide)\n';
+      else car.members.forEach(m=>text+=`  • ${m}\n`);
+      text+='\n';
+    });
+  }
+  if(pool.length>0){ text+='⚠️ Sans voiture :\n'; pool.forEach(m=>text+=`  • ${m}\n`); }
+  navigator.clipboard.writeText(text).then(()=>{
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2500);
+  });
+}
+
+// ============================================================
+//  BACKGROUND AMBIENT PARTICLES
+// ============================================================
+const bgCanvas = document.getElementById('bgCanvas');
+const bgCtx = bgCanvas.getContext('2d');
+let bgParticles = [];
+
+function resizeBg() {
+  bgCanvas.width = window.innerWidth;
+  bgCanvas.height = window.innerHeight;
+}
+resizeBg();
+window.addEventListener('resize', resizeBg);
+
+class BgParticle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * bgCanvas.width;
+    this.y = Math.random() * bgCanvas.height;
+    this.r = Math.random() * 1.5 + 0.3;
+    this.a = Math.random() * 0.4 + 0.05;
+    this.vx = (Math.random()-0.5) * 0.3;
+    this.vy = (Math.random()-0.5) * 0.3;
+    const hues = [170, 300, 340, 50, 200];
+    this.hue = hues[Math.floor(Math.random()*hues.length)];
+  }
+  draw() {
+    bgCtx.beginPath();
+    bgCtx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    bgCtx.fillStyle = `hsla(${this.hue},100%,70%,${this.a})`;
+    bgCtx.fill();
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if(this.x<0||this.x>bgCanvas.width||this.y<0||this.y>bgCanvas.height) this.reset();
+  }
+}
+
+for(let i=0; i<120; i++) bgParticles.push(new BgParticle());
+
+function animateBg() {
+  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  bgParticles.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+// Add floating emojis
+const partyEmojis = ['🎉','🎊','🥳','✨','🌟','💥','🎈','🍾','🎶','🕺','💃','🎵','🚀','🌈'];
+for(let i=0; i<18; i++) {
+  const el = document.createElement('div');
+  el.className = 'floating-emoji';
+  el.textContent = partyEmojis[Math.floor(Math.random()*partyEmojis.length)];
+  el.style.left = Math.random()*100 + 'vw';
+  el.style.animationDuration = (8+Math.random()*12) + 's';
+  el.style.animationDelay = (-Math.random()*20) + 's';
+  el.style.fontSize = (1.2+Math.random()*1.8) + 'rem';
+  document.body.appendChild(el);
+}
+
+// Neon blobs
+const blobColors = ['#ff2d5b','#c44dff','#00f5d4','#ffe44d'];
+blobColors.forEach((col, i) => {
+  const blob = document.createElement('div');
+  blob.className = 'neon-blob';
+  blob.style.cssText = `
+    width:${300+i*80}px; height:${300+i*80}px;
+    background:${col};
+    left:${[10,60,5,70][i]}%;
+    top:${[10,20,70,60][i]}%;
+    animation-delay:${i*1.2}s;
+    animation-duration:${4+i}s;
+  `;
+  document.body.appendChild(blob);
+});
+
+// ============================================================
+//  CONFETTI
+// ============================================================
+const confCanvas = document.getElementById('confettiCanvas');
+const confCtx = confCanvas.getContext('2d');
+let confParticles = [];
+let confRunning = false;
+let confEndTime = 0;
+
+function resizeConf() {
+  confCanvas.width = window.innerWidth;
+  confCanvas.height = window.innerHeight;
+}
+resizeConf();
+window.addEventListener('resize', resizeConf);
+
+const CONF_COLORS = ['#ff2d5b','#ffe44d','#00f5d4','#c44dff','#ff6eb4','#4dffb0','#ff9b3d','#fff'];
+const SHAPES = ['rect','circle','triangle','star'];
+
+class ConfParticle {
+  constructor(burst) {
+    this.x = burst ? Math.random()*confCanvas.width : Math.random()*confCanvas.width;
+    this.y = burst ? Math.random()*confCanvas.height*0.5 : -10;
+    this.size = Math.random()*10+5;
+    this.color = CONF_COLORS[Math.floor(Math.random()*CONF_COLORS.length)];
+    this.shape = SHAPES[Math.floor(Math.random()*SHAPES.length)];
+    this.vx = (Math.random()-0.5)*6;
+    this.vy = Math.random()*4+1;
+    this.rot = Math.random()*Math.PI*2;
+    this.rotV = (Math.random()-0.5)*0.2;
+    this.gravity = 0.08;
+    this.alpha = 1;
+    this.wobble = Math.random()*Math.PI*2;
+    this.wobbleSpeed = Math.random()*0.05+0.02;
+  }
+  update() {
+    this.wobble += this.wobbleSpeed;
+    this.x += this.vx + Math.sin(this.wobble)*1.5;
+    this.vy += this.gravity;
+    this.y += this.vy;
+    this.rot += this.rotV;
+    if(this.y > confCanvas.height + 20) this.alpha = 0;
+  }
+  draw() {
+    confCtx.save();
+    confCtx.globalAlpha = this.alpha;
+    confCtx.translate(this.x, this.y);
+    confCtx.rotate(this.rot);
+    confCtx.fillStyle = this.color;
+    if(this.shape==='rect') {
+      confCtx.fillRect(-this.size/2, -this.size/4, this.size, this.size/2);
+    } else if(this.shape==='circle') {
+      confCtx.beginPath();
+      confCtx.arc(0,0,this.size/2,0,Math.PI*2);
+      confCtx.fill();
+    } else if(this.shape==='triangle') {
+      confCtx.beginPath();
+      confCtx.moveTo(0,-this.size/2);
+      confCtx.lineTo(this.size/2,this.size/2);
+      confCtx.lineTo(-this.size/2,this.size/2);
+      confCtx.closePath(); confCtx.fill();
+    } else { // star
+      confCtx.beginPath();
+      for(let i=0;i<5;i++){
+        const a=i*Math.PI*2/5-Math.PI/2;
+        const ia=a+Math.PI/5;
+        confCtx.lineTo(Math.cos(a)*this.size/2, Math.sin(a)*this.size/2);
+        confCtx.lineTo(Math.cos(ia)*this.size/4, Math.sin(ia)*this.size/4);
+      }
+      confCtx.closePath(); confCtx.fill();
+    }
+    confCtx.restore();
+  }
+}
+
+function animateConf() {
+  if(!confRunning) return;
+  confCtx.clearRect(0,0,confCanvas.width,confCanvas.height);
+
+  if(Date.now() < confEndTime) {
+    for(let i=0;i<8;i++) confParticles.push(new ConfParticle(false));
+  }
+
+  confParticles = confParticles.filter(p=>p.alpha>0);
+  confParticles.forEach(p=>{p.update();p.draw();});
+
+  if(Date.now() >= confEndTime && confParticles.length===0) {
+    confRunning = false;
+    confCanvas.style.display = 'none';
+    return;
+  }
+  requestAnimationFrame(animateConf);
+}
+
+function launchConfetti(duration=5000) {
+  confCanvas.style.display = 'block';
+  confParticles = [];
+  // burst spawn
+  for(let i=0;i<150;i++) confParticles.push(new ConfParticle(true));
+  confRunning = true;
+  confEndTime = Date.now() + duration;
+  animateConf();
+}
+
+// ============================================================
+//  AUDIO ENGINE — Web Audio API (no external files needed)
+// ============================================================
+let audioCtx = null;
+
+function getAudioCtx() {
+  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(freq, type='sine', duration=0.2, vol=0.3, delay=0) {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, ctx.currentTime+delay);
+  gain.gain.setValueAtTime(0, ctx.currentTime+delay);
+  gain.gain.linearRampToValueAtTime(vol, ctx.currentTime+delay+0.01);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+delay+duration);
+  osc.start(ctx.currentTime+delay);
+  osc.stop(ctx.currentTime+delay+duration+0.01);
+}
+
+function playNoise(duration=0.3, vol=0.1, delay=0) {
+  const ctx = getAudioCtx();
+  const bufSize = ctx.sampleRate * duration;
+  const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for(let i=0;i<bufSize;i++) data[i]=Math.random()*2-1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const gain = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 800+Math.random()*1200;
+  filter.Q.value = 0.5;
+  src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+  gain.gain.setValueAtTime(vol, ctx.currentTime+delay);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+delay+duration);
+  src.start(ctx.currentTime+delay);
+  src.stop(ctx.currentTime+delay+duration+0.01);
+}
+
+// PARTY sounds sequences
+const SOUNDS = {
+  fanfare: () => {
+    const notes=[523,659,784,1047,1319];
+    notes.forEach((f,i)=>playTone(f,'square',0.25,0.25,i*0.12));
+    playNoise(0.08,0.15,0);
+    playNoise(0.08,0.15,0.6);
+  },
+  airhorn: () => {
+    const ctx=getAudioCtx();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='sawtooth';
+    osc.frequency.setValueAtTime(220,ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(180,ctx.currentTime+0.5);
+    gain.gain.setValueAtTime(0.4,ctx.currentTime);
+    gain.gain.setValueAtTime(0.4,ctx.currentTime+0.4);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.6);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.65);
+    playNoise(0.5,0.08,0);
+  },
+  woohoo: () => {
+    const ctx=getAudioCtx();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='sine';
+    osc.frequency.setValueAtTime(400,ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1200,ctx.currentTime+0.3);
+    osc.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+0.6);
+    gain.gain.setValueAtTime(0.3,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.7);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.75);
+  },
+  disco: () => {
+    const pattern=[261,330,392,523,659,784,659,523,392,330];
+    pattern.forEach((f,i)=>playTone(f,'triangle',0.1,0.2,i*0.07));
+    [0,0.49].forEach(d=>playNoise(0.05,0.2,d));
+  },
+  tada: () => {
+    playNoise(0.05,0.2,0);
+    [523,659,784,1047].forEach((f,i)=>playTone(f,'sine',0.3,0.3,0.05+i*0.08));
+    playTone(1047,2,'square',0.15,0.45);
+  },
+  partyhorn: () => {
+    const ctx=getAudioCtx();
+    const freqs=[330,415,523,622,784];
+    freqs.forEach((f,i)=>{
+      const osc=ctx.createOscillator(); const g=ctx.createGain();
+      osc.connect(g);g.connect(ctx.destination);
+      osc.type='sawtooth'; osc.frequency.value=f;
+      g.gain.setValueAtTime(0.15,ctx.currentTime+i*0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.05+0.4);
+      osc.start(ctx.currentTime+i*0.05); osc.stop(ctx.currentTime+i*0.05+0.45);
+    });
+    playNoise(0.1,0.25,0);
+  }
+};
+
+const soundKeys = Object.keys(SOUNDS);
+let lastSoundIdx = -1;
+
+function playPartySound() {
+  let idx;
+  do { idx = Math.floor(Math.random()*soundKeys.length); } while(idx===lastSoundIdx);
+  lastSoundIdx = idx;
+  SOUNDS[soundKeys[idx]]();
+}
+
+// ============================================================
+//  PARTY TIME BUTTON
+// ============================================================
+function partyTime() {
+  launchConfetti(6000);
+  playPartySound();
+
+  // Shake the whole page briefly
+  document.body.style.animation = 'none';
+  const shake = document.createElement('style');
+  shake.textContent = `@keyframes pageShake {
+    0%,100%{transform:translate(0,0) rotate(0)}
+    15%{transform:translate(-4px,2px) rotate(-0.5deg)}
+    30%{transform:translate(4px,-2px) rotate(0.5deg)}
+    45%{transform:translate(-3px,3px) rotate(-0.3deg)}
+    60%{transform:translate(3px,-1px) rotate(0.3deg)}
+    75%{transform:translate(-2px,2px) rotate(-0.2deg)}
+  }`;
+  document.head.appendChild(shake);
+  document.body.style.animation = 'pageShake 0.5s ease';
+  setTimeout(()=>{ document.body.style.animation=''; shake.remove(); }, 500);
+
+  // Temporarily rainbow-ize some chips
+  document.querySelectorAll('.member-chip, .car-chip').forEach((chip,i)=>{
+    const hue = (i*37)%360;
+    chip.style.transition = 'border-color 0.3s, box-shadow 0.3s';
+    chip.style.borderColor = `hsl(${hue},100%,60%)`;
+    chip.style.boxShadow = `0 0 8px hsl(${hue},100%,50%)`;
+    setTimeout(()=>{ chip.style.borderColor=''; chip.style.boxShadow=''; }, 3000);
+  });
+}
+
+// ============================================================
+//  FIREBASE SYNC
+// ============================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAStAeW6-WSTR5mJP24U1ftISzsnp9aLiY",
+  authDomain: "seminaire-faeab.firebaseapp.com",
+  projectId: "seminaire-faeab",
+  storageBucket: "seminaire-faeab.firebasestorage.app",
+  messagingSenderId: "322919926076",
+  appId: "1:322919926076:web:b28d0e9c863fc28ef77639",
+  measurementId: "G-HXPJ7XNTS9"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const STATE_DOC = doc(db, "covoiturage", "state");
+
+let isSyncing = false;
+let saveTimeout = null;
+
+// Indicateur de statut sync
+const syncEl = document.createElement('div');
+syncEl.id = 'syncStatus';
+syncEl.style.cssText = `
+  position:fixed; top:14px; right:18px; z-index:9999;
+  font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600;
+  padding:5px 14px; border-radius:20px; letter-spacing:0.5px;
+  transition: all 0.3s; pointer-events:none;
+  background: rgba(0,245,212,0.12); border: 1px solid rgba(0,245,212,0.3);
+  color: #00f5d4;
+`;
+syncEl.textContent = '⟳ Connexion…';
+document.body.appendChild(syncEl);
+
+function setSyncStatus(state) {
+  if(state === 'saving') {
+    syncEl.style.background = 'rgba(255,228,77,0.12)';
+    syncEl.style.borderColor = 'rgba(255,228,77,0.3)';
+    syncEl.style.color = '#ffe44d';
+    syncEl.textContent = '💾 Sauvegarde…';
+  } else if(state === 'saved') {
+    syncEl.style.background = 'rgba(0,245,212,0.12)';
+    syncEl.style.borderColor = 'rgba(0,245,212,0.3)';
+    syncEl.style.color = '#00f5d4';
+    syncEl.textContent = '✓ Synchronisé';
+  } else if(state === 'error') {
+    syncEl.style.background = 'rgba(255,45,91,0.12)';
+    syncEl.style.borderColor = 'rgba(255,45,91,0.3)';
+    syncEl.style.color = '#ff2d5b';
+    syncEl.textContent = '✕ Erreur sync';
+  } else {
+    syncEl.style.background = 'rgba(0,245,212,0.12)';
+    syncEl.style.borderColor = 'rgba(0,245,212,0.3)';
+    syncEl.style.color = '#00f5d4';
+    syncEl.textContent = '⟳ Connexion…';
+  }
+}
+
+function saveToFirebase() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(async () => {
+    setSyncStatus('saving');
+    try {
+      await setDoc(STATE_DOC, {
+        pool: pool,
+        cars: cars.map(c => ({
+          id: c.id, nickname: c.nickname, type: c.type,
+          comment: c.comment, members: c.members,
+          vf: c.vf || false, driver: c.driver || ''
+        })),
+        allMembers: allMembers,
+        updatedAt: Date.now()
+      });
+      setSyncStatus('saved');
+    } catch(e) {
+      console.error('Firebase save error:', e);
+      setSyncStatus('error');
+    }
+  }, 800);
+}
+
+// Écoute les changements en temps réel
+onSnapshot(STATE_DOC, (snap) => {
+  if(!snap.exists()) {
+    // Première fois : on initialise avec les données par défaut
+    saveToFirebase();
+    render();
+    return;
+  }
+  const data = snap.data();
+  // On ne réapplique pas si c'est nous qui venons de sauvegarder
+  isSyncing = true;
+  pool = data.pool || [];
+  cars = data.cars || cars;
+  allMembers = data.allMembers || allMembers;
+  isSyncing = false;
+  render();
+  setSyncStatus('saved');
+});
+
+// render() appelle _render() + sauvegarde Firebase
+function render() {
+  _render();
+  if(!isSyncing) saveToFirebase();
+}
+
+render();
 </script>
 </body>
 </html>
