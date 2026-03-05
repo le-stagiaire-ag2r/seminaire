@@ -394,12 +394,14 @@ function exportSummary(){
 
 // ---- firebase bridge (appelé depuis le module ci-dessous) ----
 let fbSave=function(){};  // sera remplacé par le module Firebase
+let fbReady=false;  // bloque le save tant que Firebase n'a pas chargé
 function fbApplyState(data){
   isSyncing=true;
   if(data.pool)pool=data.pool;
   if(data.cars)cars=data.cars;
   if(data.allMembers)allMembers=data.allMembers;
   isSyncing=false;
+  fbReady=true;
   render();
   setSyncStatus('saved');
 }
@@ -502,6 +504,7 @@ let saveTimer=null;
 
 // On remplace le fbSave() vide défini dans le script principal
 window.fbSave=function(){
+  if(!window.fbReady) return; // pas encore chargé depuis Firebase
   clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
     setSyncStatus('saving');
@@ -519,7 +522,12 @@ window.fbSave=function(){
 
 // Écoute temps réel
 onSnapshot(REF,(snap)=>{
-  if(!snap.exists()){window.fbSave();return;}
+  if(!snap.exists()){
+    // Première fois : on marque fbReady et on sauvegarde l'état initial
+    window.fbReady=true;
+    window.fbSave();
+    return;
+  }
   window.fbApplyState(snap.data());
 });
 </script>
