@@ -782,7 +782,7 @@ function updateNickname(carId, val) { const c=cars.find(x=>x.id===carId); if(c) 
 function updateComment(carId, val)  { const c=cars.find(x=>x.id===carId); if(c) c.comment=val; }
 function setType(carId, type) {
   const c=cars.find(x=>x.id===carId); if(!c) return;
-  c.type = (c.type===type)?'':type; renderCars();
+  c.type = (c.type===type)?'':type; render();
 }
 function addMember() {
   const input=document.getElementById('newMemberInput');
@@ -1321,6 +1321,20 @@ function render() {
   _render();
   if(!isSyncing) saveToFirebase();
 }
+
+// ============================================================
+//  EXPOSE FUNCTIONS TO WINDOW (requis avec type="module")
+// ============================================================
+window.partyTime      = partyTime;
+window.addCar         = addCar;
+window.removeCar      = removeCar;
+window.addMember      = addMember;
+window.deleteMember   = deleteMember;
+window.returnToPool   = returnToPool;
+window.setType        = setType;
+window.updateNickname = updateNickname;
+window.updateComment  = updateComment;
+window.exportSummary  = exportSummary;
 
 render();
 </script>
