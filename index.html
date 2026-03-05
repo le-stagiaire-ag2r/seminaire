@@ -189,6 +189,15 @@ let cars=JSON.parse(JSON.stringify(DEFAULT_CARS));
 let carCounter=4;
 let dragging=null;
 let isSyncing=false;
+let fbReady=false;
+
+// Expose sur window pour le module Firebase
+function syncToWindow(){
+  window.pool=pool;
+  window.cars=cars;
+  window.allMembers=allMembers;
+  window.fbReady=fbReady;
+}
 
 // ---- helpers ----
 function ini(n){return n.split(' ').map(p=>p[0]||'').join('').slice(0,2).toUpperCase();}
@@ -322,36 +331,36 @@ function renderCars(){
 }
 
 // ---- state updates ----
-function updateNickname(id,val){const c=cars.find(x=>x.id===id);if(c){c.nickname=val;fbSave();}}
-function updateComment(id,val){const c=cars.find(x=>x.id===id);if(c){c.comment=val;fbSave();}}
-function setType(id,type){const c=cars.find(x=>x.id===id);if(!c)return;c.type=(c.type===type)?'':type;render();fbSave();}
+function updateNickname(id,val){const c=cars.find(x=>x.id===id);if(c){c.nickname=val;syncToWindow();fbSave();}}
+function updateComment(id,val){const c=cars.find(x=>x.id===id);if(c){c.comment=val;syncToWindow();fbSave();}}
+function setType(id,type){const c=cars.find(x=>x.id===id);if(!c)return;c.type=(c.type===type)?'':type;syncToWindow();render();fbSave();}
 function addMember(){
   const inp=document.getElementById('newMemberInput');
   const name=inp.value.trim();if(!name)return;
   if(!allMembers.includes(name))allMembers.push(name);
   if(!pool.includes(name)&&!cars.some(c=>c.members.includes(name)))pool.push(name);
-  inp.value='';render();fbSave();
+  inp.value='';syncToWindow();render();fbSave();
 }
 function deleteMember(name){
   allMembers=allMembers.filter(m=>m!==name);
   pool=pool.filter(m=>m!==name);
   cars.forEach(c=>{c.members=c.members.filter(m=>m!==name);});
-  render();fbSave();
+  syncToWindow();render();fbSave();
 }
 function returnToPool(carId,name){
   const c=cars.find(x=>x.id===carId);if(c)c.members=c.members.filter(m=>m!==name);
   if(!pool.includes(name))pool.push(name);
-  render();fbSave();
+  syncToWindow();render();fbSave();
 }
 function addCar(){
   cars.push({id:'car'+carCounter++,nickname:'',type:'',comment:'',members:[],vf:false});
-  render();fbSave();
+  syncToWindow();render();fbSave();
 }
 function removeCar(carId){
   const c=cars.find(x=>x.id===carId&&!x.vf);if(!c)return;
   c.members.forEach(m=>{if(!pool.includes(m))pool.push(m);});
   cars=cars.filter(x=>x.id!==carId);
-  render();fbSave();
+  syncToWindow();render();fbSave();
 }
 
 // ---- drag & drop ----
@@ -378,7 +387,7 @@ function onDrop(e){
     const fc=cars.find(x=>x.id===from);if(fc)fc.members=fc.members.filter(m=>m!==name);
     const tc=cars.find(x=>x.id===carId);if(tc&&!tc.members.includes(name))tc.members.push(name);
   }
-  render();fbSave();
+  render();syncToWindow();fbSave();
 }
 
 // ---- export ----
@@ -392,9 +401,8 @@ function exportSummary(){
   navigator.clipboard.writeText(text).then(()=>{const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);});
 }
 
-// ---- firebase bridge (appelé depuis le module ci-dessous) ----
-let fbSave=function(){};  // sera remplacé par le module Firebase
-let fbReady=false;  // bloque le save tant que Firebase n'a pas chargé
+// ---- firebase bridge ----
+let fbSave=function(){};
 function fbApplyState(data){
   isSyncing=true;
   if(data.pool)pool=data.pool;
@@ -402,6 +410,7 @@ function fbApplyState(data){
   if(data.allMembers)allMembers=data.allMembers;
   isSyncing=false;
   fbReady=true;
+  syncToWindow();
   render();
   setSyncStatus('saved');
 }
@@ -504,19 +513,19 @@ let saveTimer=null;
 
 // On remplace le fbSave() vide défini dans le script principal
 window.fbSave=function(){
-  if(!window.fbReady) return; // pas encore chargé depuis Firebase
+  if(!window.fbReady) return;
   clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
     setSyncStatus('saving');
     try{
       await setDoc(REF,{
         pool:window.pool,
-        cars:window.cars.map(c=>({id:c.id,nickname:c.nickname,type:c.type,comment:c.comment,members:c.members,vf:c.vf||false,driver:c.driver||''})),
+        cars:window.cars.map(c=>({id:c.id,nickname:c.nickname||'',type:c.type||'',comment:c.comment||'',members:c.members||[],vf:c.vf||false,driver:c.driver||''})),
         allMembers:window.allMembers,
         updatedAt:Date.now()
       });
       setSyncStatus('saved');
-    }catch(e){console.error(e);setSyncStatus('error');}
+    }catch(e){console.error('Firebase save error:',e);setSyncStatus('error');}
   },800);
 };
 
